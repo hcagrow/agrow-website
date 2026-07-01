@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hydroponic Agrow — 한가람 농업개발</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+[data-theme="light"]{
+  --bg:#F4F6F9;--bg2:#EAEDF2;--bg3:#fff;--nav:rgba(244,246,249,0.93);
+  --bdr:rgba(12,26,46,0.09);--t1:#0C1A2E;--t2:#3D5068;--t3:#7A8FA6;
+  --acc:#00C87A;--acc2:#009F62;--card:#fff;--input:#EAEDF2;
+  --foot:#0C1A2E;--foot-t:rgba(255,255,255,0.65);--stat:#0C1A2E;
+  --tog:#0C1A2E;--badge:#0C1A2E;--badge-t:#fff;--tag:#009F62;
+  --gl:rgba(12,26,46,0.04);--div:rgba(12,26,46,0.08);
+  --sh:0 2px 8px rgba(12,26,46,0.06),0 12px 32px rgba(12,26,46,0.08);
+  --sh-lg:0 24px 64px rgba(12,26,46,0.14);
+}
+[data-theme="dark"]{
+  --bg:#080F1C;--bg2:#0D1726;--bg3:#112035;--nav:rgba(8,15,28,0.94);
+  --bdr:rgba(0,200,122,0.12);--t1:#E8EFF8;--t2:#8BA4BE;--t3:#5A7A9A;
+  --acc:#00E5A0;--acc2:#00C87A;--card:#0D1726;--input:#080F1C;
+  --foot:#050B14;--foot-t:rgba(255,255,255,0.55);--stat:#0D1726;
+  --tog:#00E5A0;--badge:#00E5A0;--badge-t:#080F1C;--tag:#00E5A0;
+  --gl:rgba(0,200,122,0.05);--div:rgba(0,200,122,0.1);
+  --sh:0 2px 8px rgba(0,0,0,0.3),0 12px 32px rgba(0,0,0,0.25);
+  --sh-lg:0 24px 64px rgba(0,0,0,0.5);
+}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Inter',sans-serif;transition:background .3s,color .3s;overflow-x:hidden}
+/* NAV */
+nav{position:fixed;inset:0 0 auto;z-index:900;height:68px;display:flex;align-items:center;padding:0 5%;gap:24px;background:var(--nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);transition:background .3s,border-color .3s}
+.n-logo{display:flex;align-items:baseline;gap:8px;text-decoration:none;flex-shrink:0}
+.n-mark{font-family:'Inter',sans-serif;font-size:22px;font-weight:900;color:var(--acc);letter-spacing:-1px}
+.n-sub{font-size:10px;color:var(--t3);letter-spacing:2px}
+.n-links{display:flex;gap:22px;list-style:none;margin-left:auto}
+.n-links a{font-size:13px;font-weight:500;color:var(--t2);text-decoration:none;transition:color .2s;white-space:nowrap}
+.n-links a:hover{color:var(--acc)}
+.n-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.lang-wrap{position:relative}
+.lang-btn{display:flex;align-items:center;gap:5px;background:transparent;border:1.5px solid var(--bdr);border-radius:100px;padding:5px 12px;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--t2);font-family:inherit;transition:border-color .2s,color .2s}
+.lang-btn:hover{border-color:var(--acc);color:var(--acc)}
+.lang-dd{position:absolute;top:calc(100% + 8px);right:0;background:var(--bg3);border:1px solid var(--bdr);border-radius:12px;padding:8px;min-width:158px;box-shadow:var(--sh-lg);display:none;z-index:999}
+.lang-wrap:hover .lang-dd,.lang-wrap:focus-within .lang-dd{display:block}
+.lang-opt{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t2);transition:background .15s,color .15s;border:none;background:transparent;width:100%;text-align:left;font-family:inherit}
+.lang-opt:hover{background:var(--bg2);color:var(--t1)}
+.lang-opt.active{color:var(--acc);font-weight:700}
+.tog{width:42px;height:22px;border-radius:11px;border:none;cursor:pointer;background:var(--tog);position:relative;transition:background .3s;flex-shrink:0}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s}
+[data-theme="dark"] .tog::after{transform:translateX(20px)}
+.n-cta{background:var(--acc);border:none;padding:8px 18px;border-radius:100px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
+[data-theme="light"] .n-cta{color:#fff}[data-theme="dark"] .n-cta{color:#080F1C}
+.n-cta:hover{background:var(--acc2)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:1.5px;background:var(--t1);border-radius:2px}
+.mob-nav{position:fixed;top:68px;inset:auto 0 0;z-index:899;background:var(--nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:24px 5%;flex-direction:column;gap:20px;display:none}
+.mob-nav.open{display:flex}
+.mob-nav a{font-size:16px;font-weight:600;color:var(--t1);text-decoration:none}
+/* HERO */
+.hero{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px;overflow:hidden;position:relative;background:var(--bg);transition:background .3s}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--gl) 1px,transparent 1px),linear-gradient(90deg,var(--gl) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse 70% 80% at 40% 50%,black 30%,transparent 100%);pointer-events:none}
+.hero-l{display:flex;flex-direction:column;justify-content:center;padding:80px 5%;position:relative;z-index:1}
+.kicker{display:inline-flex;align-items:center;gap:10px;background:rgba(0,200,122,0.1);border:1px solid rgba(0,200,122,0.25);padding:6px 16px;border-radius:100px;width:fit-content;margin-bottom:28px}
+[data-theme="dark"] .kicker{background:rgba(0,229,160,0.08);border-color:rgba(0,229,160,0.2)}
+.kicker-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.kicker span{font-size:11px;color:var(--acc);font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+.hero h1{font-family:'Inter',sans-serif;font-size:clamp(38px,5.2vw,72px);font-weight:900;line-height:1.08;letter-spacing:-2px;color:var(--t1);margin-bottom:22px;transition:color .3s}
+.hero h1 .hl{color:var(--acc)}
+.hero-desc{font-size:17px;color:var(--t2);line-height:1.85;max-width:460px;margin-bottom:40px;font-weight:300;white-space:pre-line}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px}
+.btn-fill{background:var(--t1);padding:13px 28px;border-radius:100px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(12,26,46,0.18);transition:transform .2s,box-shadow .2s}
+[data-theme="light"] .btn-fill{color:#fff}[data-theme="dark"] .btn-fill{background:var(--acc);color:#080F1C;box-shadow:0 4px 20px rgba(0,229,160,0.3)}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(12,26,46,0.22)}
+.btn-ghost{border:1.5px solid var(--bdr);color:var(--t2);padding:13px 28px;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:var(--acc);color:var(--acc)}
+.hero-stats{display:flex;border-top:1px solid var(--div);padding-top:28px}
+.h-stat{flex:1;padding-right:22px;border-right:1px solid var(--div)}
+.h-stat+.h-stat{padding-left:22px}
+.h-stat:last-child{border-right:none}
+.h-stat-n{font-family:'Inter',sans-serif;font-size:30px;font-weight:800;color:var(--acc);line-height:1;letter-spacing:-1px}
+.h-stat-l{font-size:11px;color:var(--t3);margin-top:4px}
+/* hero right */
+.hero-r{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-r-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--bg2),var(--bg3));transition:background .3s}
+[data-theme="dark"] .hero-r-bg{background:linear-gradient(135deg,#0D1726,#091220)}
+.orb-wrap{position:relative;z-index:1;width:94%;max-width:580px;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.orb-wrap:hover .orbit,.orb-wrap:hover .orbit-in{animation-play-state:paused}
+.orb-wrap:hover .planet-label{animation-play-state:paused}
+.orb-r{position:absolute;inset:0;border-radius:50%;border:1px solid var(--bdr)}
+.orb-r2{position:absolute;inset:21%;border-radius:50%;border:1px dashed var(--bdr)}
+.orb-r3{position:absolute;inset:36%;border-radius:50%;border:1px dashed var(--bdr);opacity:.6}
+/* sun: fixed center label */
+.orb-core{width:34%;aspect-ratio:1;border-radius:50%;background:var(--card);border:1px solid var(--bdr);box-shadow:var(--sh-lg);z-index:4;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:background .3s}
+.orb-lbl{font-size:8.5px;color:var(--t3);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:5px}
+.orb-name{font-family:'Inter',sans-serif;font-size:clamp(13px,1.6vw,19px);font-weight:800;color:var(--t1);text-align:center;line-height:1.25;transition:color .3s}
+.orb-tag{margin-top:7px;background:rgba(0,200,122,0.1);border:1px solid rgba(0,200,122,0.25);padding:3px 9px;border-radius:100px;font-size:8.5px;color:var(--acc);font-weight:600}
+
+/* OUTER orbit - 5 secondary products */
+.orbit{position:absolute;inset:0;border-radius:50%;animation:spin 70s linear infinite;z-index:2;cursor:pointer}
+@keyframes spin{to{transform:rotate(360deg)}}
+.planet{position:absolute;top:50%;left:50%;width:0;height:0}
+.planet-1{transform:rotate(0deg) translateX(186px)}
+.planet-2{transform:rotate(72deg) translateX(186px)}
+.planet-3{transform:rotate(144deg) translateX(186px)}
+.planet-4{transform:rotate(216deg) translateX(186px)}
+.planet-5{transform:rotate(288deg) translateX(186px)}
+.planet-dot{position:absolute;top:-5px;left:-5px;width:10px;height:10px;border-radius:50%;background:var(--t3);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--bdr);transition:background .2s}
+.planet-label{
+  position:absolute;top:-10px;left:10px;font-size:9.5px;font-weight:600;color:var(--t2);white-space:nowrap;
+  background:var(--card);border:1px solid var(--bdr);padding:4px 10px;border-radius:100px;
+  box-shadow:var(--sh);transition:background .3s,color .3s,border-color .3s,transform .2s;
+  animation-duration:70s;animation-timing-function:linear;animation-iteration-count:infinite;
+  pointer-events:auto;
+}
+.planet:hover .planet-label{transform:scale(1.12);color:var(--t1);border-color:var(--acc)}
+.planet:hover .planet-dot{background:var(--acc)}
+.planet-1 .planet-label{animation-name:cs0}
+.planet-2 .planet-label{animation-name:cs72}
+.planet-3 .planet-label{animation-name:cs144}
+.planet-4 .planet-label{animation-name:cs216}
+.planet-5 .planet-label{animation-name:cs288}
+@keyframes cs0{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+@keyframes cs72{from{transform:rotate(-72deg)}to{transform:rotate(-432deg)}}
+@keyframes cs144{from{transform:rotate(-144deg)}to{transform:rotate(-504deg)}}
+@keyframes cs216{from{transform:rotate(-216deg)}to{transform:rotate(-576deg)}}
+@keyframes cs288{from{transform:rotate(-288deg)}to{transform:rotate(-648deg)}}
+
+/* INNER orbit - 4 flagship products, larger & accented, opposite direction */
+.orbit-in{position:absolute;inset:21%;border-radius:50%;animation:spinrev 38s linear infinite;z-index:3;cursor:pointer}
+@keyframes spinrev{to{transform:rotate(-360deg)}}
+.planet-in{position:absolute;top:50%;left:50%;width:0;height:0}
+.pin-1{transform:rotate(45deg) translateX(102px)}
+.pin-2{transform:rotate(135deg) translateX(102px)}
+.pin-3{transform:rotate(225deg) translateX(102px)}
+.pin-4{transform:rotate(315deg) translateX(102px)}
+.pin-dot{position:absolute;top:-6px;left:-6px;width:13px;height:13px;border-radius:50%;background:var(--acc);border:2px solid var(--bg);box-shadow:0 0 8px rgba(0,200,122,0.5),0 0 0 1px var(--bdr)}
+.pin-label{
+  position:absolute;top:-13px;left:13px;font-size:10.5px;font-weight:800;color:var(--t1);white-space:nowrap;
+  background:var(--acc);color:#fff;padding:5px 12px;border-radius:100px;
+  box-shadow:0 4px 14px rgba(0,200,122,0.35);transition:transform .2s;
+  animation-duration:38s;animation-timing-function:linear;animation-iteration-count:infinite;
+  pointer-events:auto;
+}
+[data-theme="dark"] .pin-label{color:#080F1C}
+.planet-in:hover .pin-label{transform:scale(1.14)}
+.pin-1 .pin-label{animation-name:csr45}
+.pin-2 .pin-label{animation-name:csr135}
+.pin-3 .pin-label{animation-name:csr225}
+.pin-4 .pin-label{animation-name:csr315}
+@keyframes csr45{from{transform:rotate(-45deg)}to{transform:rotate(315deg)}}
+@keyframes csr135{from{transform:rotate(-135deg)}to{transform:rotate(225deg)}}
+@keyframes csr225{from{transform:rotate(-225deg)}to{transform:rotate(135deg)}}
+@keyframes csr315{from{transform:rotate(-315deg)}to{transform:rotate(45deg)}}
+
+/* mobile: replace orbit with scrolling marquee strip */
+.product-marquee{display:none}
+@media(max-width:960px){
+  .product-marquee{
+    display:flex;gap:10px;overflow:hidden;margin-top:32px;padding:14px 0;
+    border-top:1px solid var(--div);border-bottom:1px solid var(--div);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .marquee-track{display:flex;gap:10px;animation:marquee 26s linear infinite;flex-shrink:0}
+  .marquee-chip{
+    flex-shrink:0;font-size:12px;font-weight:700;color:var(--t1);white-space:nowrap;
+    background:var(--card);border:1px solid var(--bdr);padding:8px 16px;border-radius:100px;
+  }
+  .marquee-chip.flag{background:var(--acc);color:#fff;border-color:var(--acc)}
+  [data-theme="dark"] .marquee-chip.flag{color:#080F1C}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+}
+.orb-info{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.orb-lbl{font-size:9px;color:var(--t3);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px}
+.orb-name{font-family:'Inter',sans-serif;font-size:clamp(14px,1.7vw,22px);font-weight:800;color:var(--t1);text-align:center;line-height:1.2}
+.orb-tag{margin-top:8px;background:rgba(0,200,122,0.1);border:1px solid rgba(0,200,122,0.25);padding:4px 11px;border-radius:100px;font-size:10px;color:var(--acc);font-weight:600}
+.chip{position:absolute;background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:9px 13px;box-shadow:var(--sh);z-index:3;transition:background .3s,border-color .3s}
+.chip-v{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--t1)}
+.chip-l{font-size:9px;color:var(--t3);letter-spacing:1px;margin-top:2px}
+.chip-1{top:10%;right:-4%}.chip-2{bottom:18%;left:-6%}.chip-3{top:52%;right:-8%}
+/* SECTIONS */
+.sec{padding:100px 5%;transition:background .3s}
+.sec-alt{background:var(--bg2)}
+.ey{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.ey-line{width:26px;height:1.5px;background:var(--acc)}
+.ey-t{font-size:11px;color:var(--acc);font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.sec-t{font-family:'Inter',sans-serif;font-size:clamp(26px,3.6vw,46px);font-weight:800;line-height:1.18;letter-spacing:-1.5px;color:var(--t1);margin-bottom:14px;transition:color .3s;white-space:pre-line}
+.sec-sub{font-size:16px;color:var(--t2);line-height:1.9;max-width:520px;font-weight:300}
+/* ABOUT */
+.about-g{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:start;margin-top:52px}
+.about-vis{background:var(--bg3);border:1px solid var(--bdr);border-radius:14px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--t3);position:relative;overflow:hidden;transition:background .3s,border-color .3s}
+.about-vis-tag{position:absolute;bottom:14px;left:14px;background:var(--card);border:1px solid var(--bdr);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:var(--t1);transition:background .3s,border-color .3s,color .3s}
+.pts{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.pt{display:grid;grid-template-columns:42px 1fr;gap:13px;align-items:start;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--bdr);transition:background .3s,border-color .3s,box-shadow .2s}
+.pt:hover{box-shadow:var(--sh);border-color:rgba(0,200,122,0.3)}
+.pt-ico{width:42px;height:42px;border-radius:9px;background:rgba(0,200,122,0.08);border:1px solid rgba(0,200,122,0.15);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.pt-name{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:3px}
+.pt-desc{font-size:13px;color:var(--t3);line-height:1.65}
+/* HISTORY */
+.history-wrap{position:relative;margin-top:56px;padding-left:32px}
+.history-wrap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--acc),transparent)}
+.hist-item{position:relative;margin-bottom:40px}
+.hist-item::before{content:'';position:absolute;left:-39px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--acc);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--acc)}
+.hist-year{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:var(--acc);letter-spacing:2px;margin-bottom:4px}
+.hist-title{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.hist-desc{font-size:13px;color:var(--t3);line-height:1.65}
+/* PRODUCTS */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px}
+.tab{padding:7px 17px;border-radius:100px;border:1.5px solid var(--bdr);color:var(--t3);background:transparent;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.tab.on,.tab:hover{background:var(--t1);color:#fff;border-color:var(--t1)}
+[data-theme="dark"] .tab.on,[data-theme="dark"] .tab:hover{background:var(--acc);color:#080F1C;border-color:var(--acc)}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:18px}
+.pc{background:var(--card);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s,background .3s,border-color .3s}
+.pc:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
+.ci{height:220px;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;transition:background .3s;overflow:hidden}
+.ci img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .3s}
+.pc:hover .ci img{transform:scale(1.05)}
+.ci-inner{text-align:center;opacity:.4;color:var(--t3);font-size:13px}
+.ci-inner .big{font-size:32px;display:block;margin-bottom:4px}
+.bdg{position:absolute;top:12px;left:12px;background:var(--badge);color:var(--badge-t);font-size:10px;font-weight:700;padding:4px 11px;border-radius:100px;transition:background .3s,color .3s}
+.bdg.gold{background:#C9973A;color:#fff}
+[data-theme="dark"] .bdg.gold{background:#E0B05A}
+.cb{padding:20px}
+.cc{font-size:10px;color:var(--tag);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
+.cn{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:var(--t1);margin-bottom:9px;letter-spacing:-.3px}
+.cd{font-size:13px;color:var(--t3);line-height:1.75}
+.cm{display:inline-block;margin-top:12px;font-family:'Inter',sans-serif;font-size:10px;color:var(--t3);background:var(--bg2);padding:3px 9px;border-radius:4px}
+/* DASHBOARD */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:52px}
+.dash-screen{background:var(--bg3);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);transition:background .3s,border-color .3s}
+.dash-bar{background:var(--t1);padding:12px 18px;display:flex;align-items:center;gap:8px}
+[data-theme="dark"] .dash-bar{background:#1a3a5c}
+.dash-dots{display:flex;gap:5px}
+.dash-dots span{width:10px;height:10px;border-radius:50%}
+.dash-dots span:nth-child(1){background:#ff5f57}
+.dash-dots span:nth-child(2){background:#febc2e}
+.dash-dots span:nth-child(3){background:#28c840}
+.dash-title-bar{font-size:12px;color:rgba(255,255,255,0.7);margin-left:8px;font-family:'Inter',sans-serif}
+.dash-content{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dash-card{background:var(--bg2);border-radius:10px;padding:14px;border:1px solid var(--bdr);transition:background .3s,border-color .3s}
+.dash-card-label{font-size:10px;color:var(--t3);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.dash-card-val{font-family:'Inter',sans-serif;font-size:22px;font-weight:800;color:var(--t1)}
+.dash-card-unit{font-size:12px;color:var(--t3);margin-left:3px}
+.dash-card.ok .dash-card-val{color:#00C87A}
+.dash-card.warn .dash-card-val{color:#f59e0b}
+.dash-bar-chart{background:var(--bg2);border-radius:10px;padding:14px;border:1px solid var(--bdr);grid-column:1/-1;transition:background .3s,border-color .3s}
+.bar-chart-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-chart-label{font-size:11px;color:var(--t3);width:60px;flex-shrink:0}
+.bar-chart-track{flex:1;background:var(--bg3);border-radius:100px;height:8px;overflow:hidden}
+.bar-chart-fill{height:100%;border-radius:100px;background:var(--acc)}
+.bar-chart-num{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;color:var(--t1);width:36px;text-align:right}
+.dash-feats{display:flex;flex-direction:column;gap:14px}
+.dash-feat{display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--bdr);transition:background .3s,border-color .3s}
+.dash-feat-ico{font-size:24px;flex-shrink:0}
+.dash-feat-name{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:3px}
+.dash-feat-desc{font-size:13px;color:var(--t3);line-height:1.6}
+/* PORTFOLIO */
+.port-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:48px}
+.port-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s,background .3s}
+.port-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
+.port-img{height:180px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:40px;position:relative}
+.port-crop{position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;font-weight:700;padding:4px 11px;border-radius:100px;letter-spacing:1px}
+.port-body{padding:18px}
+.port-title{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px}
+.port-desc{font-size:13px;color:var(--t3);line-height:1.65}
+.port-result{margin-top:10px;font-size:12.5px;color:var(--acc);font-weight:600;line-height:1.5;padding:8px 12px;background:rgba(0,200,122,0.07);border-radius:6px;border-left:3px solid var(--acc)}
+.port-meta{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.port-tag{font-size:10.5px;color:var(--tag);background:rgba(0,200,122,0.08);border:1px solid rgba(0,200,122,0.2);padding:3px 10px;border-radius:100px;font-weight:600}
+/* NUMBERS */
+.nums{background:var(--stat);padding:92px 5%;position:relative;overflow:hidden;transition:background .3s}
+.nums::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,200,122,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,122,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.nums-hd{max-width:600px;margin-bottom:52px}
+.nums-hd .ey-t,.nums-hd .sec-t{color:#fff}
+.nums-hd .ey-line{background:rgba(255,255,255,0.25)}
+.ng{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06);border-radius:12px;overflow:hidden}
+.nc{padding:38px 28px;background:rgba(255,255,255,0.03);position:relative;transition:background .2s}
+.nc::after{content:'';position:absolute;bottom:0;left:28px;right:28px;height:2px;background:var(--acc);opacity:0;transition:opacity .2s}
+.nc:hover{background:rgba(255,255,255,0.07)}
+.nc:hover::after{opacity:1}
+.nb{font-family:'Inter',sans-serif;font-size:48px;font-weight:900;color:#fff;line-height:1;letter-spacing:-2px}
+.nu{font-size:18px}
+.nl{font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px}
+.pat-g{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+.pat-c{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px 20px;transition:background .2s,border-color .2s}
+.pat-c:hover{background:rgba(255,255,255,0.07);border-color:rgba(0,200,122,0.3)}
+.pat-ico{font-size:18px;margin-bottom:9px}
+.pat-n{font-size:13px;color:#fff;font-weight:600;margin-bottom:3px}
+.pat-no{font-size:11px;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif}
+/* SUPPORT */
+.supp-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:52px}
+.supp-cards{display:flex;flex-direction:column;gap:12px}
+.supp-card{display:flex;gap:16px;padding:20px;background:var(--card);border-radius:12px;border:1px solid var(--bdr);transition:background .3s,border-color .3s,box-shadow .2s}
+.supp-card:hover{box-shadow:var(--sh);border-color:rgba(0,200,122,0.3)}
+.supp-ico{font-size:26px;flex-shrink:0;width:48px;height:48px;border-radius:10px;background:rgba(0,200,122,0.08);border:1px solid rgba(0,200,122,0.15);display:flex;align-items:center;justify-content:center}
+.supp-name{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.supp-desc{font-size:13px;color:var(--t3);line-height:1.65}
+.supp-hours{background:var(--bg2);border-radius:12px;padding:24px;border:1px solid var(--bdr)}
+.supp-hours h4{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:16px}
+.hour-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bdr);font-size:13px}
+.hour-row:last-child{border-bottom:none}
+.hour-day{color:var(--t2);font-weight:500}
+.hour-time{color:var(--t1);font-weight:600;font-family:'Inter',sans-serif}
+.hour-time.closed{color:var(--t3)}
+.supp-call{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.call-btn{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--acc);border-radius:100px;text-decoration:none;transition:background .2s,transform .15s}
+.call-btn:hover{background:var(--acc2);transform:translateY(-1px)}
+[data-theme="light"] .call-btn{color:#fff}[data-theme="dark"] .call-btn{color:#080F1C}
+.call-btn .ico{font-size:18px}
+.call-btn .num{font-family:'Inter',sans-serif;font-size:15px;font-weight:700}
+/* CONTACT */
+.con-g{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:48px}
+.info-l{display:flex;flex-direction:column;gap:11px}
+.ic{display:flex;gap:13px;align-items:flex-start;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--bdr);transition:background .3s,border-color .3s}
+.ic-ico{width:40px;height:40px;border-radius:9px;background:var(--t1);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;transition:background .3s}
+[data-theme="dark"] .ic-ico{background:var(--acc)}
+.ic-lbl{font-size:10px;color:var(--tag);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.ic-val{font-size:13.5px;font-weight:600;color:var(--t1)}
+.ic-sub{font-size:11.5px;color:var(--t3);margin-top:2px}
+.ic-val a{color:var(--acc);text-decoration:none;font-weight:700}
+.ic-val a:hover{text-decoration:underline}
+.form{display:flex;flex-direction:column;gap:12px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:12px;font-weight:600;color:var(--t2);letter-spacing:.5px}
+.fg input,.fg select,.fg textarea{background:var(--input);border:1.5px solid var(--bdr);border-radius:9px;padding:11px 14px;color:var(--t1);font-family:inherit;font-size:14px;outline:none;transition:border-color .2s,background .3s,color .3s;appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--acc)}
+.fg textarea{resize:vertical;min-height:108px;line-height:1.6}
+.fg select option{background:var(--bg2)}
+.sbtn{background:var(--t1);border:none;padding:13px 30px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;align-self:flex-start;transition:background .2s,transform .15s}
+[data-theme="light"] .sbtn{color:#fff}[data-theme="dark"] .sbtn{background:var(--acc);color:#080F1C}
+.sbtn:hover{transform:translateY(-2px)}
+/* FOOTER */
+footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
+.fg2{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:32px}
+.fbkr{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:3px;margin-bottom:3px}
+.fben{font-family:'Inter',sans-serif;font-size:20px;font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:10px}
+.fben span{color:var(--acc)}
+.fdesc{font-size:13px;color:var(--foot-t);line-height:1.85;white-space:pre-line}
+.fcol h5{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fcol a{font-size:13px;color:var(--foot-t);text-decoration:none;transition:color .2s}
+.fcol a:hover{color:#fff}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:18px;border-top:1px solid rgba(255,255,255,0.07);flex-wrap:wrap;gap:8px}
+.fcopy{font-size:11px;color:rgba(255,255,255,0.3)}
+.facc{font-size:10px;color:var(--acc);opacity:.5;font-family:'Inter',sans-serif;font-weight:700}
+
+/* PERFORMANCE */
+.perf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px}
+.perf-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:36px 28px;text-align:center;transition:background .3s,border-color .3s,box-shadow .2s}
+.perf-card:hover{box-shadow:var(--sh);border-color:rgba(0,200,122,0.3)}
+.perf-highlight{border-color:rgba(0,200,122,0.35);background:rgba(0,200,122,0.04)}
+.perf-label{font-size:12px;color:var(--t3);font-weight:600;letter-spacing:1px;margin-bottom:16px;text-transform:uppercase}
+.perf-val{font-family:'Inter',sans-serif;font-size:48px;font-weight:900;color:var(--acc);line-height:1;letter-spacing:-2px;margin-bottom:12px}
+.perf-desc{font-size:13px;color:var(--t2)}
+.perf-note{font-size:12px;color:var(--t3);margin-top:8px}
+@media(max-width:640px){.perf-grid{grid-template-columns:1fr;gap:14px}.perf-val{font-size:38px}}
+/* REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+.rv.shown{opacity:1;transform:none}
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr}
+  .hero-r{position:relative;min-height:auto;padding:0 5% 40px}
+  .hero-r-bg{display:none}
+  .orb-wrap{display:none}
+  .about-g,.dash-grid,.supp-grid,.con-g{grid-template-columns:1fr;gap:36px}
+  .ng{grid-template-columns:1fr 1fr}.pat-g{grid-template-columns:1fr}
+  .fg2{grid-template-columns:1fr;gap:24px}
+  .n-links,.n-cta{display:none}.hamburger{display:flex}
+  .lang-dd{right:auto;left:0}
+}
+@media(max-width:640px){
+  .hero h1{font-size:34px;letter-spacing:-1.5px}
+  .hero-stats{flex-direction:column;gap:16px}
+  .h-stat{border-right:none;border-bottom:1px solid var(--div);padding:0 0 16px}
+  .h-stat:last-child{border-bottom:none;padding-bottom:0;padding-left:0}
+  .fr{grid-template-columns:1fr}.sec{padding:64px 5%}
+  .nb{font-size:36px}.chip{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="n-logo"><span class="n-mark">Agrow</span><span class="n-sub">한가람 농업개발</span></a>
+  <ul class="n-links">
+    <li><a href="#about" data-i="nav0"></a></li>
+    <li><a href="#history" data-i="nav1"></a></li>
+    <li><a href="#products" data-i="nav2"></a></li>
+    <li><a href="#remote" data-i="nav3"></a></li>
+    <li><a href="#portfolio" data-i="nav4"></a></li>
+    <li><a href="#contact" data-i="nav5"></a></li>
+  </ul>
+  <div class="n-right">
+    <div class="lang-wrap">
+      <button class="lang-btn" id="langBtn"><span id="langFlag">🇰🇷</span> <span id="langLabel">한국어</span> ▾</button>
+      <div class="lang-dd" id="langDd"></div>
+    </div>
+    <button class="tog" id="togBtn"></button>
+    <button class="n-cta" data-i="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"></button>
+    <button class="hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#about" data-i="nav0" onclick="closeMob()"></a>
+  <a href="#history" data-i="nav1" onclick="closeMob()"></a>
+  <a href="#products" data-i="nav2" onclick="closeMob()"></a>
+  <a href="#remote" data-i="nav3" onclick="closeMob()"></a>
+  <a href="#portfolio" data-i="nav4" onclick="closeMob()"></a>
+  <a href="#contact" data-i="nav5" onclick="closeMob()"></a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-l">
+    <div class="kicker"><span class="kicker-dot"></span><span data-i="kicker"></span></div>
+    <h1><span data-i="h1_1"></span><br><span data-i="h1_2"></span><br><span class="hl" data-i="h1_3"></span></h1>
+    <p class="hero-desc" data-i="hero_desc"></p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-fill" data-i="btn1"></a>
+      <a href="#contact" class="btn-ghost" data-i="btn2"></a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="h-stat-n">30<span style="font-size:15px" class="unit-year"></span></div><div class="h-stat-l" data-i="stat1_l"></div></div>
+      <div class="h-stat"><div class="h-stat-n">10<span style="font-size:15px" class="unit-country"></span></div><div class="h-stat-l" data-i="stat2_l"></div></div>
+      <div class="h-stat"><div class="h-stat-n">17<span style="font-size:15px" class="unit-country"></span></div><div class="h-stat-l" data-i="stat3_l"></div></div>
+    </div>
+  </div>
+  <div class="hero-r">
+    <div class="hero-r-bg"></div>
+    <div class="orb-wrap">
+      <div class="orb-r"></div><div class="orb-r2"></div><div class="orb-r3"></div>
+      <div class="orbit">
+        <div class="planet planet-1"><span class="planet-dot"></span><span class="planet-label">Agrow-Perfect</span></div>
+        <div class="planet planet-2"><span class="planet-dot"></span><span class="planet-label">Agrow-7000</span></div>
+        <div class="planet planet-3"><span class="planet-dot"></span><span class="planet-label">Agrow-6000</span></div>
+        <div class="planet planet-4"><span class="planet-dot"></span><span class="planet-label">Agrow-5000 Magic</span></div>
+        <div class="planet planet-5"><span class="planet-dot"></span><span class="planet-label">Agrow-2000 Star</span></div>
+      </div>
+      <div class="orbit-in">
+        <div class="planet-in pin-1"><span class="pin-dot"></span><span class="pin-label">Agrow-6000 Plus</span></div>
+        <div class="planet-in pin-2"><span class="pin-dot"></span><span class="pin-label">Agrow-7000 Plus</span></div>
+        <div class="planet-in pin-3"><span class="pin-dot"></span><span class="pin-label">Agrow-5000 Master</span></div>
+        <div class="planet-in pin-4"><span class="pin-dot"></span><span class="pin-label">A⁺-green</span></div>
+      </div>
+      <div class="orb-core">
+        <span class="orb-lbl">AGROW</span>
+        <span class="orb-name">양액공급기<br>복합환경제어</span>
+        <span class="orb-tag">정밀 농업 솔루션</span>
+      </div>
+    </div>
+    <div class="product-marquee">
+      <div class="marquee-track">
+        <span class="marquee-chip flag">Agrow-6000 Plus</span>
+        <span class="marquee-chip flag">Agrow-7000 Plus</span>
+        <span class="marquee-chip flag">Agrow-5000 Master</span>
+        <span class="marquee-chip flag">A⁺-green</span>
+        <span class="marquee-chip">Agrow-Perfect</span>
+        <span class="marquee-chip">Agrow-7000</span>
+        <span class="marquee-chip">Agrow-6000</span>
+        <span class="marquee-chip">Agrow-5000 Magic</span>
+        <span class="marquee-chip">Agrow-2000 Star</span>
+        <span class="marquee-chip flag">Agrow-6000 Plus</span>
+        <span class="marquee-chip flag">Agrow-7000 Plus</span>
+        <span class="marquee-chip flag">Agrow-5000 Master</span>
+        <span class="marquee-chip flag">A⁺-green</span>
+        <span class="marquee-chip">Agrow-Perfect</span>
+        <span class="marquee-chip">Agrow-7000</span>
+        <span class="marquee-chip">Agrow-6000</span>
+        <span class="marquee-chip">Agrow-5000 Magic</span>
+        <span class="marquee-chip">Agrow-2000 Star</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 회사 소개 -->
+<section class="sec sec-alt" id="about">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t">회사 소개</span></div>
+  <div class="sec-t rv" data-i="about_t"></div>
+  <div class="about-g">
+    <div class="rv">
+      <p class="sec-sub" data-i="about_p1"></p>
+      <p class="sec-sub" style="margin-top:14px" data-i="about_p2"></p>
+      <div class="pts">
+        <div class="pt"><div class="pt-ico">🔬</div><div><div class="pt-name" data-i="pt1_n"></div><div class="pt-desc" data-i="pt1_d"></div></div></div>
+        <div class="pt"><div class="pt-ico">🌏</div><div><div class="pt-name" data-i="pt2_n"></div><div class="pt-desc" data-i="pt2_d"></div></div></div>
+        <div class="pt"><div class="pt-ico">🛠</div><div><div class="pt-name" data-i="pt3_n"></div><div class="pt-desc" data-i="pt3_d"></div></div></div>
+      </div>
+    </div>
+    <div class="about-vis rv" style="padding:0"><img src="images/agrow_company.jpg" alt="한가람농업개발 본사 전경" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="about-vis-tag">Hydroponic Agrow 본사</div></div>
+  </div>
+</section>
+
+<!-- 발자취 -->
+<section class="sec" id="history">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="hist_ey"></span></div>
+  <div class="sec-t rv" data-i="hist_t"></div>
+  <div class="about-g">
+    <div class="history-wrap rv">
+      <div class="hist-item">
+        <div class="hist-year">1992</div>
+        <div class="hist-title" data-i="h92_t"></div>
+        <div class="hist-desc" data-i="h92_d"></div>
+      </div>
+      <div class="hist-item">
+        <div class="hist-year">2000s</div>
+        <div class="hist-title" data-i="h00_t"></div>
+        <div class="hist-desc" data-i="h00_d"></div>
+      </div>
+      <div class="hist-item">
+        <div class="hist-year">2014</div>
+        <div class="hist-title" data-i="h14_t"></div>
+        <div class="hist-desc" data-i="h14_d"></div>
+      </div>
+      <div class="hist-item">
+        <div class="hist-year">2016~2017</div>
+        <div class="hist-title" data-i="h16_t"></div>
+        <div class="hist-desc" data-i="h16_d"></div>
+      </div>
+      <div class="hist-item">
+        <div class="hist-year">2022</div>
+        <div class="hist-title" data-i="h22_t"></div>
+        <div class="hist-desc" data-i="h22_d"></div>
+      </div>
+      <div class="hist-item">
+        <div class="hist-year">2024</div>
+        <div class="hist-title" data-i="h24_t"></div>
+        <div class="hist-desc" data-i="h24_d"></div>
+      </div>
+    </div>
+    <div class="rv" style="display:flex;flex-direction:column;gap:14px">
+      <div class="pt"><div class="pt-ico">🏆</div><div><div class="pt-name" data-i="tech1_n"></div><div class="pt-desc" data-i="tech1_d"></div></div></div>
+      <div class="pt"><div class="pt-ico">📡</div><div><div class="pt-name" data-i="tech2_n"></div><div class="pt-desc" data-i="tech2_d"></div></div></div>
+      <div class="pt"><div class="pt-ico">🔒</div><div><div class="pt-name" data-i="tech3_n"></div><div class="pt-desc" data-i="tech3_d"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 제품 안내 -->
+<section class="sec sec-alt" id="products">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="prod_ey"></span></div>
+  <div class="sec-t rv" data-i="prod_t"></div>
+  <div class="tabs rv" id="tabRow"></div>
+  <div class="pg" id="prodGrid">
+    <div class="pc" data-c="0"><div class="ci"><span class="bdg" data-i="bdg_new"></span><img src="images/agrow_perfect.jpg" alt="Agrow-Perfect" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n"></div><div class="cn">Agrow-Perfect</div><div class="cd" data-i="pd_perfect"></div></div></div>
+    <div class="pc" data-c="0"><div class="ci"><span class="bdg gold" data-i="bdg_top"></span><img src="images/agrow_7000plus.jpg" alt="Agrow-7000 Plus" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n"></div><div class="cn">Agrow-7000 Plus</div><div class="cd" data-i="pd_7000p"></div></div></div>
+    <div class="pc" data-c="0"><div class="ci"><img src="images/agrow_7000.jpg" alt="Agrow-7000" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n"></div><div class="cn">Agrow-7000</div><div class="cd" data-i="pd_7000"></div></div></div>
+    <div class="pc" data-c="0"><div class="ci"><span class="bdg gold" data-i="bdg_no1"></span><img src="images/agrow_6000plus.jpg" alt="Agrow-6000 Plus" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n"></div><div class="cn">Agrow-6000 Plus</div><div class="cd" data-i="pd_6000p"></div></div></div>
+    <div class="pc" data-c="0"><div class="ci"><img src="images/agrow_6000.jpg" alt="Agrow-6000" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n"></div><div class="cn">Agrow-6000</div><div class="cd" data-i="pd_6000"></div></div></div>
+    <div class="pc" data-c="0"><div class="ci"><span class="bdg" data-i="bdg_2024"></span><img src="images/agrow_5000master.jpg" alt="Agrow-5000 Master" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n"></div><div class="cn">Agrow-5000 Master</div><div class="cd" data-i="pd_5000m"></div><span class="cm">HPA-5002</span></div></div>
+    <div class="pc" data-c="0"><div class="ci"><span class="bdg" data-i="bdg_2024"></span><img src="images/agrow_5000magic.jpg" alt="Agrow-5000 Magic" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n"></div><div class="cn">Agrow-5000 Magic</div><div class="cd" data-i="pd_5000mg"></div><span class="cm">HPA-5001</span></div></div>
+    <div class="pc" data-c="1"><div class="ci"><span class="bdg" data-i="bdg_2024"></span><img src="images/agrow_2000star_a.jpg" alt="Agrow-2000 Star A" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_i"></div><div class="cn">Agrow-2000 Star A형</div><div class="cd" data-i="pd_2000a"></div><span class="cm">HPA-2005A</span></div></div>
+    <div class="pc" data-c="1"><div class="ci"><span class="bdg" data-i="bdg_2024"></span><img src="images/agrow_2000star_b.jpg" alt="Agrow-2000 Star B" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_i"></div><div class="cn">Agrow-2000 Star B형</div><div class="cd" data-i="pd_2000b"></div><span class="cm">HPA-2005B</span></div></div>
+    <div class="pc" data-c="2"><div class="ci" style="background:#0a1628"><img src="images/agrow_aplusgreen.jpg" alt="A⁺-green" loading="lazy" style="object-fit:contain;object-position:center;padding:10px"></div><div class="cb"><div class="cc" data-i="cat_e"></div><div class="cn">A⁺-green</div><div class="cd" data-i="pd_aplus"></div><span class="cm">HPAG-8001</span></div></div>
+  </div>
+</section>
+
+<!-- 스마트폰 원격제어 -->
+<section class="sec" id="remote">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="dash_ey"></span></div>
+  <div class="sec-t rv" data-i="dash_t"></div>
+  <div class="dash-grid">
+    <div class="dash-screen rv">
+      <div class="dash-bar">
+        <div class="dash-dots"><span></span><span></span><span></span></div>
+        <span class="dash-title-bar">Agrow 원격 모니터링</span>
+      </div>
+      <div class="dash-content">
+        <div class="dash-card ok">
+          <div class="dash-card-label">EC 현재값</div>
+          <div class="dash-card-val">2.4<span class="dash-card-unit">mS/cm</span></div>
+        </div>
+        <div class="dash-card ok">
+          <div class="dash-card-label">pH 현재값</div>
+          <div class="dash-card-val">6.2<span class="dash-card-unit">pH</span></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-label">일사량</div>
+          <div class="dash-card-val">414<span class="dash-card-unit">W/m²</span></div>
+        </div>
+        <div class="dash-card warn">
+          <div class="dash-card-label">수분센서</div>
+          <div class="dash-card-val">45<span class="dash-card-unit">%</span></div>
+        </div>
+        <div class="dash-bar-chart">
+          <div class="dash-card-label" style="margin-bottom:12px">구역별 관수 현황</div>
+          <div class="bar-chart-row"><span class="bar-chart-label">1구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:85%"></div></div><span class="bar-chart-num">850L</span></div>
+          <div class="bar-chart-row"><span class="bar-chart-label">2구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:62%"></div></div><span class="bar-chart-num">620L</span></div>
+          <div class="bar-chart-row"><span class="bar-chart-label">3구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:91%"></div></div><span class="bar-chart-num">910L</span></div>
+          <div class="bar-chart-row" style="margin-bottom:0"><span class="bar-chart-label">4구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:44%"></div></div><span class="bar-chart-num">440L</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-feats rv">
+      <div class="dash-feat"><div class="dash-feat-ico">📱</div><div><div class="dash-feat-name" data-i="df1_n"></div><div class="dash-feat-desc" data-i="df1_d"></div></div></div>
+      <div class="dash-feat"><div class="dash-feat-ico">🖥</div><div><div class="dash-feat-name" data-i="df2_n"></div><div class="dash-feat-desc" data-i="df2_d"></div></div></div>
+      <div class="dash-feat"><div class="dash-feat-ico">🔔</div><div><div class="dash-feat-name" data-i="df3_n"></div><div class="dash-feat-desc" data-i="df3_d"></div></div></div>
+      <div class="dash-feat"><div class="dash-feat-ico">📊</div><div><div class="dash-feat-name" data-i="df4_n"></div><div class="dash-feat-desc" data-i="df4_d"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 현장 설치 사례 -->
+<section class="sec sec-alt" id="portfolio">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="port_ey"></span></div>
+  <div class="sec-t rv" data-i="port_t"></div>
+  <div class="port-grid">
+
+    <div class="port-card rv">
+      <div class="port-img">🌱<div class="port-crop">와사비</div></div>
+      <div class="port-body">
+        <div class="port-title">와사비 수경재배</div>
+        <div class="port-desc">저온·저광 환경을 요구하는 와사비 특성상 양액 농도 편차가 생육에 직결됩니다. Agrow-5000 Master의 3개 독립 프로그램으로 뿌리구역별 EC를 따로 관리해 뿌리 부패를 줄이고 근경 비대를 유도했습니다.</div>
+        <div class="port-meta"><span class="port-tag">Agrow-5000 Master</span><span class="port-tag">특수작물</span></div>
+      </div>
+    </div>
+
+    <div class="port-card rv">
+      <div class="port-img">🌿<div class="port-crop">병풀</div></div>
+      <div class="port-body">
+        <div class="port-title">병풀 수경재배</div>
+        <div class="port-desc">유효성분(아시아티코사이드) 함량이 양액 농도와 공급 타이밍에 민감하게 반응하는 작물입니다. Agrow-5000 Master로 생육 단계마다 별도 프로그램을 운영해 품질 균일도를 높였습니다.</div>
+        <div class="port-meta"><span class="port-tag">Agrow-5000 Master</span><span class="port-tag">특수작물</span></div>
+      </div>
+    </div>
+
+    <div class="port-card rv">
+      <div class="port-img">🍓<div class="port-crop">딸기</div></div>
+      <div class="port-body">
+        <div class="port-title">딸기 시설하우스</div>
+        <div class="port-desc">비용 부담 없이 양액기급 정밀 관수를 원하는 농가에 Agrow-2000 Star를 도입했습니다. 12구역 독립 EC 제어와 구역별 원수 공급 기능으로 배관 염류 집적 문제를 해결했습니다.</div>
+        <div class="port-meta"><span class="port-tag">Agrow-2000 Star</span><span class="port-tag">시설원예</span></div>
+      </div>
+    </div>
+
+    <div class="port-card rv">
+      <div class="port-img">🏡<div class="port-crop">대규모단지</div></div>
+      <div class="port-body">
+        <div class="port-title">시설원예 대규모 단지</div>
+        <div class="port-desc">전국 주요 시설원예 주산지에서 가장 많이 선택하는 모델입니다. EC·pH 복합 제어와 일사량 연동으로 구역 간 생육 편차를 줄이고 상품 균일도를 높였습니다.</div>
+        <div class="port-meta"><span class="port-tag">Agrow-6000 Plus</span><span class="port-tag">대규모 수경재배</span></div>
+      </div>
+    </div>
+
+    <div class="port-card rv" style="border-color:rgba(217,4,41,0.25)">
+      <div class="port-img" style="font-size:36px">🏅<div class="port-crop" style="background:#D90429">철원 검증 사례</div></div>
+      <div class="port-body">
+        <div class="port-title">철원 — 타사 사용 후 한가람으로 재도입</div>
+        <div class="port-desc">한가람 장비를 잘 쓰시다가 타사 기계로 교체하신 농가입니다. 그러나 철원의 혹독한 현장 환경에서 타사 장비의 EC·pH 수치가 정확하게 맞지 않아 작물 생육에 큰 어려움을 겪으셨습니다. 결국 도저히 못 쓰겠다며 오랫동안 고생하시다가, 세월이 지나도 정확한 수치와 내구성을 유지하는 Agrow를 다시 찾아 재도입하신 사례입니다.</div>
+        <div class="port-meta"><span class="port-tag" style="background:#D90429;color:#fff;border-color:#D90429">기술 검증</span><span class="port-tag">철원 현장</span></div>
+      </div>
+    </div>
+
+    <div class="port-card rv">
+      <div class="port-img">🌿<div class="port-crop">포항·원주·평창</div></div>
+      <div class="port-body">
+        <div class="port-title">포항·원주·평창 온실 통합 제어</div>
+        <div class="port-desc">복합환경제어와 양액공급을 A⁺-green 하나로 통합 운영 중입니다. 외기 기상대와 연동해 측창·차광 커튼을 자동 제어하고, 환경 변화에 맞춰 양액기도 함께 연동 작동합니다.</div>
+        <div class="port-meta"><span class="port-tag">A⁺-green</span><span class="port-tag">복합환경+양액 통합</span><span class="port-tag">포항·원주·평창</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 공인 성능 -->
+<section class="sec sec-alt" id="performance">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="perf_ey"></span></div>
+  <div class="sec-t rv" data-i="perf_t"></div>
+  <p class="sec-sub rv" style="margin-bottom:48px" data-i="perf_sub"></p>
+  <div class="perf-grid rv">
+    <div class="perf-card">
+      <div class="perf-label" data-i="perf_ec15"></div>
+      <div class="perf-val">±0.1</div>
+      <div class="perf-desc" data-i="perf_range"></div>
+    </div>
+    <div class="perf-card">
+      <div class="perf-label" data-i="perf_ec25"></div>
+      <div class="perf-val">±0.1<span style="font-size:22px">~</span>0.2</div>
+      <div class="perf-desc" data-i="perf_range"></div>
+    </div>
+    <div class="perf-card perf-highlight">
+      <div class="perf-label" data-i="perf_org"></div>
+      <div class="perf-val" style="font-size:18px;letter-spacing:-0.5px" data-i="perf_orgname"></div>
+      <div class="perf-desc" data-i="perf_orgdesc"></div>
+    </div>
+  </div>
+  <p class="perf-note rv" data-i="perf_note"></p>
+</section>
+
+<!-- 수출 및 기술 인증 -->
+<section class="nums" id="numbers">
+  <div class="nums-hd rv">
+    <div class="ey"><div class="ey-line"></div><span class="ey-t" data-i="num_ey"></span></div>
+    <div class="sec-t" data-i="num_t"></div>
+  </div>
+  <div class="ng rv">
+    <div class="nc"><div class="nb">10<span class="nu unit-country"></span></div><div class="nl" data-i="num_l0"></div></div>
+    <div class="nc"><div class="nb">17<span class="nu unit-country"></span></div><div class="nl" data-i="num_l1"></div></div>
+    <div class="nc"><div class="nb">30<span class="nu unit-year"></span></div><div class="nl" data-i="num_l2"></div></div>
+    <div class="nc"><div class="nb">1992<span class="nu" style="font-size:14px">년</span></div><div class="nl" data-i="num_l3"></div></div>
+  </div>
+  <div class="pat-g rv">
+    <div class="pat-c"><div class="pat-ico">📋</div><div class="pat-n" data-i="pat1_n"></div><div class="pat-no" data-i="pat1_no"></div></div>
+    <div class="pat-c"><div class="pat-ico">📋</div><div class="pat-n" data-i="pat2_n"></div><div class="pat-no" data-i="pat2_no"></div></div>
+  </div>
+</section>
+
+<!-- A/S 및 사후관리 -->
+<section class="sec sec-alt" id="support">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="supp_ey"></span></div>
+  <div class="sec-t rv" data-i="supp_t"></div>
+  <div class="supp-grid">
+    <div class="supp-cards rv">
+      <div class="supp-card"><div class="supp-ico">💻</div><div><div class="supp-name" data-i="s1_n"></div><div class="supp-desc" data-i="s1_d"></div></div></div>
+      <div class="supp-card"><div class="supp-ico">📦</div><div><div class="supp-name" data-i="s2_n"></div><div class="supp-desc" data-i="s2_d"></div></div></div>
+      <div class="supp-card"><div class="supp-ico">🔧</div><div><div class="supp-name" data-i="s3_n"></div><div class="supp-desc" data-i="s3_d"></div></div></div>
+      <div class="supp-card"><div class="supp-ico">✉️</div><div><div class="supp-name" data-i="s4_n"></div><div class="supp-desc" data-i="s4_d"></div></div></div>
+    </div>
+    <div class="rv">
+      <div class="supp-hours">
+        <h4 data-i="supp_hours_t"></h4>
+        <div class="hour-row"><span class="hour-day" data-i="supp_wd"></span><span class="hour-time">09:00 – 18:00</span></div>
+        <div class="hour-row"><span class="hour-day" data-i="supp_sat"></span><span class="hour-time closed" data-i="supp_closed"></span></div>
+        <div class="hour-row"><span class="hour-day" data-i="supp_sun"></span><span class="hour-time closed" data-i="supp_closed"></span></div>
+      </div>
+      <div class="supp-call" style="margin-top:20px">
+        <a href="tel:0337475114" class="call-btn"><span class="ico">📞</span><span class="num">033-747-5114</span></a>
+        <a href="mailto:hpagrow@hanmail.net" class="call-btn" style="background:var(--t1)"><span class="ico">✉️</span><span class="num">hpagrow@hanmail.net</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 제품 문의 / 견적 요청 -->
+<section class="sec" id="contact">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="con_ey"></span></div>
+  <div class="sec-t rv" data-i="con_t"></div>
+  <div class="con-g">
+    <div class="info-l rv">
+      <div class="ic"><div class="ic-ico">📍</div><div><div class="ic-lbl" data-i="con_addr_l"></div><div class="ic-val" data-i="con_addr"></div></div></div>
+      <div class="ic"><div class="ic-ico">📞</div><div><div class="ic-lbl" data-i="con_tel_l"></div><div class="ic-val"><a href="tel:0337475114">033-747-5114</a></div><div class="ic-sub" data-i="con_fax"></div></div></div>
+      <div class="ic"><div class="ic-ico">✉️</div><div><div class="ic-lbl" data-i="con_email_l"></div><div class="ic-val"><a href="mailto:hpagrow@hanmail.net">hpagrow@hanmail.net</a></div></div></div>
+      <div class="ic"><div class="ic-ico">🕐</div><div><div class="ic-lbl" data-i="con_as_l"></div><div class="ic-val" data-i="con_as"></div><div class="ic-sub" data-i="con_as2"></div></div></div>
+    </div>
+    <div class="form rv">
+      <div class="fr">
+        <div class="fg"><label data-i="f_name"></label><input type="text" data-ph="f_name_ph"></div>
+        <div class="fg"><label data-i="f_tel"></label><input type="tel" data-ph="f_tel_ph"></div>
+      </div>
+      <div class="fg"><label data-i="f_prod"></label>
+        <select>
+          <option data-i="f_prod_ph"></option>
+          <option>Agrow-Perfect</option><option>Agrow-7000 Plus</option><option>Agrow-7000</option>
+          <option>Agrow-6000 Plus</option><option>Agrow-6000</option><option>Agrow-5000 Master</option>
+          <option>Agrow-5000 Magic</option><option>Agrow-2000 Star A형</option><option>Agrow-2000 Star B형</option>
+          <option>A⁺-green</option>
+        </select>
+      </div>
+      <div class="fg"><label data-i="f_msg"></label><textarea data-ph="f_msg_ph"></textarea></div>
+      <button class="sbtn" data-i="f_submit"></button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fg2">
+    <div>
+      <div class="fbkr">한가람 농업개발</div>
+      <div class="fben">Hydroponic <span>Agrow</span></div>
+      <p class="fdesc" data-i="foot_desc"></p>
+    </div>
+    <div class="fcol"><h5 data-i="foot_prod"></h5>
+      <ul><li><a href="#">Agrow-Perfect</a></li><li><a href="#">Agrow-7000 Plus</a></li><li><a href="#">Agrow-6000 Plus</a></li><li><a href="#">Agrow-5000 Master</a></li><li><a href="#">A⁺-green</a></li></ul>
+    </div>
+    <div class="fcol"><h5 data-i="foot_co"></h5><ul id="footLinks"></ul></div>
+  </div>
+  <div class="fbot">
+    <p class="fcopy">COPYRIGHT © 1992–2026 한가람농업개발. All rights reserved.</p>
+    <span class="facc">HYDROPONIC AGROW</span>
+  </div>
+</footer>
+
+<script>
+const T={
+ko:{name:"한국어",perf_ey:"공인 성능",perf_t:"한국농업기술진흥원<br>성능 표준 시험 결과",perf_sub:"국가 공인 시험기관의 성능 표준 시험에서 검증된 Agrow의 정밀 양액 제어 능력입니다.",perf_ec15:"EC 세팅값 1.5 기준",perf_ec25:"EC 세팅값 2.5 기준",perf_range:"실측 오차 범위",perf_org:"시험 기관",perf_orgname:"한국농업기술진흥원",perf_orgdesc:"국가 공인 성능 표준 시험",perf_note:"※ 위 수치는 한국농업기술진흥원의 성능 표준 시험 결과이며, 실제 현장 환경에 따라 다소 차이가 있을 수 있습니다.",unit_year:"년+",unit_country:"개국",flag:"🇰🇷",nav:["회사 소개","발자취","제품 안내","스마트폰 원격제어","현장 설치 사례","제품 문의"],cta:"제품 문의",kicker:"국내 최초 세계 10개국 수출",h1_1:"정밀 양액",h1_2:"공급의",h1_3:"최강자",hero_desc:"30여년의 연구개발과 열정으로\n시설원예·스마트팜 농가의 생산성과\n소득증대에 기여합니다.",btn1:"제품 라인업 보기",btn2:"문의하기",stat1_l:"연구개발 경력",stat2_l:"수출 국가",stat3_l:"양액공급기 수출",about_t:"농업 기술의 새 기준을\n만들어 왔습니다",about_p1:"한가람농업개발은 대한민국을 대표하는 Agrow 토경관비기, 양액공급기, A⁺-Green 복합환경제어기 등 다양한 농업 기자재 전문기업입니다.",about_p2:"30여년간 끊임없는 연구개발로 17개국에 양액공급기 명품 Agrow 시리즈를 수출하고 있으며, 농업 현장 실증 시험을 통해 검증된 제품만을 공급합니다.",pt1_n:"검증된 기술력",pt1_d:"특허 및 실용신안 등록. 현장 실증 시험을 통해 검증된 제품만 출시합니다.",pt2_n:"글로벌 수출 역량",pt2_d:"국내 최초 세계 10개국 수출, 17개국 양액공급기 납품 이력을 보유합니다.",pt3_n:"전문 A/S 지원",pt3_d:"연락 후 방문 접수. 평일 09:00–18:00.",about_vis:"📷 회사 / 제품 이미지",hist_ey:"발자취",hist_t:"30년 넘는\n한가람의 역사",h92_t:"한가람 농업개발 창립",h92_d:"강원도 원주에서 농업용 기계 전문 기업으로 출발. Agrow 브랜드의 첫걸음을 내딛다.",h00_t:"양액공급기 본격 수출 시작",h00_d:"국내 최초로 양액공급기를 해외 시장에 수출하기 시작. Agrow 시리즈 글로벌 진출.",h14_t:"A-Drop 버튼 특허 출원",h14_d:"혁신적인 A-Drop 버튼 특허출원(제10-2014-0116185호). 기술 독자성 확보.",h16_t:"Agrow-6000 시리즈 판매 1위",h16_d:"2016·2017년 연속 판매 1위 달성. 농가 선택의 최우선 브랜드로 자리매김.",h22_t:"Agrow-Perfect 신제품 출시",h22_d:"PID 양액 제어방식 완성품 출시. 혼합통 없는 직접공급방식으로 업계 혁신.",h24_t:"2024 신제품 3종 동시 출시",h24_d:"Agrow-5000 Master, 5000 Magic, 2000 Star A/B형 동시 출시. 세계 10개국 수출 달성.",tech1_n:"KS 표준 준수",tech1_d:"한국산업표준(KS) 기반 설계. 스마트팜 장비 정부 보조사업 납품 적합.",tech2_n:"RS-485 / Modbus 통신",tech2_d:"표준 RS-485 Modbus RTU 프로토콜 지원. 복합환경제어기 및 외부 시스템과 완벽 연동.",tech3_n:"EC/pH 정밀 보정 기능",tech3_d:"EC 1/2 및 pH 1/2 센서값 자동 보정. 오차 최소화로 최적의 양액 농도 유지.",prod_ey:"제품 안내",prod_t:"전체 제품 라인업",tabs:["전체","양액공급기","관비공급기","환경제어"],dash_ey:"스마트폰 원격제어",dash_t:"언제 어디서나\n스마트폰으로 확인",df1_n:"실시간 모니터링",df1_d:"EC, pH, 일사량, 수분센서 등 모든 데이터를 스마트폰과 PC에서 실시간으로 확인.",df2_n:"PC 프로그램 연동",df2_d:"전용 PC 소프트웨어로 상세 설정, 데이터 기록, 보정값 관리를 정밀하게 수행.",df3_n:"이상 알림 기능",df3_d:"EC·pH 경보 상/하한 초과, 관수펌프 이상, 원수펌프 이상 발생 시 즉시 알림.",df4_n:"1년치 데이터 저장",df4_d:"매일 16개 밸브별 관수횟수와 평균 EC·pH값을 자동 저장. 최대 1년치 데이터 열람 가능.",port_ey:"현장 설치 사례",port_t:"전국 농가에서\n검증된 제품",po1_t:"경남 딸기 재배 농가",po1_d:"Agrow-6000 Plus 설치. 16구역 독립 관수로 균일한 양액 공급. 수확량 23% 향상.",po2_t:"전북 파프리카 스마트팜",po2_d:"Agrow-7000 Plus 도입. PC+스마트폰 원격제어로 야간 무인 관리 실현.",po3_t:"충남 토마토 대형 농가",po3_d:"Agrow-7000 3대 연계 설치. 복합비례제어로 작물별 최적 EC 유지.",po4_t:"경기 오이 유리온실",po4_d:"Agrow-Perfect 직접공급방식. EC 편차 ±0.1 이내 정밀 제어 달성.",po5_t:"강원 엽채류 수경재배",po5_d:"Agrow-5000 Magic 설치. 누적 일사량 연동으로 생육 단계별 자동 관수.",po6_t:"우즈베키스탄 스마트팜 수출",po6_d:"Agrow-7000 Plus 10대 수출. 현지 시공팀 교육 및 원격 AS 지원 완료.",num_ey:"수출 및 기술 인증",num_t:"세계가 인정한\n아그로우의 기술",num_l:["수출 국가 수","양액공급기 납품","연구개발 경력","창립"],pat1_n:"A-Drop 버튼 특허",pat1_no:"특허출원 제10-2014-0116185호",pat2_n:"연속혼합 보조액비 공급방식",pat2_no:"실용신안등록출원 제0006471호",supp_ey:"A/S 및 사후관리",supp_t:"구매 후에도\n든든하게 책임집니다",s1_n:"원격 진단",s1_d:"PC 원격 접속으로 프로그램 오류를 즉시 진단하고 해결합니다. 직접 방문 없이도 신속하게 처리 가능합니다.",s2_n:"자체 부품 직접 공급",s2_d:"모든 소모품 및 교체 부품을 자체 재고로 보유. 빠른 부품 공급으로 농가 피해 최소화.",s3_n:"방문 접수",s3_d:"먼저 연락 주시면 증상 확인 후 방문 일정을 잡아드립니다. 방문 접수 시간 평일 09:00–18:00.",s4_n:"이메일 문의 접수",s4_d:"hpagrow@hanmail.net으로 제품 모델명과 증상 송부 시 직접 연락하여 처리.",supp_hours_t:"방문 접수 가능 시간",supp_wd:"평일",supp_sat:"토요일",supp_sun:"일요일·공휴일",supp_closed:"휴무",con_ey:"문의",con_t:"제품 문의 / 견적 요청",con_addr_l:"주소",con_addr:"강원특별자치도 원주시 호저면 우무개로 274 (26349)",con_tel_l:"전화",con_tel:"033-747-5114",con_fax:"FAX: 033-746-1909",con_email_l:"이메일",con_as_l:"A/S 방문접수",con_as:"평일 09:00–18:00",con_as2:"토·일·공휴일 휴무",f_name:"이름",f_tel:"연락처",f_prod:"관심 제품",f_msg:"문의 내용",f_name_ph:"홍길동",f_tel_ph:"010-0000-0000",f_prod_ph:"제품을 선택해주세요",f_msg_ph:"설치 환경, 재배 작물, 필요 기능 등을 알려주시면 더 정확한 안내가 가능합니다.",f_submit:"문의 보내기 →",foot_desc:"관비·토경양액·양액공급기의 최강자\n강원특별자치도 원주시 호저면 우무개로 274 (26349)\nTEL: 033-747-5114 · hpagrow@hanmail.net",foot_prod:"제품",foot_co:"회사",foot_links:["회사 소개","발자취","A/S 안내","제품 문의"],bdg_new:"신제품",bdg_top:"최고사양",bdg_no1:"판매 1위",bdg_2024:"2024 신제품",cat_n:"양액공급기",cat_i:"관비공급기",cat_e:"복합환경제어",cat_s:"디지털 센서",num_l0:"수출 국가 수",num_l1:"양액공급기 납품",num_l2:"연구개발 경력",num_l3:"창립",pd_perfect:"PID 양액 제어방식 완성품. 혼합통 없는 직접공급방식. 10.2\" 터치스크린 + PC + 모바일 원격제어.",pd_7000p:"PC+스마트폰 연동, 독립 프로그램 5개, 원격제어 10채널. 복합비례제어 지원.",pd_7000:"수출 20년 노하우. 5개 독립 프로그램. 양액 6종(A~F) 복합비례제어.",pd_6000p:"농가 선택 판매 1위. PC+스마트폰 연동. 10.2\" 터치스크린. 복합작물 우선 제품.",pd_6000:"2022년 판매 2위. 독립 프로그램 4개. EC·pH 정밀 제어. 16구역 관수밸브.",pd_5000m:"3개 독립 양액 제어. 7\" 터치스크린 LCD. EC·pH그룹 제어 2개 구성.",pd_5000mg:"3개 양액제어 프로그램. 누적 일사량 제어 가능. 12구역 관수 지원.",pd_2000a:"직접공급방식(Direct-Injection). 12구역 독립 EC제어. 7\" 터치스크린.",pd_2000b:"혼합공급방식(Continuous Mixing). 관수 전후 원수공급 기능 내장.",pd_aplus:"모바일+PC 연동. 온실 복합환경제어. 양액공급기 통합 연동. 기상대 연결.",pd_sens:"EC·온도·수분 동시 측정. 평균 수분값으로 관수 신호 발생. 3센서 평균 제어."},
+en:{name:"English",perf_ey:"Certified Performance",perf_t:"National Institute of Agricultural Sciences<br>Performance Standard Test Results",perf_sub:"Agrow's precision nutrient control capability, verified by a nationally certified testing institute.",perf_ec15:"EC Set Value 1.5",perf_ec25:"EC Set Value 2.5",perf_range:"Measured Error Range",perf_org:"Testing Institute",perf_orgname:"National Institute of Agricultural Sciences (Korea)",perf_orgdesc:"Nationally Certified Performance Standard Test",perf_note:"※ The figures above are based on performance standard test results from the National Institute of Agricultural Sciences and may vary slightly depending on actual field conditions.",unit_year:"+ yrs",unit_country:" countries",flag:"🇺🇸",nav:["About","History","Products","Remote Control","Case Studies","Contact"],cta:"Inquire",kicker:"First Korean brand exported to 10+ countries",h1_1:"Precision",h1_2:"Nutrient",h1_3:"Leader",hero_desc:"30+ years of R&D and passion\ndriving productivity and income growth\nfor greenhouse & smart farm growers.",btn1:"View Products",btn2:"Contact Us",stat1_l:"Years of R&D",stat2_l:"Export Countries",stat3_l:"Countries Supplied",about_t:"Setting New Standards\nin Agricultural Technology",about_p1:"Hankaram Agricultural Development is a leading Korean manufacturer of Agrow nutrient supply systems, irrigation controllers, and A⁺-Green integrated environment control systems.",about_p2:"With over 30 years of continuous R&D, we export our premium Agrow series to 17 countries, supplying only field-tested and proven products.",pt1_n:"Proven Technology",pt1_d:"Patent & utility model registered. Only field-validated products reach the market.",pt2_n:"Global Export Capability",pt2_d:"First Korean brand to export to 10 countries. Supplied to 17 countries worldwide.",pt3_n:"Professional After-Sales",pt3_d:"Contact us first, then schedule a visit. On-site hours: Mon–Fri 09:00–18:00.",about_vis:"📷 Company / Product Image",hist_ey:"History",hist_t:"30+ Years of\nAgrow's Journey",h92_t:"Founded — Hankaram Agricultural Development",h92_d:"Established in Wonju, Gangwon-do as a specialist in agricultural machinery. The first step of the Agrow brand.",h00_t:"Export of Nutrient Feeders Begins",h00_d:"First Korean manufacturer to export nutrient supply systems overseas. Agrow series goes global.",h14_t:"A-Drop Button Patent Filed",h14_d:"Innovative A-Drop button patent filed (No. 10-2014-0116185). Proprietary technology secured.",h16_t:"Agrow-6000 Series — #1 in Sales",h16_d:"Consecutive #1 sales in 2016 & 2017. Established as the top brand of choice among farmers.",h22_t:"Agrow-Perfect Launched",h22_d:"PID nutrient control system released. Direct-injection without mixing tank — an industry innovation.",h24_t:"3 New Products Launched in 2024",h24_d:"Agrow-5000 Master, 5000 Magic, 2000 Star A/B launched simultaneously. Exports to 10 countries achieved.",tech1_n:"KS Standard Compliance",tech1_d:"Designed to Korean Industrial Standards (KS). Eligible for government smart farm subsidy programs.",tech2_n:"RS-485 / Modbus Communication",tech2_d:"Standard RS-485 Modbus RTU protocol support. Perfect integration with environment controllers and external systems.",tech3_n:"EC/pH Precision Calibration",tech3_d:"Auto-correction of EC 1/2 and pH 1/2 sensor values. Minimizes error for optimal nutrient concentration.",prod_ey:"Products",prod_t:"Full Product Lineup",tabs:["All","Nutrient Feeder","Irrigation Feeder","Env. Control"],dash_ey:"Remote Control",dash_t:"Monitor & Control\nAnywhere, Anytime",df1_n:"Real-time Monitoring",df1_d:"Check EC, pH, solar radiation, and moisture sensor data in real time via smartphone and PC.",df2_n:"PC Software Integration",df2_d:"Dedicated PC software for detailed settings, data logging, and precision calibration management.",df3_n:"Alert Notifications",df3_d:"Instant alerts for EC·pH threshold breaches, irrigation pump errors, and raw water pump failures.",df4_n:"1-Year Data Storage",df4_d:"Daily auto-save of irrigation counts and average EC·pH per valve. Up to 1 year of data browsing.",port_ey:"Case Studies",port_t:"Proven in Farms\nAcross Korea & Beyond",po1_t:"Strawberry Farm — South Gyeongnam",po1_d:"Agrow-6000 Plus installed. 16-zone independent irrigation delivers uniform nutrient supply. Yield up 23%.",po2_t:"Paprika Smart Farm — North Jeonbuk",po2_d:"Agrow-7000 Plus introduced. PC+smartphone remote control enables unmanned night operation.",po3_t:"Large Tomato Farm — South Chungnam",po3_d:"3 Agrow-7000 units linked. Optimal EC maintained per crop via complex proportional control.",po4_t:"Cucumber Glass Greenhouse — Gyeonggi",po4_d:"Agrow-Perfect direct-injection method. EC precision within ±0.1 achieved.",po5_t:"Leafy Greens Hydroponics — Gangwon",po5_d:"Agrow-5000 Magic installed. Cumulative solar radiation triggers automatic irrigation by growth stage.",po6_t:"Smart Farm Export — Uzbekistan",po6_d:"10 Agrow-7000 Plus units exported. On-site team training and remote A/S support completed.",num_ey:"Global & Certification",num_t:"Agrow — Trusted\nAround the World",num_l:["Export Countries","Countries Supplied","Years of R&D","Founded"],pat1_n:"A-Drop Button Patent",pat1_no:"Patent Application No. 10-2014-0116185",pat2_n:"Continuous Mix Auxiliary Nutrient Supply",pat2_no:"Utility Model Reg. No. 0006471",supp_ey:"After-Sales Support",supp_t:"We Stand By You\nAfter Every Purchase",s1_n:"Remote Diagnosis",s1_d:"Remote PC access allows instant diagnosis and resolution of software issues without an on-site visit.",s2_n:"In-House Parts Supply",s2_d:"All consumables and replacement parts stocked in-house. Fast delivery to minimize farm downtime.",s3_n:"On-Site Service",s3_d:"Contact us first and we will confirm the issue before scheduling a visit. On-site hours: Mon–Fri 09:00–18:00.",s4_n:"Email Inquiry",s4_d:"Send your model name and symptoms to hpagrow@hanmail.net. We'll contact you directly.",supp_hours_t:"On-Site Service Hours",supp_wd:"Weekdays",supp_sat:"Saturday",supp_sun:"Sunday & Holidays",supp_closed:"Closed",con_ey:"Contact",con_t:"Product Inquiry / Quote Request",con_addr_l:"Address",con_addr:"28-1 Manjong-ri, Hojeo-myeon, Wonju-si, Gangwon Special Self-Governing Province, Korea (ZIP 26349)",con_tel_l:"Phone",con_tel:"033-747-5114",con_fax:"FAX: 033-746-1909",con_email_l:"Email",con_as_l:"A/S Hours",con_as:"Mon–Fri 09:00–18:00",con_as2:"Closed Sat, Sun & Holidays",f_name:"Name",f_tel:"Phone",f_prod:"Product of Interest",f_msg:"Message",f_name_ph:"John Doe",f_tel_ph:"+82-10-0000-0000",f_prod_ph:"Select a product",f_msg_ph:"Please describe your installation environment, crop type, and required features for a more accurate quote.",f_submit:"Send Inquiry →",foot_desc:"Leader in irrigation & nutrient supply systems\n28-1 Mnjong-ri, Hojeo-myeon, Wonju-si, Korea\nTEL: +82-33-747-5114 · hpagrow@hanmail.net",foot_prod:"Products",foot_co:"Company",foot_links:["About Us","History","After-Sales","Contact"],bdg_new:"New",bdg_top:"Top Spec",bdg_no1:"Best Seller",bdg_2024:"2024 New",cat_n:"Nutrient Feeder",cat_i:"Irrigation Feeder",cat_e:"Env. Control",cat_s:"Digital Sensor",num_l0:"Export Countries",num_l1:"Countries Supplied",num_l2:"Years of R&D",num_l3:"Founded",pd_perfect:"PID nutrient control. Direct-injection, no mixing tank. 10.2\" touch + PC + mobile remote.",pd_7000p:"PC+smartphone, 5 programs, 10-ch remote. Complex proportional control.",pd_7000:"20yr export know-how. 5 programs. 6 nutrient types (A–F) proportional control.",pd_6000p:"Farmer's #1. PC+smartphone. 10.2\" touch. Optimized for mixed crops.",pd_6000:"2022 #2 sales. 4 programs. Precise EC·pH. 16-zone irrigation.",pd_5000m:"3 independent nutrient controls. 7\" LCD. 2 EC·pH groups. HPA-5002.",pd_5000mg:"3 nutrient programs. Cumulative solar radiation control. 12-zone irrigation.",pd_2000a:"Direct-Injection. 12-zone independent EC control. 7\" touchscreen.",pd_2000b:"Continuous Mixing. Built-in pre/post irrigation raw water supply.",pd_aplus:"Mobile+PC. Greenhouse complex control. Nutrient feeder integration. Weather station.",pd_sens:"EC·temp·moisture simultaneous. Irrigation signal from average moisture. 3-sensor average."}
+};
+
+/* Full translations for all languages */
+const T2={
+uz:{name:"O'zbekcha",perf_ey:"Tasdiqlangan ko'rsatkichlar",perf_t:"Koreya Qishloq Xo'jaligi Texnologiyalari Instituti<br>Standart sinov natijalari",perf_sub:"Davlat tomonidan tasdiqlangan sinov muassasasining standart sinovida tekshirilgan Agrow ning aniq ozuqa boshqaruv qobiliyati.",perf_ec15:"EC sozlamasi 1.5",perf_ec25:"EC sozlamasi 2.5",perf_range:"O'lchangan xatolik chegarasi",perf_org:"Sinov muassasasi",perf_orgname:"Koreya Qishloq Xo'jaligi Texnologiyalari Instituti",perf_orgdesc:"Davlat tomonidan tasdiqlangan standart sinov",perf_note:"※ Yuqoridagi ko'rsatkichlar Koreya Qishloq Xo'jaligi Texnologiyalari Institutining standart sinov natijalariga asoslangan va haqiqiy dala sharoitiga qarab biroz farq qilishi mumkin.",unit_year:" yil+",unit_country:" mamlakat",flag:"🇺🇿",nav:["Kompaniya","Tarix","Mahsulotlar","Masofaviy boshqaruv","Joriy holatlar","Aloqa"],cta:"Mahsulot so'rovi",kicker:"Koreyaning 10+ mamlakatga eksport qiluvchi birinchi brendi",h1_1:"Aniq ozuqa",h1_2:"ta'minoti",h1_3:"yetakchisi",hero_desc:"30 yildan ortiq tadqiqot va ishtiyoq bilan\nissiqxona va aqlli ferma xo'jaliklarining\nunumdorligi va daromadini oshirishga hissa qo'shamiz.",btn1:"Mahsulotlarni ko'rish",btn2:"Bog'lanish",stat1_l:"Yillik tajriba",stat2_l:"Eksport mamlakatlari",stat3_l:"Yetkazib berilgan mamlakatlar",about_t:"Qishloq xo'jaligi texnologiyasida\nyangi standartlar yaratdik",about_p1:"Hankaram Qishloq Xo'jaligini Rivojlantirish — Agrow tuproq ozuqa ta'minoti tizimlari, eritma ta'minot moslamalari va A⁺-Green kompleks muhit boshqaruv tizimlari kabi turli qishloq xo'jaligi jihozlarini ishlab chiqaruvchi yetakchi koreyalik kompaniya.",about_p2:"30 yildan ortiq uzluksiz tadqiqot-ishlanmalar natijasida biz Agrow seriyasining nodir mahsulotlarini 17 mamlakatga eksport qilamiz va faqat dala sharoitida sinovdan o'tgan mahsulotlarni yetkazib beramiz.",pt1_n:"Sinovdan o'tgan texnologiya",pt1_d:"Patent va foydali model ro'yxatga olingan. Faqat dala sinovlaridan o'tgan mahsulotlar bozorga chiqariladi.",pt2_n:"Global eksport salohiyati",pt2_d:"10 mamlakatga eksport qiluvchi birinchi koreyalik brend. 17 mamlakatga eritma ta'minot tizimlari yetkazib berilgan.",pt3_n:"Professional texnik xizmat",pt3_d:"Bog'lanishdan so'ng tashrif buyurish. Ish kunlari 09:00–18:00.",about_vis:"📷 Kompaniya / Mahsulot rasmi",hist_ey:"Tarix",hist_t:"30 yildan ortiq\nHankaram tarixi",h92_t:"Hankaram Qishloq Xo'jaligi tashkil etildi",h92_d:"Gangwon-do, Wonju shahrida qishloq xo'jaligi texnikasi bo'yicha mutaxassis sifatida tashkil etildi. Agrow brendining ilk qadami.",h00_t:"Eritma ta'minot tizimlarini eksport qilish boshlandi",h00_d:"Koreyada birinchi bo'lib eritma ta'minot tizimlarini xorijiy bozorlarga eksport qila boshladi. Agrow seriyasi global bozorga chiqdi.",h14_t:"A-Drop tugma patenti ariza berildi",h14_d:"Innovatsion A-Drop tugma patenti ariza berildi (№10-2014-0116185). Mustaqil texnologiya ta'minlandi.",h16_t:"Agrow-6000 seriyasi — sotuvda №1",h16_d:"2016 va 2017 yillarda ketma-ket sotuvda №1 o'rinni egalladi. Fermerlarning eng ustuvor brendiga aylandi.",h22_t:"Agrow-Perfect yangi mahsuloti chiqarildi",h22_d:"PID ozuqa boshqaruv tizimi to'liq mahsuloti chiqarildi. Aralashtirish idishisiz to'g'ridan-to'g'ri ta'minot usuli bilan sohada innovatsiya.",h24_t:"2024 yilda 3 ta yangi mahsulot bir vaqtda chiqarildi",h24_d:"Agrow-5000 Master, 5000 Magic, 2000 Star A/B turlari bir vaqtda chiqarildi. Dunyoning 10 mamlakatiga eksport erishildi.",tech1_n:"KS standartlariga muvofiqlik",tech1_d:"Koreya sanoat standartlari (KS) asosida o'z ichki ishlab chiqarish va loyihalash. Qattiq sifat nazorati bilan dala ishonchliligini ta'minlaydi.",tech2_n:"RS-485 / Modbus aloqasi",tech2_d:"Standart RS-485 Modbus RTU protokolini qo'llab-quvvatlaydi. Muhit boshqaruv tizimlari va tashqi tizimlar bilan mukammal integratsiya.",tech3_n:"EC/pH aniq kalibrlash",tech3_d:"EC 1/2 va pH 1/2 sensor qiymatlarini avtomatik to'g'rilash. Optimal ozuqa konsentratsiyasi uchun xatolikni minimallashtirish.",prod_ey:"Mahsulotlar",prod_t:"To'liq mahsulot qatori",tabs:["Barchasi","Ozuqa ta'minot moslamasi","Sug'orish ta'minot moslamasi","Muhit nazorati"],dash_ey:"Masofaviy boshqaruv",dash_t:"Istalgan joyda, istalgan vaqtda\nnazorat qiling va boshqaring",df1_n:"Real vaqtda monitoring",df1_d:"EC, pH, quyosh radiatsiyasi va namlik sensori ma'lumotlarini smartfon va kompyuterda real vaqtda kuzating.",df2_n:"Kompyuter dasturi integratsiyasi",df2_d:"Maxsus kompyuter dasturi orqali batafsil sozlamalar, ma'lumotlarni qayd qilish va aniq kalibrlashni boshqaring.",df3_n:"Ogohlantirish bildirishnomalari",df3_d:"EC·pH chegaradan oshganda, sug'orish nasosi yoki xom suv nasosi xatosida darhol ogohlantirish.",df4_n:"1 yillik ma'lumotlar saqlash",df4_d:"Har bir ventil bo'yicha kunlik sug'orish soni va o'rtacha EC·pH qiymatlarini avtomatik saqlaydi. 1 yilgacha ma'lumotlarni ko'rish mumkin.",port_ey:"Joriy holatlar",port_t:"Mamlakat fermalarida\nsinovdan o'tgan mahsulotlar",po1_t:"Vasabi gidroponik fermasi",po1_d:"Past haroratga moslashgan vasabi o'simligi uchun Agrow-5000 Master ning 3 ta mustaqil dasturi orqali har bir ildiz zonasi uchun alohida EC boshqaruvi qo'llanildi, ildiz chirishi kamaytirildi va ildiz poyasi rivojlanishi yaxshilandi.",po2_t:"Tsentella (Gotu Kola) gidroponik fermasi",po2_d:"Faol moddalar miqdori ozuqa konsentratsiyasi va vaqtiga juda sezgir bo'lgan o'simlik uchun Agrow-5000 Master orqali har bir o'sish bosqichida alohida dastur qo'llanildi, mahsulot sifati barqarorlashtirildi.",po3_t:"Qulupnay issiqxona fermasi",po3_d:"Narx jihatdan tejamkor bo'lgan, lekin eritma tizimi darajasidagi aniqlikni istagan fermalarga Agrow-2000 Star o'rnatildi. 12 zonali mustaqil EC boshqaruvi va xom suv ta'minoti bilan quvur tuzlanishi muammosi hal qilindi.",po4_t:"Yirik gidroponik majmua",po4_d:"Mamlakat bo'ylab eng ko'p tanlanadigan model. EC·pH kompleks boshqaruvi va quyosh radiatsiyasi integratsiyasi orqali zonalararo o'sish farqi kamaytirildi va mahsulot bir xilligi oshirildi.",po5_t:"Cheorvon — raqobatchi jihozdan keyin Agrow ga qaytish",po5_d:"Agrow jihozidan foydalangan ferma raqobatchi jihozga o'tgan, ammo Cheorvonning og'ir iqlim sharoitida EC ko'rsatkichlari beqaror bo'lib, ekinlarga zarar yetkazgan. Natijada, vaqt o'tsa ham aniq ko'rsatkich va chidamlilikni saqlovchi Agrow ga qaytildi.",po6_t:"Pyongchang baland tog'li issiqxona — A⁺-green",po6_d:"Keskin harorat farqi bo'lgan baland tog'li sharoitda A⁺-green orqali muhit nazorati va ozuqa ta'minoti bitta tizimda birlashtirildi. Tashqi ob-havo stantsiyasi bilan integratsiya orqali yon derazalar va soyabon pardalar avtomatik boshqariladi.",num_ey:"Eksport va texnik sertifikatlar",num_t:"Dunyo tan olgan\nAgrow texnologiyasi",num_l:["Eksport mamlakatlari soni","Eritma ta'minot tizimi yetkazib berilgan mamlakatlar","Yillik tadqiqot-ishlanma tajribasi","Tashkil etilgan yil"],pat1_n:"A-Drop tugma patenti",pat1_no:"Patent arizasi №10-2014-0116185",pat2_n:"Uzluksiz aralash yordamchi ozuqa ta'minot usuli",pat2_no:"Foydali model ro'yxati №0006471",supp_ey:"Texnik xizmat va qo'llab-quvvatlash",supp_t:"Sotib olgandan keyin ham\nsizni ishonchli qo'llab-quvvatlaymiz",s1_n:"Masofaviy diagnostika",s1_d:"Kompyuterga masofadan ulanish orqali dastur xatolarini darhol aniqlab, tashrifsiz tezda hal qilamiz.",s2_n:"O'z ehtiyot qismlari ta'minoti",s2_d:"Barcha sarflanadigan va almashtiriladigan qismlar o'z omborimizda saqlanadi. Tez yetkazib berish orqali ferma zararini minimallashtirish.",s3_n:"Tashrif qabul qilish",s3_d:"Avval bog'laning, biz muammoni aniqlab tashrif jadvalini belgilaymiz. Tashrif vaqti: ish kunlari 09:00–18:00.",s4_n:"Elektron pochta orqali murojaat",s4_d:"Mahsulot modeli va muammoni hpagrow@hanmail.net manziliga yuboring, biz to'g'ridan-to'g'ri bog'lanamiz.",supp_hours_t:"Tashrif qabul qilish vaqti",supp_wd:"Ish kunlari",supp_sat:"Shanba",supp_sun:"Yakshanba va bayramlar",supp_closed:"Yopiq",con_ey:"Aloqa",con_t:"Mahsulot so'rovi / Narx so'rash",con_addr_l:"Manzil",con_addr:"274 Umugae-ro, Hojeo-myeon, Wonju-si, Gangwon-do, Koreya Respublikasi (26349)",con_tel_l:"Telefon",con_tel:"033-747-5114",con_fax:"FAKS: 033-746-1909",con_email_l:"Elektron pochta",con_as_l:"Texnik xizmat tashrifi",con_as:"Ish kunlari 09:00–18:00",con_as2:"Shanba, yakshanba va bayramlarda yopiq",f_name:"Ism",f_tel:"Telefon",f_prod:"Qiziqtirgan mahsulot",f_msg:"Xabar matni",f_name_ph:"Ism Familiya",f_tel_ph:"+998-XX-XXX-XXXX",f_prod_ph:"Mahsulotni tanlang",f_msg_ph:"Aniqroq taklif uchun o'rnatish muhiti, ekin turi va kerakli funksiyalarni yozing.",f_submit:"So'rov yuborish →",foot_desc:"Sug'orish, tuproq eritmasi va ozuqa ta'minot tizimlari yetakchisi\n274 Umugae-ro, Hojeo-myeon, Wonju-si, Gangwon-do (26349)\nTEL: 033-747-5114 · hpagrow@hanmail.net",foot_prod:"Mahsulotlar",foot_co:"Kompaniya",foot_links:["Kompaniya haqida","Tarix","Texnik xizmat","Mahsulot so'rovi"],bdg_new:"Yangi mahsulot",bdg_top:"Eng yuqori tex.",bdg_no1:"Sotuvda №1",bdg_2024:"2024 yangi",cat_n:"Ozuqa ta'minot moslamasi",cat_i:"Sug'orish ta'minot moslamasi",cat_e:"Kompleks muhit nazorati",cat_s:"Raqamli sensor",num_l0:"Eksport mamlakatlari soni",num_l1:"Yetkazib berilgan mamlakatlar",num_l2:"Yillik tadqiqot tajribasi",num_l3:"Tashkil etilgan",pd_perfect:"PID ozuqa boshqaruv tizimi to'liq mahsuloti. Aralashtirish idishisiz to'g'ridan-to'g'ri ta'minot usuli. 10.2\" sensorli ekran + kompyuter + mobil masofaviy boshqaruv.",pd_7000p:"Kompyuter+smartfon integratsiyasi, 5 mustaqil dastur, 10 kanalli masofaviy boshqaruv. Kompleks proporsional boshqaruvni qo'llab-quvvatlaydi.",pd_7000:"20 yillik eksport tajribasi. 5 mustaqil dastur. 6 turdagi ozuqa (A~F) kompleks proporsional boshqaruvi.",pd_6000p:"Fermerlar tanlovida №1. Kompyuter+smartfon integratsiyasi. 10.2\" sensorli ekran. Aralash ekinlar uchun ustuvor mahsulot.",pd_6000:"2022 yilda sotuvda №2. 4 mustaqil dastur. EC·pH aniq boshqaruvi. 16 zonali sug'orish ventili.",pd_5000m:"3 mustaqil ozuqa boshqaruvi. 7\" sensorli LCD ekran. EC·pH guruh boshqaruvi 2 ta konfiguratsiya.",pd_5000mg:"3 ozuqa boshqaruv dasturi. Kumulyativ quyosh radiatsiyasi boshqaruvi mumkin. 12 zonali sug'orishni qo'llab-quvvatlaydi.",pd_2000a:"To'g'ridan-to'g'ri ta'minot usuli (Direct-Injection). 12 zonali mustaqil EC boshqaruvi. 7\" sensorli ekran.",pd_2000b:"Aralash ta'minot usuli (Continuous Mixing). Sug'orishdan oldin va keyin xom suv ta'minoti funksiyasi mavjud.",pd_aplus:"Mobil+kompyuter integratsiyasi. Issiqxona kompleks muhit nazorati. Ozuqa ta'minot moslamasi bilan integratsiya. Ob-havo stansiyasi bilan ulanish.",pd_sens:"EC·harorat·namlikni bir vaqtda o'lchash. O'rtacha namlik qiymati asosida sug'orish signali. 3 sensor o'rtacha boshqaruvi."},
+ru:{name:"Русский",perf_ey:"Сертифицированные показатели",perf_t:"Национальный институт сельскохозяйственных наук Кореи<br>Результаты стандартных испытаний",perf_sub:"Точность управления питательным раствором Agrow, подтверждённая стандартными испытаниями в государственном сертифицированном учреждении.",perf_ec15:"При значении EC 1.5",perf_ec25:"При значении EC 2.5",perf_range:"Диапазон измеренной погрешности",perf_org:"Испытательное учреждение",perf_orgname:"Национальный институт сельскохозяйственных наук Кореи",perf_orgdesc:"Государственное сертифицированное стандартное испытание",perf_note:"※ Приведённые показатели основаны на результатах стандартных испытаний Национального института сельскохозяйственных наук и могут немного отличаться в зависимости от реальных условий эксплуатации.",unit_year:"+ лет",unit_country:" стран",flag:"🇷🇺",nav:["О компании","История","Продукты","Удалённое управление","Реализованные проекты","Контакты"],cta:"Запрос продукта",kicker:"Первый корейский бренд, экспортирующий в 10+ стран",h1_1:"Лидер точного",h1_2:"питания",h1_3:"растений",hero_desc:"Более 30 лет исследований и разработок\nспособствуют росту продуктивности и доходов\nтепличных и умных фермерских хозяйств.",btn1:"Смотреть продукцию",btn2:"Связаться с нами",stat1_l:"Лет опыта НИОКР",stat2_l:"Стран экспорта",stat3_l:"Стран поставки",about_t:"Создаём новые стандарты\nв сельскохозяйственных технологиях",about_p1:"Hankaram Agricultural Development — ведущий корейский производитель систем подачи питательного раствора Agrow, ирригационных контроллеров и интегрированных систем управления климатом A⁺-Green.",about_p2:"Благодаря более чем 30-летним непрерывным исследованиям мы экспортируем премиальную серию Agrow в 17 стран, поставляя только продукцию, проверенную в полевых условиях.",pt1_n:"Проверенные технологии",pt1_d:"Зарегистрированы патенты и полезные модели. На рынок выходит только продукция, прошедшая полевые испытания.",pt2_n:"Глобальный экспортный потенциал",pt2_d:"Первый корейский бренд, экспортирующий в 10 стран. Системы подачи раствора поставлены в 17 стран мира.",pt3_n:"Профессиональное сервисное обслуживание",pt3_d:"Выезд специалиста после связи с нами. Будни 09:00–18:00.",about_vis:"📷 Фото компании / продукции",hist_ey:"История",hist_t:"Более 30 лет\nистории Hankaram",h92_t:"Основание Hankaram Agricultural Development",h92_d:"Основана в Вонджу, провинция Канвондо, как специализированное предприятие по производству сельхозтехники. Первый шаг бренда Agrow.",h00_t:"Начат полноценный экспорт систем подачи раствора",h00_d:"Первый корейский производитель, начавший экспорт систем подачи питательного раствора на зарубежные рынки. Серия Agrow вышла на мировой уровень.",h14_t:"Подана заявка на патент кнопки A-Drop",h14_d:"Подана заявка на патент инновационной кнопки A-Drop (№10-2014-0116185). Обеспечена технологическая независимость.",h16_t:"Серия Agrow-6000 — продажи №1",h16_d:"Заняла первое место по продажам два года подряд, в 2016 и 2017 годах. Закрепилась как приоритетный бренд среди фермеров.",h22_t:"Выпущен новый продукт Agrow-Perfect",h22_d:"Выпущена готовая система PID-управления питательным раствором. Прямая подача без смесительного бака — инновация в отрасли.",h24_t:"В 2024 году одновременно выпущены 3 новых продукта",h24_d:"Одновременно выпущены Agrow-5000 Master, 5000 Magic и 2000 Star A/B. Достигнут экспорт в 10 стран мира.",tech1_n:"Соответствие стандартам KS",tech1_d:"Собственная разработка и производство на основе корейских промышленных стандартов (KS). Строгий контроль качества обеспечивает надёжность в полевых условиях.",tech2_n:"Связь по протоколу RS-485 / Modbus",tech2_d:"Поддержка стандартного протокола RS-485 Modbus RTU. Идеальная интеграция с системами управления климатом и внешними системами.",tech3_n:"Точная калибровка EC/pH",tech3_d:"Автоматическая коррекция показаний датчиков EC 1/2 и pH 1/2. Минимизация погрешности для оптимальной концентрации раствора.",prod_ey:"Продукты",prod_t:"Полная линейка продукции",tabs:["Все","Системы подачи раствора","Системы орошения","Управление климатом"],dash_ey:"Удалённое управление",dash_t:"Контроль и управление\nв любое время и в любом месте",df1_n:"Мониторинг в реальном времени",df1_d:"Отслеживайте данные EC, pH, солнечной радиации и влажности в реальном времени через смартфон и ПК.",df2_n:"Интеграция с ПК-программой",df2_d:"Специальное ПО для детальных настроек, ведения журнала данных и точного управления калибровкой.",df3_n:"Уведомления о неисправностях",df3_d:"Мгновенные оповещения при превышении порогов EC·pH, неисправности насоса полива или насоса исходной воды.",df4_n:"Хранение данных за 1 год",df4_d:"Ежедневное автосохранение количества поливов и среднего EC·pH по каждому клапану. Доступен просмотр данных за период до 1 года.",port_ey:"Реализованные проекты",port_t:"Продукция, проверенная\nна фермах по всей стране",po1_t:"Гидропонная ферма васаби",po1_d:"Для чувствительного к низким температурам васаби применены 3 независимые программы Agrow-5000 Master с раздельным управлением EC по зонам корневой системы — снижено загнивание корней и улучшено развитие корневища.",po2_t:"Гидропонная ферма центеллы азиатской",po2_d:"Для культуры с высокой чувствительностью содержания активных веществ к концентрации и времени подачи раствора применены отдельные программы Agrow-5000 Master для каждой стадии роста — стабилизировано качество продукции.",po3_t:"Тепличное хозяйство клубники",po3_d:"Для хозяйств, желающих получить точность уровня систем подачи раствора при разумных затратах, установлен Agrow-2000 Star. Независимое управление EC по 12 зонам и подача чистой воды решили проблему засоления труб.",po4_t:"Крупный гидропонный комплекс",po4_d:"Самая выбираемая модель по стране. Комплексное управление EC·pH в сочетании с учётом солнечной радиации снизило разброс роста между зонами и повысило однородность продукции.",po5_t:"Чхорвон — возврат к Agrow после конкурентного оборудования",po5_d:"Хозяйство, использовавшее Agrow, перешло на оборудование конкурента, но в суровых климатических условиях Чхорвона показатели EC стали нестабильными, что нанесло ущерб урожаю. В итоге хозяйство вернулось к Agrow, сохраняющему точность и надёжность годами.",po6_t:"Высокогорная теплица Пхёнчхан — A⁺-green",po6_d:"В условиях резких перепадов температуры на высокогорье A⁺-green объединил управление климатом и подачу раствора в единую систему. Интеграция с внешней метеостанцией обеспечивает автоматическое управление боковыми форточками и шторами затенения.",num_ey:"Экспорт и технические сертификаты",num_t:"Технологии Agrow,\nпризнанные во всём мире",num_l:["Стран экспорта","Стран поставки систем подачи раствора","Лет опыта НИОКР","Год основания"],pat1_n:"Патент на кнопку A-Drop",pat1_no:"Заявка на патент №10-2014-0116185",pat2_n:"Способ непрерывной подачи вспомогательного питательного раствора",pat2_no:"Регистрация полезной модели №0006471",supp_ey:"Сервисное обслуживание и поддержка",supp_t:"Мы надёжно поддерживаем вас\nи после покупки",s1_n:"Удалённая диагностика",s1_d:"Удалённый доступ к ПК позволяет мгновенно диагностировать и устранять программные ошибки без выезда специалиста.",s2_n:"Собственные поставки запчастей",s2_d:"Все расходные материалы и запасные части хранятся на собственном складе. Быстрая поставка минимизирует потери хозяйства.",s3_n:"Выездное обслуживание",s3_d:"Сначала свяжитесь с нами — мы уточним проблему и согласуем время визита. Часы выезда: будни 09:00–18:00.",s4_n:"Обращение по электронной почте",s4_d:"Отправьте модель продукта и описание проблемы на hpagrow@hanmail.net — мы свяжемся с вами напрямую.",supp_hours_t:"Время выездного обслуживания",supp_wd:"Будни",supp_sat:"Суббота",supp_sun:"Воскресенье и праздники",supp_closed:"Выходной",con_ey:"Контакты",con_t:"Запрос продукта / Коммерческое предложение",con_addr_l:"Адрес",con_addr:"274 Умугэ-ро, Хочжо-мён, г. Вонджу, провинция Канвондо, Республика Корея (26349)",con_tel_l:"Телефон",con_tel:"033-747-5114",con_fax:"Факс: 033-746-1909",con_email_l:"Эл. почта",con_as_l:"Выезд для сервисного обслуживания",con_as:"Будни 09:00–18:00",con_as2:"Суббота, воскресенье и праздники — выходной",f_name:"Имя",f_tel:"Телефон",f_prod:"Интересующий продукт",f_msg:"Текст сообщения",f_name_ph:"Иван Иванов",f_tel_ph:"+7-XXX-XXX-XXXX",f_prod_ph:"Выберите продукт",f_msg_ph:"Опишите условия установки, вид культуры и необходимые функции — это поможет дать более точное предложение.",f_submit:"Отправить запрос →",foot_desc:"Лидер в системах орошения, почвенного питания и подачи растворов\n274 Умугэ-ро, Хочжо-мён, г. Вонджу, Канвондо (26349)\nTEL: 033-747-5114 · hpagrow@hanmail.net",foot_prod:"Продукты",foot_co:"Компания",foot_links:["О компании","История","Сервис","Запрос продукта"],bdg_new:"Новинка",bdg_top:"Топ-модель",bdg_no1:"Продажи №1",bdg_2024:"Новинка 2024",cat_n:"Система подачи раствора",cat_i:"Система орошения",cat_e:"Комплексное управление климатом",cat_s:"Цифровой датчик",num_l0:"Стран экспорта",num_l1:"Стран поставки",num_l2:"Лет опыта НИОКР",num_l3:"Год основания",pd_perfect:"Готовая система PID-управления питательным раствором. Прямая подача без смесительного бака. Сенсорный экран 10,2\" + ПК + мобильное удалённое управление.",pd_7000p:"Интеграция с ПК и смартфоном, 5 независимых программ, 10-канальное дистанционное управление. Поддержка комплексного пропорционального управления.",pd_7000:"20-летний опыт экспорта. 5 независимых программ. Комплексное пропорциональное управление 6 видами раствора (A–F).",pd_6000p:"Выбор №1 среди фермеров. Интеграция с ПК и смартфоном. Сенсорный экран 10,2\". Оптимизировано для смешанных культур.",pd_6000:"Продажи №2 в 2022 году. 4 независимые программы. Точное управление EC·pH. Клапаны полива на 16 зон.",pd_5000m:"3 независимых контроллера раствора. ЖК-экран 7\" с сенсорным управлением. 2 группы управления EC·pH.",pd_5000mg:"3 программы управления раствором. Возможно управление по накопленной солнечной радиации. Поддержка полива на 12 зон.",pd_2000a:"Метод прямой подачи (Direct-Injection). Независимое управление EC по 12 зонам. Сенсорный экран 7\".",pd_2000b:"Метод непрерывного смешивания (Continuous Mixing). Встроена функция подачи чистой воды до и после полива.",pd_aplus:"Интеграция с мобильным устройством и ПК. Комплексное управление климатом теплицы. Интеграция с системой подачи раствора. Подключение метеостанции.",pd_sens:"Одновременное измерение EC, температуры и влажности. Сигнал полива формируется по среднему значению влажности. Управление по среднему значению 3 датчиков."},
+zh:{name:"中文",perf_ey:"权威认证性能",perf_t:"韩国农业技术振兴院<br>性能标准试验结果",perf_sub:"经国家认证检测机构性能标准试验验证的Agrow精密营养液控制能力。",perf_ec15:"EC设定值1.5基准",perf_ec25:"EC设定值2.5基准",perf_range:"实测误差范围",perf_org:"检测机构",perf_orgname:"韩国农业技术振兴院",perf_orgdesc:"国家认证性能标准试验",perf_note:"※ 以上数值为韩国农业技术振兴院性能标准试验结果，实际现场环境可能略有差异。",unit_year:"年+",unit_country:"个国家",flag:"🇨🇳",nav:["公司介绍","发展历程","产品","远程控制","实际案例","咨询"],cta:"产品咨询",kicker:"韩国首家出口至10个以上国家的品牌",h1_1:"精准营养液",h1_2:"供应",h1_3:"领导者",hero_desc:"凭借30余年的研发热情，\n致力于提升温室及智能农场\n农户的生产力与收入。",btn1:"查看产品系列",btn2:"联系我们",stat1_l:"年研发经验",stat2_l:"出口国家数",stat3_l:"供货国家数",about_t:"开创农业技术的\n新标准",about_p1:"韩可岚农业开发是韩国领先的农业设备专业制造商，产品涵盖Agrow营养液供应系统、灌溉控制设备以及A⁺-Green综合环境控制系统等多种农业装备。",about_p2:"凭借30余年持续不断的研发投入，我们将Agrow系列精品出口至17个国家，并坚持只供应经过农业现场实证试验验证的产品。",pt1_n:"经过验证的技术实力",pt1_d:"已注册专利及实用新型。只有通过现场实证试验验证的产品才会正式上市。",pt2_n:"全球出口能力",pt2_d:"韩国首家出口至10个国家的品牌，拥有向17个国家供应营养液供应系统的业绩。",pt3_n:"专业售后支持",pt3_d:"联系后安排上门服务。工作日09:00–18:00。",about_vis:"📷 公司／产品图片",hist_ey:"发展历程",hist_t:"韩可岚\n30余年的历史",h92_t:"韩可岚农业开发成立",h92_d:"在江原道原州市成立，专注于农业机械研发的专业企业，是Agrow品牌的第一步。",h00_t:"营养液供应系统正式开始出口",h00_d:"韩国首家将营养液供应系统出口至海外市场的企业，Agrow系列正式迈向全球市场。",h14_t:"A-Drop按钮专利申请",h14_d:"创新的A-Drop按钮专利申请（第10-2014-0116185号），确保了技术的独创性。",h16_t:"Agrow-6000系列销量第一",h16_d:"2016年、2017年连续两年销量第一，成为农户首选品牌。",h22_t:"Agrow-Perfect新品上市",h22_d:"推出PID营养液控制方式完成品，采用无混合桶直接供应方式，实现行业创新。",h24_t:"2024年同时推出多款新品",h24_d:"同时推出Agrow-5000 Master、5000 Magic、2000 Star A/B型，实现向全球10个国家出口的成就。",tech1_n:"遵循KS标准",tech1_d:"基于韩国产业标准（KS）自主设计与制造，严格的品质管控确保现场使用的可靠性。",tech2_n:"RS-485／Modbus通信",tech2_d:"支持标准RS-485 Modbus RTU协议，与复合环境控制器及外部系统完美联动。",tech3_n:"EC/pH精密校正功能",tech3_d:"EC 1/2及pH 1/2传感器数值自动校正，最大限度减少误差，维持最佳营养液浓度。",prod_ey:"产品",prod_t:"完整产品系列",tabs:["全部","营养液供应机","灌溉供应机","环境控制"],dash_ey:"远程控制",dash_t:"随时随地\n用手机查看与控制",df1_n:"实时监控",df1_d:"通过智能手机和电脑实时查看EC、pH、日照量、土壤水分传感器等所有数据。",df2_n:"电脑程序联动",df2_d:"通过专用电脑软件进行详细设置、数据记录及校正值的精密管理。",df3_n:"异常警报功能",df3_d:"EC·pH超出上下限、灌溉泵异常、原水泵异常时即时发出警报通知。",df4_n:"保存一年数据",df4_d:"每日自动保存16个阀门的灌溉次数及平均EC·pH值，最长可查询一年内的历史数据。",port_ey:"实际案例",port_t:"全国农户验证的\n可靠产品",po1_t:"山葵水耕栽培农场",po1_d:"针对对低温环境极为敏感的山葵作物，采用Agrow-5000 Master的3个独立营养液程序，对各根系区域分别进行精密EC管理，有效防止根部腐烂并促进根茎肥大。",po2_t:"积雪草水耕栽培农场",po2_d:"针对有效成分含量对营养液浓度及供给时机极为敏感的作物，利用Agrow-5000 Master为各生长阶段设置独立程序，稳定提升了产品品质均一性。",po3_t:"草莓设施大棚农场",po3_d:"为希望以合理成本获得营养液机级精密度的农户安装了Agrow-2000 Star，通过12区独立EC控制及原水供应功能，解决了管道盐分积聚问题。",po4_t:"大规模水耕栽培园区",po4_d:"全国设施园艺主产地最常选用的机型，通过EC·pH复合控制及日照量联动，减少了各区域间的生育差异，提升了产品的整体均一度。",po5_t:"铁原 —— 更换他厂设备后重新选用Agrow",po5_d:"一家曾使用Agrow设备的农户更换为其他品牌设备，但在铁原严酷的气候环境下，EC数值出现不稳定，导致作物受损。最终该农户重新选择了多年来始终保持精准与耐久性的Agrow设备。",po6_t:"平昌高冷地温室 —— A⁺-green",po6_d:"在昼夜温差极大的高冷地环境中，A⁺-green将环境控制与营养液供应整合为一体化系统，并与外部气象站联动，实现侧窗及遮光帘的自动比例控制。",num_ey:"出口及技术认证",num_t:"获得全球认可的\nAgrow技术",num_l:["出口国家数","营养液供应系统供货国家数","年研发经验","创立年份"],pat1_n:"A-Drop按钮专利",pat1_no:"专利申请号第10-2014-0116185号",pat2_n:"连续混合辅助营养液供应方式",pat2_no:"实用新型注册申请号第0006471号",supp_ey:"售后及维护服务",supp_t:"购买之后，\n我们仍将全力提供保障",s1_n:"远程诊断",s1_d:"通过远程接入电脑，可即时诊断并解决程序错误，无需上门也能快速处理。",s2_n:"自有零部件直接供应",s2_d:"所有耗材及更换零件均由公司自行库存管理，快速供货以最大限度减少农户损失。",s3_n:"上门接待服务",s3_d:"请先与我们联系，确认问题后我们将为您安排上门时间。上门服务时间为工作日09:00–18:00。",s4_n:"邮件咨询受理",s4_d:"请将产品型号及故障情况发送至hpagrow@hanmail.net，我们将直接与您联系处理。",supp_hours_t:"可上门接待时间",supp_wd:"工作日",supp_sat:"周六",supp_sun:"周日及法定节假日",supp_closed:"休息",con_ey:"咨询",con_t:"产品咨询／报价申请",con_addr_l:"地址",con_addr:"大韩民国江原特别自治道原州市好底面牛无介路274（邮编26349）",con_tel_l:"电话",con_tel:"033-747-5114",con_fax:"传真：033-746-1909",con_email_l:"电子邮箱",con_as_l:"售后上门服务",con_as:"工作日09:00–18:00",con_as2:"周六、周日及法定节假日休息",f_name:"姓名",f_tel:"联系电话",f_prod:"感兴趣的产品",f_msg:"咨询内容",f_name_ph:"张三",f_tel_ph:"+86-XXX-XXXX-XXXX",f_prod_ph:"请选择产品",f_msg_ph:"请告知安装环境、栽培作物及所需功能，以便我们提供更精准的咨询服务。",f_submit:"发送咨询 →",foot_desc:"灌溉·土耕营养液·营养液供应系统的领导者\n大韩民国江原特别自治道原州市好底面牛无介路274（邮编26349）\nTEL: 033-747-5114 · hpagrow@hanmail.net",foot_prod:"产品",foot_co:"公司",foot_links:["公司介绍","发展历程","售后服务","产品咨询"],bdg_new:"新品",bdg_top:"最高配置",bdg_no1:"销量第一",bdg_2024:"2024新品",cat_n:"营养液供应机",cat_i:"灌溉供应机",cat_e:"复合环境控制",cat_s:"数字传感器",num_l0:"出口国家数",num_l1:"营养液供应系统供货国家数",num_l2:"年研发经验",num_l3:"创立年份",pd_perfect:"PID营养液控制方式完成品。无混合桶直接供应方式。10.2\"触摸屏+电脑+移动端远程控制。",pd_7000p:"电脑+智能手机联动，5个独立程序，10通道远程控制，支持复合比例控制。",pd_7000:"20年出口经验积淀。5个独立程序。6种营养液（A~F）复合比例控制。",pd_6000p:"农户首选销量第一。电脑+智能手机联动。10.2\"触摸屏。复合作物优先产品。",pd_6000:"2022年销量第二。4个独立程序。EC·pH精密控制。16区灌溉阀门。",pd_5000m:"3个独立营养液控制。7\"触摸屏LCD。EC·pH分组控制2组配置。",pd_5000mg:"3个营养液控制程序。可进行累积日照量控制。支持12区灌溉。",pd_2000a:"直接供应方式（Direct-Injection）。12区独立EC控制。7\"触摸屏。",pd_2000b:"混合供应方式（Continuous Mixing）。内置灌溉前后原水供应功能。",pd_aplus:"移动端+电脑联动。温室复合环境控制。与营养液供应系统集成联动。可连接气象站。",pd_sens:"EC·温度·水分同时测量。根据平均水分值发出灌溉信号。3传感器平均值控制。"},
+ja:{name:"日本語",perf_ey:"公認性能",perf_t:"韓国農業技術振興院<br>性能標準試験結果",perf_sub:"国家公認試験機関の性能標準試験で検証されたAgrowの精密養液制御能力です。",perf_ec15:"EC設定値1.5基準",perf_ec25:"EC設定値2.5基準",perf_range:"実測誤差範囲",perf_org:"試験機関",perf_orgname:"韓国農業技術振興院",perf_orgdesc:"国家公認性能標準試験",perf_note:"※ 上記数値は韓国農業技術振興院の性能標準試験結果であり、実際の現場環境により多少の差異が生じる場合があります。",unit_year:"年+",unit_country:"カ国",flag:"🇯🇵",nav:["会社情報","沿革","製品","遠隔制御","導入事例","お問い合わせ"],cta:"製品お問い合わせ",kicker:"韓国初・10カ国以上へ輸出するブランド",h1_1:"精密養液供給の",h1_2:"",h1_3:"最強者",hero_desc:"30年以上の研究開発と情熱で\n施設園芸・スマートファーム農家の\n生産性と収益向上に貢献します。",btn1:"製品ラインナップを見る",btn2:"お問い合わせ",stat1_l:"研究開発年数",stat2_l:"輸出国数",stat3_l:"納品国数",about_t:"農業技術の新たな基準を\n創造してきました",about_p1:"韓可嵐（ハンガラム）農業開発は、Agrow養液供給システム、灌水コントローラー、A⁺-Green複合環境制御システムなど、多様な農業資材を手掛ける韓国を代表する専門メーカーです。",about_p2:"30年以上にわたる絶え間ない研究開発により、Agrowシリーズの逸品を17カ国へ輸出しており、農業現場での実証試験を経て検証された製品のみを提供しています。",pt1_n:"実証済みの技術力",pt1_d:"特許・実用新案を登録済み。現場実証試験で検証された製品のみを市場に投入しています。",pt2_n:"グローバルな輸出力",pt2_d:"韓国初・10カ国へ輸出するブランドであり、17カ国への養液供給システム納品実績を保有しています。",pt3_n:"専門的なアフターサービス",pt3_d:"ご連絡後に訪問対応いたします。平日09:00–18:00。",about_vis:"📷 会社／製品画像",hist_ey:"沿革",hist_t:"30年を超える\n韓可嵐の歴史",h92_t:"韓可嵐農業開発 設立",h92_d:"江原道原州市にて農業用機械の専門企業として設立。Agrowブランドの第一歩を踏み出しました。",h00_t:"養液供給システムの本格輸出開始",h00_d:"韓国で初めて養液供給システムを海外市場へ輸出開始。Agrowシリーズがグローバル市場へ進出しました。",h14_t:"A-Dropボタン特許出願",h14_d:"革新的なA-Dropボタンの特許を出願（第10-2014-0116185号）。技術の独自性を確保しました。",h16_t:"Agrow-6000シリーズ 販売台数No.1",h16_d:"2016年・2017年に2年連続で販売台数No.1を達成。農家から最も選ばれるブランドとして定着しました。",h22_t:"Agrow-Perfect 新製品発売",h22_d:"PID養液制御方式の完成品を発売。混合タンク不要の直接供給方式により業界に革新をもたらしました。",h24_t:"2024年 新製品3種を同時発売",h24_d:"Agrow-5000 Master、5000 Magic、2000 Star A/B型を同時発売。世界10カ国への輸出を達成しました。",tech1_n:"KS（韓国産業規格）準拠",tech1_d:"韓国産業規格（KS）に基づき自社で設計・製造。厳格な品質管理により現場での信頼性を高めています。",tech2_n:"RS-485／Modbus通信",tech2_d:"標準のRS-485 Modbus RTUプロトコルに対応。複合環境制御機器や外部システムとも完璧に連携します。",tech3_n:"EC/pH精密補正機能",tech3_d:"EC1/2およびpH1/2センサー値を自動補正。誤差を最小限に抑え、最適な養液濃度を維持します。",prod_ey:"製品",prod_t:"全製品ラインナップ",tabs:["すべて","養液供給機","灌水供給機","環境制御"],dash_ey:"スマートフォン遠隔制御",dash_t:"いつでもどこでも\nスマートフォンで確認・制御",df1_n:"リアルタイムモニタリング",df1_d:"EC、pH、日射量、土壌水分センサーなど全データをスマートフォンとPCでリアルタイムに確認できます。",df2_n:"PCプログラム連動",df2_d:"専用PCソフトウェアにより詳細設定、データ記録、補正値管理を精密に行うことができます。",df3_n:"異常通知機能",df3_d:"EC・pHの上下限超過、灌水ポンプ異常、原水ポンプ異常発生時に即座に通知します。",df4_n:"1年分のデータ保存",df4_d:"毎日16個のバルブ別灌水回数と平均EC・pH値を自動保存。最大1年分のデータを閲覧可能です。",port_ey:"導入事例",port_t:"全国の農家で\n実証された製品",po1_t:"わさび水耕栽培農家",po1_d:"低温環境に敏感なわさびの特性に合わせ、Agrow-5000 Masterの3つの独立した養液プログラムで根域ごとに精密なEC管理を実施。根腐れを防止し、根茎の肥大を促進しました。",po2_t:"ツボクサ水耕栽培農家",po2_d:"有効成分の含有量が養液濃度と供給タイミングに敏感に反応する作物のため、Agrow-5000 Masterで生育段階ごとに専用プログラムを運用し、品質の均一性を高めました。",po3_t:"いちご施設ハウス農家",po3_d:"コストを抑えつつ養液機並みの精密な灌水を求める農家にAgrow-2000 Starを導入。12区域独立EC制御と原水供給機能により、配管の塩類集積問題を解決しました。",po4_t:"大規模水耕栽培団地",po4_d:"全国の主要施設園芸産地で最も選ばれているモデルです。EC・pH複合制御と日射量連動により、区域間の生育差を抑え、製品の均一度を高めました。",po5_t:"鉄原 —— 他社製品から再びAgrowへ",po5_d:"Agrow製品をご使用いただいていた農家が他社製品に切り替えましたが、鉄原の厳しい気候環境下でEC数値が不安定になり、作物に被害が生じました。最終的に、長年にわたり正確な数値と耐久性を維持するAgrowへ再び切り替えられた事例です。",po6_t:"平昌 高冷地温室 —— A⁺-green",po6_d:"寒暖差の激しい高冷地環境において、A⁺-greenが環境制御と養液供給を一つのシステムに統合。外部気象台と連動し、側窓や遮光カーテンを自動比例制御します。",num_ey:"輸出実績・技術認証",num_t:"世界が認めた\nAgrowの技術力",num_l:["輸出国数","養液供給システム納品国数","研究開発年数","設立年"],pat1_n:"A-Dropボタン特許",pat1_no:"特許出願 第10-2014-0116185号",pat2_n:"連続混合補助液肥供給方式",pat2_no:"実用新案登録出願 第0006471号",supp_ey:"アフターサービス・保守管理",supp_t:"ご購入後も\n責任を持ってサポートいたします",s1_n:"遠隔診断",s1_d:"PCへの遠隔アクセスによりプログラムエラーを即座に診断・解決。訪問せずとも迅速な対応が可能です。",s2_n:"自社による部品供給",s2_d:"消耗品・交換部品はすべて自社在庫として保有。迅速な部品供給により農家様の被害を最小限に抑えます。",s3_n:"訪問受付対応",s3_d:"まずはご連絡ください。症状確認の上、訪問日程を調整いたします。訪問受付時間は平日09:00–18:00です。",s4_n:"メールでのお問い合わせ受付",s4_d:"hpagrow@hanmail.netに製品モデル名と症状をお送りいただければ、こちらから直接ご連絡いたします。",supp_hours_t:"訪問受付可能時間",supp_wd:"平日",supp_sat:"土曜日",supp_sun:"日曜・祝日",supp_closed:"休業",con_ey:"お問い合わせ",con_t:"製品お問い合わせ／お見積もり依頼",con_addr_l:"住所",con_addr:"大韓民国 江原特別自治道 原州市 湖底面 牛舞介路274（郵便番号26349）",con_tel_l:"電話番号",con_tel:"033-747-5114",con_fax:"FAX：033-746-1909",con_email_l:"メールアドレス",con_as_l:"アフターサービス訪問受付",con_as:"平日09:00–18:00",con_as2:"土・日・祝日休業",f_name:"お名前",f_tel:"ご連絡先",f_prod:"ご関心のある製品",f_msg:"お問い合わせ内容",f_name_ph:"山田 太郎",f_tel_ph:"+81-XX-XXXX-XXXX",f_prod_ph:"製品を選択してください",f_msg_ph:"設置環境、栽培作物、必要な機能などをご記入いただくと、より正確なご案内が可能です。",f_submit:"お問い合わせを送信 →",foot_desc:"灌水・土耕養液・養液供給システムの最強者\n大韓民国 江原特別自治道 原州市 湖底面 牛舞介路274（郵便番号26349）\nTEL: 033-747-5114 · hpagrow@hanmail.net",foot_prod:"製品",foot_co:"会社情報",foot_links:["会社情報","沿革","アフターサービス","製品お問い合わせ"],bdg_new:"新製品",bdg_top:"最高仕様",bdg_no1:"販売台数No.1",bdg_2024:"2024年新製品",cat_n:"養液供給機",cat_i:"灌水供給機",cat_e:"複合環境制御",cat_s:"デジタルセンサー",num_l0:"輸出国数",num_l1:"養液供給システム納品国数",num_l2:"研究開発年数",num_l3:"設立年",pd_perfect:"PID養液制御方式の完成品。混合タンク不要の直接供給方式。10.2\"タッチスクリーン＋PC＋モバイル遠隔制御。",pd_7000p:"PC＋スマートフォン連動、独立プログラム5個、遠隔制御10チャンネル。複合比例制御に対応。",pd_7000:"輸出20年のノウハウ。独立プログラム5個。養液6種（A~F）複合比例制御。",pd_6000p:"農家選択率販売台数No.1。PC＋スマートフォン連動。10.2\"タッチスクリーン。複合作物に最適な製品。",pd_6000:"2022年販売台数No.2。独立プログラム4個。EC・pH精密制御。16区域灌水バルブ。",pd_5000m:"独立した養液制御3個。7\"タッチスクリーンLCD。EC・pHグループ制御2構成。",pd_5000mg:"養液制御プログラム3個。累積日射量制御が可能。12区域灌水に対応。",pd_2000a:"直接供給方式（Direct-Injection）。12区域独立EC制御。7\"タッチスクリーン。",pd_2000b:"混合供給方式（Continuous Mixing）。灌水前後の原水供給機能を内蔵。",pd_aplus:"モバイル＋PC連動。温室複合環境制御。養液供給機との統合連動。気象台との接続。",pd_sens:"EC・温度・水分を同時測定。平均水分値により灌水信号を発生。3センサーの平均値で制御。"},
+vi:{name:"Tiếng Việt",perf_ey:"Hiệu suất được chứng nhận",perf_t:"Viện Khoa học Nông nghiệp Quốc gia Hàn Quốc<br>Kết quả thử nghiệm tiêu chuẩn hiệu suất",perf_sub:"Khả năng kiểm soát dinh dưỡng chính xác của Agrow, đã được xác minh qua thử nghiệm tiêu chuẩn hiệu suất tại cơ quan kiểm định được nhà nước công nhận.",perf_ec15:"Theo giá trị cài đặt EC 1.5",perf_ec25:"Theo giá trị cài đặt EC 2.5",perf_range:"Phạm vi sai số đo được",perf_org:"Cơ quan thử nghiệm",perf_orgname:"Viện Khoa học Nông nghiệp Quốc gia Hàn Quốc",perf_orgdesc:"Thử nghiệm tiêu chuẩn hiệu suất được nhà nước công nhận",perf_note:"※ Các số liệu trên dựa trên kết quả thử nghiệm tiêu chuẩn hiệu suất của Viện Khoa học Nông nghiệp Quốc gia Hàn Quốc và có thể thay đổi đôi chút tùy theo điều kiện thực tế tại hiện trường.",unit_year:"+ năm",unit_country:" quốc gia",flag:"🇻🇳",nav:["Về chúng tôi","Lịch sử","Sản phẩm","Điều khiển từ xa","Dự án thực tế","Liên hệ"],cta:"Tư vấn sản phẩm",kicker:"Thương hiệu Hàn Quốc đầu tiên xuất khẩu đến hơn 10 quốc gia",h1_1:"Nhà dẫn đầu",h1_2:"cung cấp dinh dưỡng",h1_3:"chính xác",hero_desc:"Với hơn 30 năm nghiên cứu và phát triển đầy tâm huyết,\nchúng tôi góp phần nâng cao năng suất và thu nhập\ncho các nông hộ nhà kính và nông trại thông minh.",btn1:"Xem danh mục sản phẩm",btn2:"Liên hệ ngay",stat1_l:"Năm kinh nghiệm R&D",stat2_l:"Quốc gia xuất khẩu",stat3_l:"Quốc gia đã cung cấp",about_t:"Kiến tạo tiêu chuẩn mới\ntrong công nghệ nông nghiệp",about_p1:"Hankaram Agricultural Development là nhà sản xuất hàng đầu Hàn Quốc chuyên về hệ thống cung cấp dung dịch dinh dưỡng Agrow, bộ điều khiển tưới tiêu và hệ thống điều khiển môi trường tổng hợp A⁺-Green cùng nhiều thiết bị nông nghiệp đa dạng khác.",about_p2:"Với hơn 30 năm nghiên cứu phát triển không ngừng nghỉ, chúng tôi xuất khẩu dòng sản phẩm cao cấp Agrow đến 17 quốc gia, và chỉ cung cấp những sản phẩm đã được kiểm chứng qua thử nghiệm thực địa nông nghiệp.",pt1_n:"Công nghệ đã được kiểm chứng",pt1_d:"Đã đăng ký bằng sáng chế và giải pháp hữu ích. Chỉ những sản phẩm đã qua thử nghiệm thực địa mới được đưa ra thị trường.",pt2_n:"Năng lực xuất khẩu toàn cầu",pt2_d:"Thương hiệu Hàn Quốc đầu tiên xuất khẩu đến 10 quốc gia, với thành tích cung cấp hệ thống dinh dưỡng đến 17 quốc gia trên thế giới.",pt3_n:"Hỗ trợ hậu mãi chuyên nghiệp",pt3_d:"Liên hệ trước, sau đó sắp xếp thăm khám. Giờ làm việc các ngày trong tuần 09:00–18:00.",about_vis:"📷 Hình ảnh công ty / sản phẩm",hist_ey:"Lịch sử",hist_t:"Hơn 30 năm\nlịch sử Hankaram",h92_t:"Thành lập Hankaram Agricultural Development",h92_d:"Thành lập tại Wonju, tỉnh Gangwon, là doanh nghiệp chuyên về máy móc nông nghiệp. Bước đi đầu tiên của thương hiệu Agrow.",h00_t:"Bắt đầu xuất khẩu chính thức hệ thống cung cấp dinh dưỡng",h00_d:"Doanh nghiệp Hàn Quốc đầu tiên bắt đầu xuất khẩu hệ thống cung cấp dung dịch dinh dưỡng ra thị trường nước ngoài. Dòng sản phẩm Agrow tiến ra toàn cầu.",h14_t:"Nộp đơn xin cấp bằng sáng chế nút bấm A-Drop",h14_d:"Nộp đơn xin cấp bằng sáng chế cho nút bấm A-Drop mang tính đột phá (số 10-2014-0116185). Đảm bảo tính độc lập về công nghệ.",h16_t:"Dòng sản phẩm Agrow-6000 dẫn đầu doanh số",h16_d:"Đạt vị trí số 1 về doanh số hai năm liên tiếp 2016 và 2017. Khẳng định vị thế là thương hiệu được nông dân ưu tiên lựa chọn hàng đầu.",h22_t:"Ra mắt sản phẩm mới Agrow-Perfect",h22_d:"Ra mắt sản phẩm hoàn chỉnh với phương thức điều khiển dinh dưỡng PID. Phương thức cấp trực tiếp không cần bể trộn mang tính đổi mới trong ngành.",h24_t:"Năm 2024 ra mắt đồng thời 3 sản phẩm mới",h24_d:"Ra mắt đồng thời Agrow-5000 Master, 5000 Magic, 2000 Star A/B. Đạt được thành tích xuất khẩu đến 10 quốc gia trên thế giới.",tech1_n:"Tuân thủ tiêu chuẩn KS",tech1_d:"Tự thiết kế và sản xuất dựa trên tiêu chuẩn công nghiệp Hàn Quốc (KS). Kiểm soát chất lượng nghiêm ngặt nâng cao độ tin cậy trong thực tế sử dụng.",tech2_n:"Giao tiếp RS-485 / Modbus",tech2_d:"Hỗ trợ giao thức chuẩn RS-485 Modbus RTU. Tích hợp hoàn hảo với thiết bị điều khiển môi trường tổng hợp và các hệ thống bên ngoài.",tech3_n:"Chức năng hiệu chỉnh chính xác EC/pH",tech3_d:"Tự động hiệu chỉnh giá trị cảm biến EC 1/2 và pH 1/2. Giảm thiểu sai số để duy trì nồng độ dinh dưỡng tối ưu.",prod_ey:"Sản phẩm",prod_t:"Toàn bộ danh mục sản phẩm",tabs:["Tất cả","Máy cung cấp dinh dưỡng","Máy cung cấp tưới tiêu","Điều khiển môi trường"],dash_ey:"Điều khiển từ xa qua điện thoại",dash_t:"Theo dõi và điều khiển\nmọi lúc mọi nơi qua smartphone",df1_n:"Giám sát thời gian thực",df1_d:"Theo dõi mọi dữ liệu như EC, pH, bức xạ mặt trời, cảm biến độ ẩm theo thời gian thực qua smartphone và PC.",df2_n:"Kết nối với phần mềm PC",df2_d:"Sử dụng phần mềm PC chuyên dụng để cài đặt chi tiết, ghi lại dữ liệu và quản lý hiệu chỉnh một cách chính xác.",df3_n:"Chức năng cảnh báo bất thường",df3_d:"Cảnh báo tức thì khi EC·pH vượt ngưỡng trên/dưới, bơm tưới gặp sự cố, hoặc bơm nước nguồn gặp sự cố.",df4_n:"Lưu trữ dữ liệu 1 năm",df4_d:"Tự động lưu số lần tưới và giá trị EC·pH trung bình theo từng van mỗi ngày trong số 16 van. Có thể xem dữ liệu tối đa 1 năm.",port_ey:"Dự án thực tế",port_t:"Sản phẩm đã được kiểm chứng\ntại các nông hộ trên toàn quốc",po1_t:"Trang trại thủy canh cây wasabi",po1_d:"Phù hợp với đặc tính nhạy cảm với nhiệt độ thấp của cây wasabi, áp dụng 3 chương trình dinh dưỡng độc lập của Agrow-5000 Master để quản lý EC chính xác theo từng vùng rễ, giúp giảm thối rễ và thúc đẩy phát triển thân rễ.",po2_t:"Trang trại thủy canh rau má",po2_d:"Đối với loại cây có hàm lượng hoạt chất nhạy cảm với nồng độ và thời điểm cấp dinh dưỡng, vận hành chương trình riêng cho từng giai đoạn sinh trưởng bằng Agrow-5000 Master, giúp ổn định độ đồng đều về chất lượng sản phẩm.",po3_t:"Trang trại nhà kính dâu tây",po3_d:"Lắp đặt Agrow-2000 Star cho các nông hộ mong muốn đạt độ chính xác ngang tầm máy dinh dưỡng với chi phí hợp lý. Kiểm soát EC độc lập theo 12 vùng và chức năng cấp nước nguồn đã giải quyết vấn đề tích tụ muối trong đường ống.",po4_t:"Khu phức hợp thủy canh quy mô lớn",po4_d:"Là mẫu được lựa chọn nhiều nhất tại các vùng trồng trọt thiết bị chính trên toàn quốc. Kiểm soát phức hợp EC·pH kết hợp liên động bức xạ mặt trời giúp giảm chênh lệch sinh trưởng giữa các vùng, nâng cao độ đồng đều sản phẩm.",po5_t:"Cheorwon — Quay lại sử dụng Agrow sau khi dùng thiết bị hãng khác",po5_d:"Một nông hộ từng sử dụng thiết bị Agrow đã chuyển sang thiết bị của hãng khác, nhưng trong điều kiện khí hậu khắc nghiệt tại Cheorwon, chỉ số EC trở nên không ổn định, gây thiệt hại cho cây trồng. Cuối cùng, nông hộ đã quay lại sử dụng Agrow — sản phẩm duy trì độ chính xác và độ bền theo thời gian.",po6_t:"Nhà kính vùng cao Pyeongchang — A⁺-green",po6_d:"Trong môi trường vùng cao có biên độ nhiệt độ lớn, A⁺-green tích hợp điều khiển môi trường và cung cấp dinh dưỡng thành một hệ thống duy nhất. Liên kết với trạm khí tượng bên ngoài để tự động điều khiển tỷ lệ cửa sổ bên hông và rèm che nắng.",num_ey:"Xuất khẩu và chứng nhận kỹ thuật",num_t:"Công nghệ Agrow\nđược thế giới công nhận",num_l:["Số quốc gia xuất khẩu","Số quốc gia cung cấp hệ thống dinh dưỡng","Năm kinh nghiệm R&D","Năm thành lập"],pat1_n:"Bằng sáng chế nút bấm A-Drop",pat1_no:"Đơn xin cấp bằng sáng chế số 10-2014-0116185",pat2_n:"Phương thức cung cấp dinh dưỡng phụ trợ hòa trộn liên tục",pat2_no:"Đăng ký giải pháp hữu ích số 0006471",supp_ey:"Hậu mãi và bảo trì",supp_t:"Chúng tôi đồng hành cùng bạn\ngiá trị tin cậy sau khi mua hàng",s1_n:"Chẩn đoán từ xa",s1_d:"Truy cập từ xa vào PC để chẩn đoán và khắc phục ngay lỗi phần mềm. Xử lý nhanh chóng mà không cần đến tận nơi.",s2_n:"Cung cấp linh kiện tự sản xuất",s2_d:"Tất cả vật tư tiêu hao và linh kiện thay thế đều được lưu kho riêng. Cung cấp nhanh chóng giúp giảm thiểu thiệt hại cho nông hộ.",s3_n:"Tiếp nhận thăm khám tận nơi",s3_d:"Vui lòng liên hệ trước, chúng tôi sẽ xác nhận tình trạng và sắp xếp lịch thăm khám. Giờ thăm khám: các ngày trong tuần 09:00–18:00.",s4_n:"Tiếp nhận yêu cầu qua email",s4_d:"Gửi tên model sản phẩm và tình trạng sự cố đến hpagrow@hanmail.net, chúng tôi sẽ liên hệ trực tiếp với bạn.",supp_hours_t:"Giờ tiếp nhận thăm khám tận nơi",supp_wd:"Các ngày trong tuần",supp_sat:"Thứ Bảy",supp_sun:"Chủ Nhật và ngày lễ",supp_closed:"Nghỉ",con_ey:"Liên hệ",con_t:"Tư vấn sản phẩm / Yêu cầu báo giá",con_addr_l:"Địa chỉ",con_addr:"274 Umugae-ro, Hojeo-myeon, Wonju-si, tỉnh Gangwon, Hàn Quốc (26349)",con_tel_l:"Điện thoại",con_tel:"033-747-5114",con_fax:"Fax: 033-746-1909",con_email_l:"Email",con_as_l:"Thăm khám hậu mãi tận nơi",con_as:"Các ngày trong tuần 09:00–18:00",con_as2:"Nghỉ Thứ Bảy, Chủ Nhật và ngày lễ",f_name:"Họ và tên",f_tel:"Số điện thoại",f_prod:"Sản phẩm quan tâm",f_msg:"Nội dung liên hệ",f_name_ph:"Nguyễn Văn A",f_tel_ph:"+84-XX-XXXX-XXXX",f_prod_ph:"Vui lòng chọn sản phẩm",f_msg_ph:"Vui lòng cho biết môi trường lắp đặt, loại cây trồng và chức năng cần thiết để chúng tôi tư vấn chính xác hơn.",f_submit:"Gửi yêu cầu →",foot_desc:"Nhà dẫn đầu hệ thống tưới tiêu, dinh dưỡng đất và cung cấp dung dịch dinh dưỡng\n274 Umugae-ro, Hojeo-myeon, Wonju-si, tỉnh Gangwon (26349)\nTEL: 033-747-5114 · hpagrow@hanmail.net",foot_prod:"Sản phẩm",foot_co:"Công ty",foot_links:["Về chúng tôi","Lịch sử","Hậu mãi","Tư vấn sản phẩm"],bdg_new:"Sản phẩm mới",bdg_top:"Cấu hình cao nhất",bdg_no1:"Bán chạy số 1",bdg_2024:"Mới 2024",cat_n:"Máy cung cấp dinh dưỡng",cat_i:"Máy cung cấp tưới tiêu",cat_e:"Điều khiển môi trường tổng hợp",cat_s:"Cảm biến kỹ thuật số",num_l0:"Số quốc gia xuất khẩu",num_l1:"Số quốc gia cung cấp hệ thống dinh dưỡng",num_l2:"Năm kinh nghiệm R&D",num_l3:"Năm thành lập",pd_perfect:"Sản phẩm hoàn chỉnh phương thức điều khiển dinh dưỡng PID. Phương thức cấp trực tiếp không cần bể trộn. Màn hình cảm ứng 10.2\" + PC + điều khiển từ xa qua di động.",pd_7000p:"Kết nối PC + smartphone, 5 chương trình độc lập, điều khiển từ xa 10 kênh. Hỗ trợ điều khiển tỷ lệ phức hợp.",pd_7000:"20 năm kinh nghiệm xuất khẩu. 5 chương trình độc lập. Điều khiển tỷ lệ phức hợp 6 loại dinh dưỡng (A~F).",pd_6000p:"Lựa chọn số 1 của nông dân. Kết nối PC + smartphone. Màn hình cảm ứng 10.2\". Sản phẩm ưu tiên cho cây trồng hỗn hợp.",pd_6000:"Bán chạy thứ 2 năm 2022. 4 chương trình độc lập. Kiểm soát chính xác EC·pH. Van tưới 16 vùng.",pd_5000m:"3 bộ điều khiển dinh dưỡng độc lập. Màn hình LCD cảm ứng 7\". Cấu hình điều khiển nhóm EC·pH gồm 2 nhóm.",pd_5000mg:"3 chương trình điều khiển dinh dưỡng. Có thể điều khiển theo bức xạ mặt trời tích lũy. Hỗ trợ tưới 12 vùng.",pd_2000a:"Phương thức cấp trực tiếp (Direct-Injection). Kiểm soát EC độc lập 12 vùng. Màn hình cảm ứng 7\".",pd_2000b:"Phương thức cấp hòa trộn (Continuous Mixing). Tích hợp chức năng cấp nước nguồn trước và sau khi tưới.",pd_aplus:"Kết nối di động + PC. Điều khiển môi trường tổng hợp nhà kính. Liên động tích hợp với máy cung cấp dinh dưỡng. Kết nối trạm khí tượng.",pd_sens:"Đo đồng thời EC, nhiệt độ, độ ẩm. Phát tín hiệu tưới dựa trên giá trị độ ẩm trung bình. Điều khiển theo giá trị trung bình của 3 cảm biến."},
+id:{name:"Indonesia",perf_ey:"Performa Tersertifikasi",perf_t:"Institut Ilmu Pertanian Nasional Korea<br>Hasil Uji Standar Performa",perf_sub:"Kemampuan kontrol nutrisi presisi Agrow, terverifikasi melalui uji standar performa di lembaga pengujian bersertifikat nasional.",perf_ec15:"Berdasarkan Nilai EC 1.5",perf_ec25:"Berdasarkan Nilai EC 2.5",perf_range:"Rentang Kesalahan Terukur",perf_org:"Lembaga Pengujian",perf_orgname:"Institut Ilmu Pertanian Nasional Korea",perf_orgdesc:"Uji Standar Performa Bersertifikat Nasional",perf_note:"※ Angka di atas berdasarkan hasil uji standar performa dari Institut Ilmu Pertanian Nasional Korea dan dapat sedikit bervariasi tergantung kondisi lapangan aktual.",unit_year:"+ thn",unit_country:" negara",flag:"🇮🇩",nav:["Tentang Kami","Sejarah","Produk","Kontrol Jarak Jauh","Studi Kasus","Kontak"],cta:"Tanya Produk",kicker:"Merek Korea pertama yang diekspor ke 10+ negara",h1_1:"Pemimpin Nutrisi",h1_2:"Presisi",h1_3:"Tanaman",hero_desc:"Dengan pengalaman R&D dan dedikasi lebih dari 30 tahun,\nkami berkontribusi meningkatkan produktivitas dan pendapatan\npetani rumah kaca dan smart farm.",btn1:"Lihat Daftar Produk",btn2:"Hubungi Kami",stat1_l:"Tahun Pengalaman R&D",stat2_l:"Negara Ekspor",stat3_l:"Negara yang Dipasok",about_t:"Menciptakan Standar Baru\ndalam Teknologi Pertanian",about_p1:"Hankaram Agricultural Development adalah produsen terkemuka asal Korea yang memproduksi sistem suplai larutan nutrisi Agrow, pengontrol irigasi, serta sistem kontrol lingkungan terintegrasi A⁺-Green dan berbagai peralatan pertanian lainnya.",about_p2:"Dengan lebih dari 30 tahun penelitian dan pengembangan yang berkelanjutan, kami mengekspor seri unggulan Agrow ke 17 negara, dan hanya memasok produk yang telah terverifikasi melalui uji coba lapangan pertanian.",pt1_n:"Teknologi yang Telah Terverifikasi",pt1_d:"Paten dan model utilitas telah terdaftar. Hanya produk yang telah lolos uji coba lapangan yang dipasarkan.",pt2_n:"Kapabilitas Ekspor Global",pt2_d:"Merek Korea pertama yang diekspor ke 10 negara, dengan rekam jejak memasok sistem suplai nutrisi ke 17 negara di dunia.",pt3_n:"Dukungan Purna Jual Profesional",pt3_d:"Kunjungan dilakukan setelah menghubungi kami. Hari kerja 09:00–18:00.",about_vis:"📷 Foto Perusahaan / Produk",hist_ey:"Sejarah",hist_t:"Lebih dari 30 Tahun\nSejarah Hankaram",h92_t:"Pendirian Hankaram Agricultural Development",h92_d:"Didirikan di Wonju, Provinsi Gangwon sebagai perusahaan spesialis mesin pertanian. Langkah pertama merek Agrow.",h00_t:"Mulai Ekspor Penuh Sistem Suplai Nutrisi",h00_d:"Produsen Korea pertama yang mulai mengekspor sistem suplai larutan nutrisi ke pasar luar negeri. Seri Agrow memasuki pasar global.",h14_t:"Pengajuan Paten Tombol A-Drop",h14_d:"Mengajukan paten tombol A-Drop yang inovatif (No. 10-2014-0116185). Mengamankan keunikan teknologi.",h16_t:"Seri Agrow-6000 — Penjualan No.1",h16_d:"Meraih penjualan No.1 dua tahun berturut-turut pada 2016 dan 2017. Menjadi merek pilihan utama bagi petani.",h22_t:"Peluncuran Produk Baru Agrow-Perfect",h22_d:"Meluncurkan produk lengkap dengan sistem kontrol nutrisi PID. Metode suplai langsung tanpa tangki pencampur menjadi inovasi industri.",h24_t:"Peluncuran 3 Produk Baru Sekaligus di 2024",h24_d:"Meluncurkan Agrow-5000 Master, 5000 Magic, dan 2000 Star A/B secara bersamaan. Mencapai ekspor ke 10 negara di dunia.",tech1_n:"Kepatuhan Standar KS",tech1_d:"Dirancang dan diproduksi sendiri berdasarkan Standar Industri Korea (KS). Kontrol kualitas yang ketat meningkatkan keandalan di lapangan.",tech2_n:"Komunikasi RS-485 / Modbus",tech2_d:"Mendukung protokol standar RS-485 Modbus RTU. Integrasi sempurna dengan pengontrol lingkungan kompleks dan sistem eksternal.",tech3_n:"Fungsi Kalibrasi Presisi EC/pH",tech3_d:"Koreksi otomatis nilai sensor EC 1/2 dan pH 1/2. Meminimalkan kesalahan untuk menjaga konsentrasi nutrisi yang optimal.",prod_ey:"Produk",prod_t:"Daftar Lengkap Produk",tabs:["Semua","Mesin Suplai Nutrisi","Mesin Suplai Irigasi","Kontrol Lingkungan"],dash_ey:"Kontrol Jarak Jauh via Smartphone",dash_t:"Pantau dan Kendalikan\nKapan Saja, Di Mana Saja",df1_n:"Pemantauan Real-time",df1_d:"Pantau semua data seperti EC, pH, radiasi matahari, dan sensor kelembapan secara real-time melalui smartphone dan PC.",df2_n:"Integrasi dengan Program PC",df2_d:"Gunakan perangkat lunak PC khusus untuk pengaturan rinci, pencatatan data, dan manajemen kalibrasi secara presisi.",df3_n:"Fitur Notifikasi Anomali",df3_d:"Notifikasi instan saat EC·pH melebihi batas atas/bawah, pompa irigasi bermasalah, atau pompa air baku bermasalah.",df4_n:"Penyimpanan Data 1 Tahun",df4_d:"Menyimpan otomatis jumlah irigasi harian dan nilai rata-rata EC·pH untuk setiap dari 16 katup. Data dapat dilihat hingga 1 tahun ke belakang.",port_ey:"Studi Kasus",port_t:"Produk yang Telah Terbukti\ndi Pertanian Seluruh Negeri",po1_t:"Pertanian Hidroponik Wasabi",po1_d:"Disesuaikan dengan karakteristik wasabi yang sensitif terhadap suhu rendah, 3 program nutrisi independen Agrow-5000 Master diterapkan untuk mengelola EC secara presisi per zona akar, mengurangi pembusukan akar dan mendorong pembesaran rimpang.",po2_t:"Pertanian Hidroponik Pegagan",po2_d:"Untuk tanaman yang kadar zat aktifnya sangat sensitif terhadap konsentrasi dan waktu pemberian nutrisi, Agrow-5000 Master mengoperasikan program terpisah untuk setiap tahap pertumbuhan, menstabilkan keseragaman kualitas produk.",po3_t:"Pertanian Rumah Kaca Stroberi",po3_d:"Agrow-2000 Star dipasang untuk petani yang menginginkan presisi setara mesin nutrisi dengan biaya yang wajar. Kontrol EC independen 12 zona dan fungsi suplai air baku menyelesaikan masalah penumpukan garam pada pipa.",po4_t:"Kompleks Hidroponik Skala Besar",po4_d:"Model yang paling banyak dipilih di sentra hortikultura utama seluruh negeri. Kontrol kompleks EC·pH dipadukan dengan radiasi matahari mengurangi perbedaan pertumbuhan antar zona dan meningkatkan keseragaman produk.",po5_t:"Cheorwon — Kembali ke Agrow Setelah Mencoba Merek Lain",po5_d:"Sebuah pertanian yang pernah menggunakan peralatan Agrow beralih ke merek lain, namun dalam kondisi iklim ekstrem di Cheorwon, nilai EC menjadi tidak stabil dan merusak tanaman. Akhirnya pertanian tersebut kembali memilih Agrow yang tetap presisi dan tahan lama selama bertahun-tahun.",po6_t:"Rumah Kaca Dataran Tinggi Pyeongchang — A⁺-green",po6_d:"Dalam kondisi dataran tinggi dengan fluktuasi suhu ekstrem, A⁺-green mengintegrasikan kontrol lingkungan dan suplai nutrisi dalam satu sistem. Terhubung dengan stasiun cuaca eksternal untuk mengontrol jendela samping dan tirai peneduh secara otomatis dan proporsional.",num_ey:"Ekspor dan Sertifikasi Teknis",num_t:"Teknologi Agrow yang\nDiakui di Seluruh Dunia",num_l:["Jumlah Negara Ekspor","Negara Pemasok Sistem Nutrisi","Tahun Pengalaman R&D","Tahun Didirikan"],pat1_n:"Paten Tombol A-Drop",pat1_no:"No. Permohonan Paten 10-2014-0116185",pat2_n:"Metode Suplai Nutrisi Tambahan Campuran Berkelanjutan",pat2_no:"No. Pendaftaran Model Utilitas 0006471",supp_ey:"Layanan Purna Jual dan Pemeliharaan",supp_t:"Kami Tetap Bertanggung Jawab\nSetelah Anda Membeli",s1_n:"Diagnosis Jarak Jauh",s1_d:"Akses jarak jauh ke PC memungkinkan diagnosis dan penyelesaian instan kesalahan program tanpa perlu kunjungan langsung.",s2_n:"Pasokan Suku Cadang Sendiri",s2_d:"Semua barang habis pakai dan suku cadang pengganti disimpan dalam stok internal kami. Pasokan cepat meminimalkan kerugian petani.",s3_n:"Penerimaan Kunjungan",s3_d:"Silakan hubungi kami terlebih dahulu, kami akan mengonfirmasi gejala dan menjadwalkan kunjungan. Jam kunjungan: hari kerja 09:00–18:00.",s4_n:"Penerimaan Pertanyaan via Email",s4_d:"Kirimkan nama model produk dan gejala kerusakan ke hpagrow@hanmail.net, kami akan menghubungi Anda secara langsung.",supp_hours_t:"Jam Kunjungan yang Tersedia",supp_wd:"Hari Kerja",supp_sat:"Sabtu",supp_sun:"Minggu dan Hari Libur",supp_closed:"Tutup",con_ey:"Kontak",con_t:"Tanya Produk / Permintaan Penawaran Harga",con_addr_l:"Alamat",con_addr:"274 Umugae-ro, Hojeo-myeon, Wonju-si, Provinsi Gangwon, Korea Selatan (26349)",con_tel_l:"Telepon",con_tel:"033-747-5114",con_fax:"Faks: 033-746-1909",con_email_l:"Email",con_as_l:"Kunjungan Layanan Purna Jual",con_as:"Hari kerja 09:00–18:00",con_as2:"Tutup Sabtu, Minggu, dan hari libur",f_name:"Nama",f_tel:"Nomor Telepon",f_prod:"Produk yang Diminati",f_msg:"Isi Pesan",f_name_ph:"Nama Lengkap",f_tel_ph:"+62-XXX-XXXX-XXXX",f_prod_ph:"Silakan pilih produk",f_msg_ph:"Mohon sertakan lingkungan instalasi, jenis tanaman, dan fitur yang dibutuhkan agar kami dapat memberikan panduan yang lebih akurat.",f_submit:"Kirim Pertanyaan →",foot_desc:"Pemimpin sistem irigasi, nutrisi tanah, dan suplai larutan nutrisi\n274 Umugae-ro, Hojeo-myeon, Wonju-si, Provinsi Gangwon (26349)\nTEL: 033-747-5114 · hpagrow@hanmail.net",foot_prod:"Produk",foot_co:"Perusahaan",foot_links:["Tentang Kami","Sejarah","Layanan Purna Jual","Tanya Produk"],bdg_new:"Produk Baru",bdg_top:"Spesifikasi Tertinggi",bdg_no1:"Penjualan No.1",bdg_2024:"Baru 2024",cat_n:"Mesin Suplai Nutrisi",cat_i:"Mesin Suplai Irigasi",cat_e:"Kontrol Lingkungan Kompleks",cat_s:"Sensor Digital",num_l0:"Jumlah Negara Ekspor",num_l1:"Negara Pemasok Sistem Nutrisi",num_l2:"Tahun Pengalaman R&D",num_l3:"Tahun Didirikan",pd_perfect:"Produk lengkap metode kontrol nutrisi PID. Metode suplai langsung tanpa tangki pencampur. Layar sentuh 10.2\" + PC + kontrol jarak jauh via mobile.",pd_7000p:"Integrasi PC + smartphone, 5 program independen, kontrol jarak jauh 10 kanal. Mendukung kontrol proporsional kompleks.",pd_7000:"Pengalaman ekspor 20 tahun. 5 program independen. Kontrol proporsional kompleks 6 jenis nutrisi (A~F).",pd_6000p:"Pilihan petani No.1. Integrasi PC + smartphone. Layar sentuh 10.2\". Produk unggulan untuk tanaman campuran.",pd_6000:"Penjualan No.2 tahun 2022. 4 program independen. Kontrol presisi EC·pH. Katup irigasi 16 zona.",pd_5000m:"3 kontrol nutrisi independen. Layar sentuh LCD 7\". Konfigurasi kontrol grup EC·pH 2 grup.",pd_5000mg:"3 program kontrol nutrisi. Dapat mengontrol berdasarkan akumulasi radiasi matahari. Mendukung irigasi 12 zona.",pd_2000a:"Metode suplai langsung (Direct-Injection). Kontrol EC independen 12 zona. Layar sentuh 7\".",pd_2000b:"Metode suplai campuran (Continuous Mixing). Dilengkapi fungsi suplai air baku sebelum dan sesudah irigasi.",pd_aplus:"Integrasi mobile + PC. Kontrol lingkungan kompleks rumah kaca. Integrasi terpadu dengan mesin suplai nutrisi. Terhubung dengan stasiun cuaca.",pd_sens:"Pengukuran simultan EC, suhu, kelembapan. Sinyal irigasi dihasilkan berdasarkan nilai kelembapan rata-rata. Kontrol berdasarkan rata-rata 3 sensor."}
+};
+Object.assign(T, T2);
+
+let cur='ko';
+
+function apply(lang){
+  cur=lang;
+  localStorage.setItem('ag-lang',lang);
+  const t=T[lang];
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i]').forEach(el=>{
+    const k=el.dataset.i,v=t[k];
+    if(v===undefined)return;
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=v;
+    else if(el.tagName==='OPTION')el.textContent=v;
+    else if(v.includes('<'))el.innerHTML=v;
+    else el.textContent=v;
+  });
+  document.querySelectorAll('[data-ph]').forEach(el=>{el.placeholder=t[el.dataset.ph]||''});
+  ['nav0','nav1','nav2','nav3','nav4','nav5'].forEach((k,i)=>{
+    document.querySelectorAll('[data-i="'+k+'"]').forEach(el=>el.textContent=(t.nav&&t.nav[i])||'');
+  });
+  /* footer links */
+  const fl=document.getElementById('footLinks');
+  if(fl){fl.innerHTML='';const hr=['#about','#history','#support','#contact'];(t.foot_links||[]).forEach((lb,i)=>{fl.innerHTML+='<li><a href="'+hr[i]+'">'+lb+'</a></li>';});}
+  /* tabs */
+  const tr=document.getElementById('tabRow');
+  if(tr){tr.innerHTML='';(t.tabs||[]).forEach((lb,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' on':'');b.textContent=lb;b.onclick=()=>filterProd(b,i-1);tr.appendChild(b);});}
+  document.getElementById('langLabel').textContent=t.name||lang;
+  document.getElementById('langFlag').textContent=t.flag||'🌐';
+  document.querySelectorAll('.unit-year').forEach(el=>el.textContent=t.unit_year||'+yr');
+  document.querySelectorAll('.unit-country').forEach(el=>el.textContent=t.unit_country||' countries');
+  document.querySelectorAll('.lang-opt').forEach(o=>o.classList.toggle('active',o.dataset.lang===lang));
+}
+
+function filterProd(btn,idx){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  document.querySelectorAll('.pc').forEach(c=>{c.style.display=(idx<0||+c.dataset.c===idx)?'':'none';});
+}
+
+/* build lang dropdown */
+const dd=document.getElementById('langDd');
+Object.keys(T).forEach(lang=>{
+  const b=document.createElement('button');b.className='lang-opt';b.dataset.lang=lang;
+  b.innerHTML=T[lang].flag+' '+T[lang].name;
+  b.onclick=()=>{apply(lang);dd.style.display='none';setTimeout(()=>dd.style.display='',200);};
+  dd.appendChild(b);
+});
+
+/* theme */
+const html=document.documentElement,tb=document.getElementById('togBtn');
+html.dataset.theme=localStorage.getItem('ag-theme')||'light';
+tb.addEventListener('click',()=>{const t=html.dataset.theme==='light'?'dark':'light';html.dataset.theme=t;localStorage.setItem('ag-theme',t);});
+
+/* mobile menu */
+const mob=document.getElementById('mobNav');
+document.getElementById('menuBtn').addEventListener('click',()=>mob.classList.toggle('open'));
+function closeMob(){mob.classList.remove('open')}
+
+/* reveal */
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('shown');obs.unobserve(x.target)}}),{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+apply(localStorage.getItem('ag-lang')||'ko');
+</script>
+</body>
+</html>
