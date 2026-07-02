@@ -36,8 +36,8 @@ nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:cente
 /* VIEWER */
 .viewer-wrap{display:flex;flex-direction:column;gap:16px}
 .stage{position:relative;width:100%;background:var(--card);border-radius:12px;border:1px solid var(--bdr);box-shadow:var(--sh);overflow:hidden;transition:background .3s}
-.stage-inner{position:relative;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;background:var(--bg2);overflow:hidden;cursor:grab}.stage-inner.grabbing{cursor:grabbing}
-.stage-inner img{width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .3s;position:absolute;inset:0;transform-origin:center center;user-select:none;-webkit-user-drag:none}
+.stage-inner{position:relative;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;background:var(--bg2)}
+.stage-inner img{width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .3s;position:absolute;inset:0}
 .stage-inner img.show{opacity:1}
 .loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t3)}
 .arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);transition:background .2s,border-color .2s;z-index:5}
@@ -79,15 +79,6 @@ nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:cente
 .mob-thumb:hover{opacity:1}
 @media(max-width:900px){.mob-thumbs{display:flex}}
 
-
-/* ZOOM CONTROLS */
-.zoom-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 0}
-.zoom-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--bdr);background:var(--card);color:var(--t1);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
-.zoom-btn:hover{background:var(--acc);border-color:var(--acc);color:#fff}
-[data-theme="dark"] .zoom-btn:hover{color:#080F1C}
-.zoom-level{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--t2);min-width:44px;text-align:center}
-.zoom-reset{padding:6px 14px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--card);color:var(--t3);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
-.zoom-reset:hover{border-color:var(--acc);color:var(--acc)}
 footer{text-align:center;padding:24px 5%;font-size:11.5px;color:var(--t3);border-top:1px solid var(--bdr);margin-top:40px}
 </style>
 </head>
@@ -120,12 +111,6 @@ footer{text-align:center;padding:24px 5%;font-size:11.5px;color:var(--t3);border
         <img id="pageImg" src="" alt="카탈로그 페이지">
         <button class="arrow arr-r" id="arrR"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
       </div>
-    </div>
-    <div class="zoom-bar">
-      <button class="zoom-btn" id="zoomOut">−</button>
-      <span class="zoom-level" id="zoomLevel">100%</span>
-      <button class="zoom-btn" id="zoomIn">+</button>
-      <button class="zoom-reset" id="zoomReset">초기화</button>
     </div>
     <div class="controls">
       <button class="ctrl-btn" id="firstBtn">처음</button>
@@ -227,93 +212,6 @@ document.getElementById('togBtn').addEventListener('click',()=>{
   const t=html.dataset.theme==='light'?'dark':'light';
   html.dataset.theme=t;localStorage.setItem('ag-theme',t);
 });
-
-// ZOOM & PAN
-let scale = 1;
-let tx = 0, ty = 0;
-let isDragging = false, startX, startY, startTx, startTy;
-
-function applyTransform(){
-  pageImg.style.transform = `scale(${scale}) translate(${tx}px, ${ty}px)`;
-  document.getElementById('zoomLevel').textContent = Math.round(scale*100) + '%';
-}
-
-function clampPan(){
-  const maxX = Math.max(0, (scale-1) * pageImg.offsetWidth / 2);
-  const maxY = Math.max(0, (scale-1) * pageImg.offsetHeight / 2);
-  tx = Math.max(-maxX, Math.min(maxX, tx));
-  ty = Math.max(-maxY, Math.min(maxY, ty));
-}
-
-function resetZoom(){scale=1;tx=0;ty=0;applyTransform();}
-
-document.getElementById('zoomIn').onclick=()=>{scale=Math.min(4, parseFloat((scale+0.5).toFixed(1)));clampPan();applyTransform();};
-document.getElementById('zoomOut').onclick=()=>{scale=Math.max(1, parseFloat((scale-0.5).toFixed(1)));clampPan();applyTransform();};
-document.getElementById('zoomReset').onclick=resetZoom;
-
-// 마우스 휠 줌
-document.querySelector('.stage-inner').addEventListener('wheel', e=>{
-  e.preventDefault();
-  const delta = e.deltaY > 0 ? -0.25 : 0.25;
-  scale = Math.max(1, Math.min(4, parseFloat((scale+delta).toFixed(2))));
-  clampPan(); applyTransform();
-}, {passive:false});
-
-// 드래그 팬
-const stageInner = document.querySelector('.stage-inner');
-stageInner.addEventListener('mousedown', e=>{
-  if(scale===1) return;
-  isDragging=true; startX=e.clientX; startY=e.clientY; startTx=tx; startTy=ty;
-  stageInner.classList.add('grabbing');
-  e.preventDefault();
-});
-document.addEventListener('mousemove', e=>{
-  if(!isDragging) return;
-  tx = startTx + (e.clientX-startX)/scale;
-  ty = startTy + (e.clientY-startY)/scale;
-  clampPan(); applyTransform();
-});
-document.addEventListener('mouseup', ()=>{isDragging=false;stageInner.classList.remove('grabbing');});
-
-// 터치 지원
-let lastDist = 0;
-stageInner.addEventListener('touchstart', e=>{
-  if(e.touches.length===2){
-    lastDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
-  } else if(e.touches.length===1 && scale>1){
-    isDragging=true; startX=e.touches[0].clientX; startY=e.touches[0].clientY; startTx=tx; startTy=ty;
-  }
-}, {passive:true});
-stageInner.addEventListener('touchmove', e=>{
-  if(e.touches.length===2){
-    const dist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
-    const delta = (dist-lastDist)*0.01;
-    scale = Math.max(1, Math.min(4, scale+delta));
-    lastDist=dist; clampPan(); applyTransform();
-    e.preventDefault();
-  } else if(isDragging && e.touches.length===1){
-    tx = startTx + (e.touches[0].clientX-startX)/scale;
-    ty = startTy + (e.touches[0].clientY-startY)/scale;
-    clampPan(); applyTransform();
-    e.preventDefault();
-  }
-}, {passive:false});
-stageInner.addEventListener('touchend', ()=>{isDragging=false;});
-
-// 더블클릭 줌
-stageInner.addEventListener('dblclick', ()=>{
-  if(scale>1) resetZoom();
-  else {scale=2; applyTransform();}
-});
-
-// 페이지 전환 시 줌 초기화
-const _origRender = render;
-
-// wrap render to reset zoom on page change
-const origGo = go;
-function go(d){origGo(d); resetZoom();}
-document.getElementById("firstBtn").onclick=()=>{idx=0;render();resetZoom();};
-document.getElementById("lastBtn").onclick=()=>{idx=pages.length-1;render();resetZoom();};
 
 render();
 </script>
