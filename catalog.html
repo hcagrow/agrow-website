@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agrow 카탈로그 | 한가람농업개발</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[data-theme="light"]{--bg:#F4F6F9;--bg2:#EAEDF2;--card:#fff;--t1:#0C1A2E;--t2:#3D5068;--t3:#7A8FA6;--bdr:rgba(12,26,46,0.09);--acc:#00C87A;--nav:rgba(244,246,249,0.95);--sh:0 2px 8px rgba(12,26,46,0.08),0 12px 32px rgba(12,26,46,0.1);--tog:#0C1A2E}
+[data-theme="dark"]{--bg:#080F1C;--bg2:#0D1726;--card:#112035;--t1:#E8EFF8;--t2:#8BA4BE;--t3:#5A7A9A;--bdr:rgba(0,200,122,0.12);--acc:#00E5A0;--nav:rgba(8,15,28,0.96);--sh:0 2px 8px rgba(0,0,0,0.3),0 12px 32px rgba(0,0,0,0.3);--tog:#00E5A0}
+body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Inter',sans-serif;min-height:100vh;transition:background .3s,color .3s}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;padding:0 5%;gap:16px;background:var(--nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);transition:background .3s}
+.nav-logo{font-family:'Inter',sans-serif;font-size:20px;font-weight:900;color:var(--acc);letter-spacing:-1px;text-decoration:none}
+.nav-sub{font-size:10px;color:var(--t3);letter-spacing:1.5px;margin-left:2px}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.back-btn{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:100px;border:1.5px solid var(--bdr);background:transparent;color:var(--t2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:border-color .2s,color .2s}
+.back-btn:hover{border-color:var(--acc);color:var(--acc)}
+.tog{width:40px;height:22px;border-radius:11px;border:none;cursor:pointer;background:var(--tog);position:relative;transition:background .3s;flex-shrink:0}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s}
+[data-theme="dark"] .tog::after{transform:translateX(18px)}
+
+/* TABS */
+.tab-bar{display:flex;gap:8px;padding:16px 5%;background:var(--bg2);border-bottom:1px solid var(--bdr);flex-wrap:wrap;transition:background .3s}
+.tab-btn{padding:7px 18px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--card);color:var(--t3);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.tab-btn.on{background:var(--t1);color:#fff;border-color:var(--t1)}
+[data-theme="dark"] .tab-btn.on{background:var(--acc);color:#080F1C;border-color:var(--acc)}
+.tab-btn:hover:not(.on){border-color:var(--acc);color:var(--acc)}
+
+/* MAIN LAYOUT */
+.layout{display:grid;grid-template-columns:1fr 220px;gap:24px;padding:24px 5%;max-width:1200px;margin:0 auto}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+
+/* VIEWER */
+.viewer-wrap{display:flex;flex-direction:column;gap:16px}
+.stage{position:relative;width:100%;background:var(--card);border-radius:12px;border:1px solid var(--bdr);box-shadow:var(--sh);overflow:hidden;transition:background .3s}
+.stage-inner{position:relative;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;background:var(--bg2);overflow:hidden;cursor:grab}.stage-inner.grabbing{cursor:grabbing}
+.stage-inner img{width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .3s;position:absolute;inset:0;transform-origin:center center;user-select:none;-webkit-user-drag:none}
+.stage-inner img.show{opacity:1}
+.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--t3)}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--card);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--sh);transition:background .2s,border-color .2s;z-index:5}
+.arrow:hover{background:var(--acc);border-color:var(--acc)}
+.arrow:hover svg{stroke:#fff}
+[data-theme="dark"] .arrow:hover svg{stroke:#080F1C}
+.arrow svg{width:20px;height:20px;stroke:var(--t2);stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.arr-l{left:12px}.arr-r{right:12px}
+.arrow[hidden]{visibility:hidden}
+
+/* CONTROLS */
+.controls{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.ctrl-btn{padding:8px 18px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--card);color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.ctrl-btn:hover:not(:disabled){background:var(--t1);color:#fff;border-color:var(--t1)}
+[data-theme="dark"] .ctrl-btn:hover:not(:disabled){background:var(--acc);color:#080F1C;border-color:var(--acc)}
+.ctrl-btn:disabled{opacity:.3;cursor:default}
+.page-info{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--t1);min-width:64px;text-align:center}
+
+/* SIDEBAR THUMBS */
+.sidebar{display:flex;flex-direction:column;gap:8px}
+.sidebar h4{font-size:11px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:0 4px}
+.thumb-list{display:flex;flex-direction:column;gap:6px;max-height:calc(100vh - 160px);overflow-y:auto;padding-right:4px}
+.thumb-list::-webkit-scrollbar{width:4px}
+.thumb-list::-webkit-scrollbar-track{background:var(--bg2);border-radius:2px}
+.thumb-list::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+.thumb-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;border:1.5px solid transparent;cursor:pointer;transition:all .2s;background:var(--card)}
+.thumb-item:hover{border-color:var(--acc)}
+.thumb-item.on{border-color:var(--acc);background:rgba(0,200,122,0.06)}
+.thumb-item img{width:48px;height:36px;object-fit:cover;border-radius:4px;flex-shrink:0}
+.thumb-item span{font-size:11.5px;color:var(--t2);font-weight:500;line-height:1.4}
+.thumb-item.on span{color:var(--acc);font-weight:700}
+
+/* MOBILE THUMBS */
+.mob-thumbs{display:none;gap:6px;padding:0 5%;overflow-x:auto;scroll-behavior:smooth;padding-bottom:8px}
+.mob-thumbs::-webkit-scrollbar{height:3px}
+.mob-thumbs::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+.mob-thumb{width:56px;height:42px;object-fit:cover;border-radius:5px;cursor:pointer;border:2px solid transparent;flex-shrink:0;opacity:.55;transition:all .2s}
+.mob-thumb.on{border-color:var(--acc);opacity:1}
+.mob-thumb:hover{opacity:1}
+@media(max-width:900px){.mob-thumbs{display:flex}}
+
+
+/* ZOOM CONTROLS */
+.zoom-bar{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 0}
+.zoom-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--bdr);background:var(--card);color:var(--t1);font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
+.zoom-btn:hover{background:var(--acc);border-color:var(--acc);color:#fff}
+[data-theme="dark"] .zoom-btn:hover{color:#080F1C}
+.zoom-level{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--t2);min-width:44px;text-align:center}
+.zoom-reset{padding:6px 14px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--card);color:var(--t3);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.zoom-reset:hover{border-color:var(--acc);color:var(--acc)}
+footer{text-align:center;padding:24px 5%;font-size:11.5px;color:var(--t3);border-top:1px solid var(--bdr);margin-top:40px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Agrow</a>
+  <span class="nav-sub">카탈로그</span>
+  <div class="nav-right">
+    <a href="index.html" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      홈으로
+    </a>
+    <button class="tog" id="togBtn"></button>
+  </div>
+</nav>
+
+<div class="tab-bar">
+  <button class="tab-btn on" data-cat="all">전체 <span style="opacity:.6;font-weight:400">16p</span></button>
+  <button class="tab-btn" data-cat="agrow">양액공급기 <span style="opacity:.6;font-weight:400">12p</span></button>
+  <button class="tab-btn" data-cat="green">A⁺-green 복합환경제어 <span style="opacity:.6;font-weight:400">4p</span></button>
+</div>
+
+<div class="layout">
+  <div class="viewer-wrap">
+    <div class="stage">
+      <div class="stage-inner">
+        <div class="loading" id="loading">불러오는 중...</div>
+        <button class="arrow arr-l" id="arrL"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <img id="pageImg" src="" alt="카탈로그 페이지">
+        <button class="arrow arr-r" id="arrR"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </div>
+    <div class="zoom-bar">
+      <button class="zoom-btn" id="zoomOut">−</button>
+      <span class="zoom-level" id="zoomLevel">100%</span>
+      <button class="zoom-btn" id="zoomIn">+</button>
+      <button class="zoom-reset" id="zoomReset">초기화</button>
+    </div>
+    <div class="controls">
+      <button class="ctrl-btn" id="firstBtn">처음</button>
+      <button class="ctrl-btn" id="prevBtn">◀ 이전</button>
+      <span class="page-info" id="pageInfo">1 / 16</span>
+      <button class="ctrl-btn" id="nextBtn">다음 ▶</button>
+      <button class="ctrl-btn" id="lastBtn">마지막</button>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <h4>페이지 목록</h4>
+    <div class="thumb-list" id="thumbList"></div>
+  </div>
+</div>
+
+<div class="mob-thumbs" id="mobThumbs"></div>
+
+<footer>본 카탈로그의 제품 외관 및 구조는 공정개선을 위하여 사전 예고없이 일부 변경될 수 있습니다.</footer>
+
+<script>
+const AGROW_PAGES = Array.from({length:12},(_,i)=>({src:`catalog_images/p${i+1}.jpg`,label:['표지','제품 소개','Agrow-Perfect','Agrow-7000 Plus','Agrow-7000','Agrow-6000 Plus','Agrow-6000','Agrow-5000 Master','Agrow-5000 Magic','Agrow-2000 Star A형','Agrow-2000 Star B형','마지막'][i]}));
+const GREEN_PAGES = Array.from({length:4},(_,i)=>({src:`catalog_images/g${i+1}.jpg`,label:['A⁺-green 표지','A⁺-green 특징','A⁺-green 스펙','A⁺-green 설치'][i]}));
+const ALL_PAGES = [...AGROW_PAGES,...GREEN_PAGES];
+
+const PRODUCT_PAGE = {perfect:2,'7000plus':3,'7000':4,'6000plus':5,'6000':6,'5000master':7,'5000magic':8,'2000a':9,'2000b':10,aplus:12};
+
+let pages = [...ALL_PAGES];
+let idx = 0;
+
+const params = new URLSearchParams(location.search);
+const prod = params.get('product');
+if(prod && PRODUCT_PAGE[prod]!=null) idx = PRODUCT_PAGE[prod];
+
+const pageImg = document.getElementById('pageImg');
+const loading = document.getElementById('loading');
+const pageInfo = document.getElementById('pageInfo');
+const thumbList = document.getElementById('thumbList');
+const mobThumbs = document.getElementById('mobThumbs');
+
+function render(){
+  loading.style.display='flex';
+  pageImg.classList.remove('show');
+  const {src} = pages[idx];
+  const tmp = new Image();
+  tmp.onload=()=>{pageImg.src=src;pageImg.classList.add('show');loading.style.display='none';};
+  tmp.src=src;
+  pageInfo.textContent=`${idx+1} / ${pages.length}`;
+  document.getElementById('prevBtn').disabled = document.getElementById('arrL').hidden = idx===0;
+  document.getElementById('nextBtn').disabled = document.getElementById('arrR').hidden = idx===pages.length-1;
+  document.getElementById('firstBtn').disabled=idx===0;
+  document.getElementById('lastBtn').disabled=idx===pages.length-1;
+  buildThumbs();
+}
+
+function buildThumbs(){
+  // sidebar
+  thumbList.innerHTML='';
+  pages.forEach(({src,label},i)=>{
+    const d=document.createElement('div');
+    d.className='thumb-item'+(i===idx?' on':'');
+    d.innerHTML=`<img src="${src}" loading="lazy"><span>${label}</span>`;
+    d.onclick=()=>{idx=i;render();};
+    thumbList.appendChild(d);
+  });
+  thumbList.children[idx]?.scrollIntoView({block:'nearest'});
+  // mobile
+  mobThumbs.innerHTML='';
+  pages.forEach(({src},i)=>{
+    const img=document.createElement('img');
+    img.src=src;img.loading='lazy';img.className='mob-thumb'+(i===idx?' on':'');
+    img.onclick=()=>{idx=i;render();};
+    mobThumbs.appendChild(img);
+  });
+  mobThumbs.children[idx]?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function go(d){const n=idx+d;if(n>=0&&n<pages.length){idx=n;render();}}
+document.getElementById('arrL').onclick=document.getElementById('prevBtn').onclick=()=>go(-1);
+document.getElementById('arrR').onclick=document.getElementById('nextBtn').onclick=()=>go(1);
+document.getElementById('firstBtn').onclick=()=>{idx=0;render();};
+document.getElementById('lastBtn').onclick=()=>{idx=pages.length-1;render();};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const cat=btn.dataset.cat;
+    pages=cat==='all'?[...ALL_PAGES]:cat==='agrow'?[...AGROW_PAGES]:[...GREEN_PAGES];
+    idx=0;render();
+  };
+});
+
+// theme
+const html=document.documentElement;
+html.dataset.theme=localStorage.getItem('ag-theme')||'light';
+document.getElementById('togBtn').addEventListener('click',()=>{
+  const t=html.dataset.theme==='light'?'dark':'light';
+  html.dataset.theme=t;localStorage.setItem('ag-theme',t);
+});
+
+// ZOOM & PAN
+let scale = 1;
+let tx = 0, ty = 0;
+let isDragging = false, startX, startY, startTx, startTy;
+
+function applyTransform(){
+  pageImg.style.transform = `scale(${scale}) translate(${tx}px, ${ty}px)`;
+  document.getElementById('zoomLevel').textContent = Math.round(scale*100) + '%';
+}
+
+function clampPan(){
+  const maxX = Math.max(0, (scale-1) * pageImg.offsetWidth / 2);
+  const maxY = Math.max(0, (scale-1) * pageImg.offsetHeight / 2);
+  tx = Math.max(-maxX, Math.min(maxX, tx));
+  ty = Math.max(-maxY, Math.min(maxY, ty));
+}
+
+function resetZoom(){scale=1;tx=0;ty=0;applyTransform();}
+
+document.getElementById('zoomIn').onclick=()=>{scale=Math.min(4, parseFloat((scale+0.5).toFixed(1)));clampPan();applyTransform();};
+document.getElementById('zoomOut').onclick=()=>{scale=Math.max(1, parseFloat((scale-0.5).toFixed(1)));clampPan();applyTransform();};
+document.getElementById('zoomReset').onclick=resetZoom;
+
+// 마우스 휠 줌
+document.querySelector('.stage-inner').addEventListener('wheel', e=>{
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? -0.25 : 0.25;
+  scale = Math.max(1, Math.min(4, parseFloat((scale+delta).toFixed(2))));
+  clampPan(); applyTransform();
+}, {passive:false});
+
+// 드래그 팬
+const stageInner = document.querySelector('.stage-inner');
+stageInner.addEventListener('mousedown', e=>{
+  if(scale===1) return;
+  isDragging=true; startX=e.clientX; startY=e.clientY; startTx=tx; startTy=ty;
+  stageInner.classList.add('grabbing');
+  e.preventDefault();
+});
+document.addEventListener('mousemove', e=>{
+  if(!isDragging) return;
+  tx = startTx + (e.clientX-startX)/scale;
+  ty = startTy + (e.clientY-startY)/scale;
+  clampPan(); applyTransform();
+});
+document.addEventListener('mouseup', ()=>{isDragging=false;stageInner.classList.remove('grabbing');});
+
+// 터치 지원
+let lastDist = 0;
+stageInner.addEventListener('touchstart', e=>{
+  if(e.touches.length===2){
+    lastDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+  } else if(e.touches.length===1 && scale>1){
+    isDragging=true; startX=e.touches[0].clientX; startY=e.touches[0].clientY; startTx=tx; startTy=ty;
+  }
+}, {passive:true});
+stageInner.addEventListener('touchmove', e=>{
+  if(e.touches.length===2){
+    const dist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+    const delta = (dist-lastDist)*0.01;
+    scale = Math.max(1, Math.min(4, scale+delta));
+    lastDist=dist; clampPan(); applyTransform();
+    e.preventDefault();
+  } else if(isDragging && e.touches.length===1){
+    tx = startTx + (e.touches[0].clientX-startX)/scale;
+    ty = startTy + (e.touches[0].clientY-startY)/scale;
+    clampPan(); applyTransform();
+    e.preventDefault();
+  }
+}, {passive:false});
+stageInner.addEventListener('touchend', ()=>{isDragging=false;});
+
+// 더블클릭 줌
+stageInner.addEventListener('dblclick', ()=>{
+  if(scale>1) resetZoom();
+  else {scale=2; applyTransform();}
+});
+
+// 페이지 전환 시 줌 초기화
+const _origRender = render;
+
+// wrap render to reset zoom on page change
+const origGo = go;
+function go(d){origGo(d); resetZoom();}
+document.getElementById("firstBtn").onclick=()=>{idx=0;render();resetZoom();};
+document.getElementById("lastBtn").onclick=()=>{idx=pages.length-1;render();resetZoom();};
+
+render();
+</script>
+</body>
+</html>
