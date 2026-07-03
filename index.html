@@ -356,6 +356,41 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
 .perf-desc{font-size:13px;color:var(--t2)}
 .perf-note{font-size:12px;color:var(--t3);margin-top:8px}
 @media(max-width:640px){.perf-grid{grid-template-columns:1fr;gap:14px}.perf-val{font-size:38px}}
+
+/* DOWNLOADS */
+.dl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:40px}
+.dl-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.dl-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:rgba(0,200,122,0.3)}
+.dl-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.dl-ico.green{background:rgba(0,200,122,0.1);border:1px solid rgba(0,200,122,0.2)}
+.dl-ico.blue{background:rgba(0,100,255,0.08);border:1px solid rgba(0,100,255,0.15)}
+.dl-ico.orange{background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.2)}
+.dl-name{font-size:15px;font-weight:700;color:var(--t1)}
+.dl-desc{font-size:13px;color:var(--t3);line-height:1.6}
+.dl-meta{font-size:11px;color:var(--t3);font-family:'Inter',sans-serif}
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border-radius:100px;background:var(--acc);border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;margin-top:auto;transition:background .2s,transform .15s}
+[data-theme="light"] .dl-btn{color:#fff}
+[data-theme="dark"] .dl-btn{color:#080F1C}
+.dl-btn:hover{background:var(--acc2);transform:translateY(-1px)}
+.dl-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* DOWNLOAD PASSWORD MODAL */
+.dl-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.dl-modal-bg.open{display:flex}
+.dl-modal{background:var(--card);border-radius:16px;padding:32px;width:90%;max-width:360px;box-shadow:var(--sh-lg);border:1px solid var(--bdr)}
+.dl-modal h3{font-size:17px;font-weight:800;color:var(--t1);margin-bottom:8px}
+.dl-modal p{font-size:13px;color:var(--t3);margin-bottom:20px;line-height:1.6}
+.dl-pw-wrap{position:relative;margin-bottom:12px}
+.dl-pw-input{width:100%;background:var(--input,var(--bg2));border:1.5px solid var(--bdr);border-radius:9px;padding:11px 14px;color:var(--t1);font-family:inherit;font-size:14px;outline:none;transition:border-color .2s}
+.dl-pw-input:focus{border-color:var(--acc)}
+.dl-pw-err{font-size:12px;color:#e53e3e;display:none;margin-bottom:12px}
+.dl-modal-btns{display:flex;gap:8px}
+.dl-modal-cancel{flex:1;padding:10px;border-radius:100px;border:1.5px solid var(--bdr);background:transparent;color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.dl-modal-cancel:hover{border-color:var(--acc);color:var(--acc)}
+.dl-modal-confirm{flex:2;padding:10px;border-radius:100px;border:none;background:var(--acc);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s}
+[data-theme="light"] .dl-modal-confirm{color:#fff}
+[data-theme="dark"] .dl-modal-confirm{color:#080F1C}
+.dl-modal-confirm:hover{background:var(--acc2)}
 /* REVEAL */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
 .rv.shown{opacity:1;transform:none}
@@ -392,6 +427,7 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
     <li><a href="#remote" data-i="nav3"></a></li>
     <li><a href="#portfolio" data-i="nav4"></a></li>
     <li><a href="#contact" data-i="nav5"></a></li>
+    <li><a href="#downloads">다운로드</a></li>
   </ul>
   <div class="n-right">
     <div class="lang-wrap">
@@ -766,7 +802,92 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
   </div>
 </section>
 
+<!-- 다운로드 -->
+<section class="sec" id="downloads">
+  <div class="ey rv"><div class="ey-line"></div><span class="ey-t">Downloads</span></div>
+  <div class="sec-t rv">자료 다운로드</div>
+  <div class="dl-grid">
+    <div class="dl-card rv">
+      <div class="dl-ico green">📋</div>
+      <div>
+        <div class="dl-name">양액공급기 카탈로그</div>
+        <div class="dl-desc">Agrow 양액공급기 전 제품 스펙 및 특징이 담긴 공식 카탈로그입니다.</div>
+        <div class="dl-meta">PDF · 18MB</div>
+      </div>
+      <a href="downloads/agrow_catalog.pdf" download="Agrow_양액공급기_카탈로그.pdf" class="dl-btn">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        다운로드
+      </a>
+    </div>
+    <div class="dl-card rv">
+      <div class="dl-ico blue">🌿</div>
+      <div>
+        <div class="dl-name">A⁺-green 카탈로그</div>
+        <div class="dl-desc">복합환경제어기 A⁺-green의 기능 및 설치 사례가 담긴 공식 카탈로그입니다.</div>
+        <div class="dl-meta">PDF · 3.8MB</div>
+      </div>
+      <a href="downloads/agreen_catalog.pdf" download="APlus-green_카탈로그.pdf" class="dl-btn">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        다운로드
+      </a>
+    </div>
+    <div class="dl-card rv">
+      <div class="dl-ico orange">📱</div>
+      <div>
+        <div class="dl-name">Agrow 원격제어 앱</div>
+        <div class="dl-desc">스마트폰으로 양액공급기를 실시간 모니터링하고 원격 제어할 수 있는 안드로이드 앱입니다.</div>
+        <div class="dl-meta">APK · 안드로이드 · 1.1MB</div>
+      </div>
+      <a href="#" class="dl-btn dl-protected" data-file="downloads/agrowRC.apk" data-name="AgrowRC.apk" style="background:#f08a1e">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        APK 다운로드
+      </a>
+    </div>
+    <div class="dl-card rv">
+      <div class="dl-ico green">🌿</div>
+      <div>
+        <div class="dl-name">A⁺-green RC</div>
+        <div class="dl-desc">A⁺-green 복합환경제어기를 스마트폰으로 실시간 모니터링하고 원격 제어할 수 있는 안드로이드 앱입니다.</div>
+        <div class="dl-meta">APK · 안드로이드 · 6.1MB</div>
+      </div>
+      <a href="#" class="dl-btn dl-protected" data-file="downloads/agreen_rc.apk" data-name="APlus-green_RC.apk" style="background:#00C87A">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        APK 다운로드
+      </a>
+    </div>
+    <div class="dl-card rv">
+      <div class="dl-ico blue">🖥</div>
+      <div>
+        <div class="dl-name">Agrow 양액기 PC 프로그램</div>
+        <div class="dl-desc">양액공급기 설정, 모니터링, 데이터 기록을 PC에서 관리할 수 있는 전용 윈도우 프로그램입니다.</div>
+        <div class="dl-meta">MSI · Windows · 7.0MB</div>
+      </div>
+      <a href="#" class="dl-btn dl-protected" data-file="downloads/Agrow_Monitor.msi" data-name="Agrow_Monitor.msi" style="background:#0066cc">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        다운로드
+      </a>
+    </div>
+  </div>
+  <p class="rv" style="margin-top:20px;font-size:12px;color:var(--t3)">※ APK 설치 시 스마트폰 설정에서 '알 수 없는 소스 허용'을 활성화해야 합니다.</p>
+</section>
+
 <!-- FOOTER -->
+<!-- 다운로드 비밀번호 모달 -->
+<div class="dl-modal-bg" id="dlModalBg">
+  <div class="dl-modal">
+    <h3>🔒 다운로드 인증</h3>
+    <p>이 파일은 비밀번호가 필요합니다.<br>문의: 033-747-5114</p>
+    <div class="dl-pw-wrap">
+      <input class="dl-pw-input" type="password" id="dlPwInput" placeholder="비밀번호 입력" autocomplete="off">
+    </div>
+    <div class="dl-pw-err" id="dlPwErr">비밀번호가 올바르지 않습니다.</div>
+    <div class="dl-modal-btns">
+      <button class="dl-modal-cancel" id="dlModalCancel">취소</button>
+      <button class="dl-modal-confirm" id="dlModalConfirm">다운로드</button>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="fg2">
     <div>
@@ -864,6 +985,52 @@ const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.targe
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 
 apply(localStorage.getItem('ag-lang')||'ko');
+
+// 다운로드 비밀번호 보호
+(function(){
+  const PW = 'scagrow';
+  const bg = document.getElementById('dlModalBg');
+  const input = document.getElementById('dlPwInput');
+  const err = document.getElementById('dlPwErr');
+  let pendingFile = null, pendingName = null;
+
+  document.querySelectorAll('.dl-protected').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      pendingFile = btn.dataset.file;
+      pendingName = btn.dataset.name;
+      input.value = '';
+      err.style.display = 'none';
+      bg.classList.add('open');
+      setTimeout(() => input.focus(), 100);
+    });
+  });
+
+  function closeModal(){ bg.classList.remove('open'); }
+
+  document.getElementById('dlModalCancel').onclick = closeModal;
+  bg.addEventListener('click', e => { if(e.target === bg) closeModal(); });
+
+  function confirm(){
+    if(input.value === PW){
+      const a = document.createElement('a');
+      a.href = pendingFile;
+      a.download = pendingName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      closeModal();
+    } else {
+      err.style.display = 'block';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  document.getElementById('dlModalConfirm').onclick = confirm;
+  input.addEventListener('keydown', e => { if(e.key === 'Enter') confirm(); });
+})();
+
 </script>
 </body>
 </html>
