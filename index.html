@@ -784,11 +784,11 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
     </div>
     <div class="form rv">
       <div class="fr">
-        <div class="fg"><label data-i="f_name"></label><input type="text" data-ph="f_name_ph"></div>
-        <div class="fg"><label data-i="f_tel"></label><input type="tel" data-ph="f_tel_ph"></div>
+        <div class="fg"><label data-i="f_name"></label><input type="text" id="f_name_v" data-ph="f_name_ph"></div>
+        <div class="fg"><label data-i="f_tel"></label><input type="tel" id="f_tel_v" data-ph="f_tel_ph"></div>
       </div>
       <div class="fg"><label data-i="f_prod"></label>
-        <select>
+        <select id="f_prod_v">
           <option data-i="f_prod_ph"></option>
           <option>Agrow-Perfect</option><option>Agrow-7000 Plus</option><option>Agrow-7000</option>
           <option>Agrow-6000 Plus</option><option>Agrow-6000</option><option>Agrow-5000 Master</option>
@@ -796,9 +796,10 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
           <option>A⁺-green</option>
         </select>
       </div>
-      <div class="fg"><label data-i="f_msg"></label><textarea data-ph="f_msg_ph"></textarea></div>
-      <button class="sbtn" data-i="f_submit"></button>
+      <div class="fg"><label data-i="f_msg"></label><textarea id="f_msg_v" data-ph="f_msg_ph"></textarea></div>
+      <button class="sbtn" id="f_submit_btn" data-i="f_submit"></button>
     </div>
+
   </div>
 </section>
 
@@ -868,7 +869,8 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
       </a>
     </div>
   </div>
-  <p class="rv" style="margin-top:20px;font-size:12px;color:var(--t3)">※ APK 설치 시 스마트폰 설정에서 '알 수 없는 소스 허용'을 활성화해야 합니다.</p>
+  <p class="rv" style="margin-top:20px;font-size:12px;color:var(--t3)">※ APK 설치 시 스마트폰 설정에서 '알 수 없는 소스 허용'을 활성화해야 합니다.<br>
+※ PC 프로그램(MSI) 설치 시 "Microsoft Defender SmartScreen" 경고가 표시될 수 있습니다. <strong>"추가 정보" → "실행"</strong>을 눌러 설치를 진행하세요. (한가람농업개발 공식 배포 파일입니다.)</p>
 </section>
 
 <!-- FOOTER -->
@@ -979,6 +981,25 @@ tb.addEventListener('click',()=>{const t=html.dataset.theme==='light'?'dark':'li
 const mob=document.getElementById('mobNav');
 document.getElementById('menuBtn').addEventListener('click',()=>mob.classList.toggle('open'));
 function closeMob(){mob.classList.remove('open')}
+
+/* contact form -> mailto */
+document.getElementById('f_submit_btn').addEventListener('click', () => {
+  const name = document.getElementById('f_name_v').value.trim();
+  const tel = document.getElementById('f_tel_v').value.trim();
+  const prod = document.getElementById('f_prod_v').value.trim();
+  const msg = document.getElementById('f_msg_v').value.trim();
+  const subject = encodeURIComponent('[홈페이지 문의] ' + (name || '문의'));
+  const bodyLines = [
+    '이름: ' + name,
+    '연락처: ' + tel,
+    '관심 제품: ' + prod,
+    '',
+    '문의 내용:',
+    msg
+  ];
+  const body = encodeURIComponent(bodyLines.join('\\n'));
+  window.location.href = 'mailto:hpagrow@hanmail.net?subject=' + subject + '&body=' + body;
+});
 
 /* reveal */
 const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('shown');obs.unobserve(x.target)}}),{threshold:0.1});
