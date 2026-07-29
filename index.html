@@ -857,6 +857,18 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
       </a>
     </div>
     <div class="dl-card rv">
+      <div class="dl-ico orange">📱</div>
+      <div>
+        <div class="dl-name">Agrow 원격제어 앱 (2026.07.27)</div>
+        <div class="dl-desc">Agrow 원격제어 앱 최신 업데이트 버전입니다.</div>
+        <div class="dl-meta">APK · 안드로이드</div>
+      </div>
+      <a href="#" class="dl-btn dl-protected" data-file="downloads/agrowrc260727.apk" data-name="AgrowRC_260727.apk" data-pw="agrow" style="background:#f08a1e">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        APK 다운로드
+      </a>
+    </div>
+    <div class="dl-card rv">
       <div class="dl-ico blue">🖥</div>
       <div>
         <div class="dl-name">Agrow 양액기 PC 프로그램</div>
@@ -1013,13 +1025,14 @@ apply(localStorage.getItem('ag-lang')||'ko');
   const bg = document.getElementById('dlModalBg');
   const input = document.getElementById('dlPwInput');
   const err = document.getElementById('dlPwErr');
-  let pendingFile = null, pendingName = null;
+  let pendingFile = null, pendingName = null, pendingPw = null;
 
   document.querySelectorAll('.dl-protected').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
       pendingFile = btn.dataset.file;
       pendingName = btn.dataset.name;
+      pendingPw = btn.dataset.pw || null;
       input.value = '';
       err.style.display = 'none';
       bg.classList.add('open');
@@ -1033,7 +1046,8 @@ apply(localStorage.getItem('ag-lang')||'ko');
   bg.addEventListener('click', e => { if(e.target === bg) closeModal(); });
 
   function confirm(){
-    if(input.value === PW){
+    const expected = pendingPw || PW;
+    if(input.value === expected){
       const a = document.createElement('a');
       a.href = pendingFile;
       a.download = pendingName;
