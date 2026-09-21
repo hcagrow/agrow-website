@@ -138,25 +138,28 @@ nav{flex-shrink:0;height:56px;display:flex;align-items:center;padding:0 4%;gap:1
   </div>
 </div>
 <script>
+function getSrc(id){
+  return (curLang === 'en' ? 'catalog_images_en/' : 'catalog_images/') + id + '.jpg';
+}
 const AGROW = [
-  {src:'catalog_images/p2.jpg', label:'Agrow 앞표지'},
-  {src:'catalog_images/p3.jpg', label:'Agrow-Perfect'},
-  {src:'catalog_images/p4.jpg', label:'Agrow-7000 Plus'},
-  {src:'catalog_images/p5.jpg', label:'Agrow-6000 Plus (옵션형)'},
-  {src:'catalog_images/p6.jpg', label:'Agrow-6000 Plus (기본형)'},
-  {src:'catalog_images/p7.jpg', label:'Agrow-7000'},
-  {src:'catalog_images/p8.jpg', label:'Agrow-6000'},
-  {src:'catalog_images/p9.jpg', label:'Agrow-5000 Master'},
-  {src:'catalog_images/p10.jpg', label:'Agrow-5000 Magic'},
-  {src:'catalog_images/p11.jpg', label:'Agrow-2000 Star B형'},
-  {src:'catalog_images/p12.jpg', label:'Agrow-2000 Star A형'},
-  {src:'catalog_images/p1.jpg', label:'Agrow 뒤표지'},
+  {id:'p2', label:'Agrow 앞표지', label_en:'Agrow Front Cover'},
+  {id:'p3', label:'Agrow-Perfect', label_en:'Agrow-Perfect'},
+  {id:'p4', label:'Agrow-7000 Plus', label_en:'Agrow-7000 Plus'},
+  {id:'p5', label:'Agrow-6000 Plus (옵션형)', label_en:'Agrow-6000 Plus (Optional)'},
+  {id:'p6', label:'Agrow-6000 Plus (기본형)', label_en:'Agrow-6000 Plus (Standard)'},
+  {id:'p7', label:'Agrow-7000', label_en:'Agrow-7000'},
+  {id:'p8', label:'Agrow-6000', label_en:'Agrow-6000'},
+  {id:'p9', label:'Agrow-5000 Master', label_en:'Agrow-5000 Master'},
+  {id:'p10', label:'Agrow-5000 Magic', label_en:'Agrow-5000 Magic'},
+  {id:'p11', label:'Agrow-2000 Star B형', label_en:'Agrow-2000 Star Type B'},
+  {id:'p12', label:'Agrow-2000 Star A형', label_en:'Agrow-2000 Star Type A'},
+  {id:'p1', label:'Agrow 뒤표지', label_en:'Agrow Back Cover'},
 ];
 const GREEN = [
-  {src:'catalog_images/g2.jpg', label:'A⁺-green 앞표지'},
-  {src:'catalog_images/g3.jpg', label:'A⁺-green 스펙 상세'},
-  {src:'catalog_images/g4.jpg', label:'A⁺-green 설치 현장'},
-  {src:'catalog_images/g1.jpg', label:'A⁺-green 뒤표지'},
+  {id:'g2', label:'A⁺-green 앞표지', label_en:'A⁺-green Front Cover'},
+  {id:'g3', label:'A⁺-green 스펙 상세', label_en:'A⁺-green Specifications'},
+  {id:'g4', label:'A⁺-green 설치 현장', label_en:'A⁺-green Installation'},
+  {id:'g1', label:'A⁺-green 뒤표지', label_en:'A⁺-green Back Cover'},
 ];
 const ALL = [...AGROW, ...GREEN];
 
@@ -187,8 +190,9 @@ function render(){
   loading.style.display='flex';
   pageImg.classList.remove('show');
   const tmp=new Image();
-  tmp.onload=()=>{pageImg.src=pages[idx].src;pageImg.classList.add('show');loading.style.display='none';};
-  tmp.src=pages[idx].src;
+  const curSrc=getSrc(pages[idx].id);
+  tmp.onload=()=>{pageImg.src=curSrc;pageImg.classList.add('show');loading.style.display='none';};
+  tmp.src=curSrc;
   pageInfo.textContent=(idx+1)+' / '+pages.length;
   const atFirst=idx===0, atLast=idx===pages.length-1;
   document.getElementById('prevBtn').disabled=atFirst;
@@ -202,10 +206,11 @@ function render(){
 
 function buildThumbs(){
   thumbList.innerHTML='';
-  pages.forEach(({src,label},i)=>{
+  pages.forEach((p,i)=>{
     const d=document.createElement('div');
     d.className='thumb-item'+(i===idx?' on':'');
-    d.innerHTML='<img src="'+src+'" loading="lazy"><span>'+label+'</span>';
+    const lbl = curLang==='en' ? (p.label_en||p.label) : p.label;
+    d.innerHTML='<img src="'+getSrc(p.id)+'" loading="lazy"><span>'+lbl+'</span>';
     d.onclick=()=>{idx=i;render();};
     thumbList.appendChild(d);
   });
@@ -213,9 +218,9 @@ function buildThumbs(){
   // 모바일 썸네일
   const mob=document.getElementById('mobThumbs');
   mob.innerHTML='';
-  pages.forEach(({src},i)=>{
+  pages.forEach((p,i)=>{
     const img=document.createElement('img');
-    img.src=src; img.loading='lazy';
+    img.src=getSrc(p.id); img.loading='lazy';
     img.className='mob-thumb'+(i===idx?' on':'');
     img.onclick=()=>{idx=i;render();};
     mob.appendChild(img);
@@ -292,6 +297,8 @@ function applyLang(lang) {
   updateTogLabel();
   // 언어 버튼 활성화
   document.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('on', o.dataset.lang === lang));
+  // 이미지 세트 전환 (영어일 때 catalog_images_en 사용)
+  if (typeof pages !== 'undefined') { render(); }
 }
 
 function updateTogLabel() {
