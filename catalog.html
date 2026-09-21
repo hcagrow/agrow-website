@@ -87,7 +87,7 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
 .lang-dd{position:relative}
 .lang-dd-btn{padding:5px 12px;border-radius:100px;border:1.5px solid var(--bdr);background:transparent;color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .lang-dd-btn:hover{border-color:var(--acc);color:var(--acc)}
-.lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:6px;min-width:160px;width:max-content;max-width:calc(100vw - 24px);box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:9999;display:none}
+.lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:6px;min-width:160px;max-width:calc(100vw - 24px);box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:9999;display:none}
 .lang-dd:hover .lang-menu,.lang-dd:focus-within .lang-menu{display:block}
 .lang-opt{display:block;width:100%;padding:6px 10px;border:none;background:transparent;color:var(--t2);font-size:12px;font-weight:500;cursor:pointer;border-radius:6px;text-align:left;font-family:inherit;transition:background .15s;white-space:nowrap}
 .lang-opt:hover{background:var(--bg2);color:var(--t1)}
@@ -101,7 +101,7 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
   <div class="nav-right">
     <a href="index.html" class="back-btn">← 홈으로</a>
     <div class="lang-dd">
-      <button class="lang-dd-btn" id="langDdBtn">🌐 언어</button>
+      <button class="lang-dd-btn" id="langDdBtn">🌐 <span id="langDdLabel">언어</span></button>
       <div class="lang-menu" id="langMenu"></div>
     </div>
     <div class="tog-wrap">
@@ -271,14 +271,14 @@ stage.addEventListener('touchend',e=>{
 
 
 const CAT_I18N = {
-  ko:{back:'← 홈으로',sub:'카탈로그',all:'전체',agrow:'양액공급기',green:'A⁺-green',dark:'🌙 다크',light:'☀️ 라이트',loading:'불러오는 중...'},
-  en:{back:'← Home',sub:'Catalog',all:'All',agrow:'Nutrient Feeder',green:'A⁺-green',dark:'🌙 Dark',light:'☀️ Light',loading:'Loading...'},
-  zh:{back:'← 主页',sub:'产品目录',all:'全部',agrow:'养液供应机',green:'A⁺-green',dark:'🌙 深色',light:'☀️ 浅色',loading:'加载中...'},
-  ja:{back:'← ホーム',sub:'カタログ',all:'すべて',agrow:'養液供給機',green:'A⁺-green',dark:'🌙 ダーク',light:'☀️ ライト',loading:'読み込み中...'},
-  ru:{back:'← Главная',sub:'Каталог',all:'Все',agrow:'Питатель',green:'A⁺-green',dark:'🌙 Тёмный',light:'☀️ Светлый',loading:'Загрузка...'},
-  vi:{back:'← Trang chủ',sub:'Danh mục',all:'Tất cả',agrow:'Máy dinh dưỡng',green:'A⁺-green',dark:'🌙 Tối',light:'☀️ Sáng',loading:'Đang tải...'},
-  id:{back:'← Beranda',sub:'Katalog',all:'Semua',agrow:'Mesin Nutrisi',green:'A⁺-green',dark:'🌙 Gelap',light:'☀️ Terang',loading:'Memuat...'},
-  uz:{back:'← Bosh sahifa',sub:'Katalog',all:'Barchasi',agrow:'Ozuqa mashinasi',green:'A⁺-green',dark:'🌙 Qorongu',light:'☀️ Yorug',loading:'Yuklanmoqda...'},
+  ko:{back:'← 홈으로',sub:'카탈로그',all:'전체',agrow:'양액공급기',green:'A⁺-green',dark:'🌙 다크',light:'☀️ 라이트',loading:'불러오는 중...',lang:'언어'},
+  en:{back:'← Home',sub:'Catalog',all:'All',agrow:'Nutrient Feeder',green:'A⁺-green',dark:'🌙 Dark',light:'☀️ Light',loading:'Loading...',lang:'Language'},
+  zh:{back:'← 主页',sub:'产品目录',all:'全部',agrow:'养液供应机',green:'A⁺-green',dark:'🌙 深色',light:'☀️ 浅色',loading:'加载中...',lang:'语言'},
+  ja:{back:'← ホーム',sub:'カタログ',all:'すべて',agrow:'養液供給機',green:'A⁺-green',dark:'🌙 ダーク',light:'☀️ ライト',loading:'読み込み中...',lang:'言語'},
+  ru:{back:'← Главная',sub:'Каталог',all:'Все',agrow:'Питатель',green:'A⁺-green',dark:'🌙 Тёмный',light:'☀️ Светлый',loading:'Загрузка...',lang:'Язык'},
+  vi:{back:'← Trang chủ',sub:'Danh mục',all:'Tất cả',agrow:'Máy dinh dưỡng',green:'A⁺-green',dark:'🌙 Tối',light:'☀️ Sáng',loading:'Đang tải...',lang:'Ngôn ngữ'},
+  id:{back:'← Beranda',sub:'Katalog',all:'Semua',agrow:'Mesin Nutrisi',green:'A⁺-green',dark:'🌙 Gelap',light:'☀️ Terang',loading:'Memuat...',lang:'Bahasa'},
+  uz:{back:'← Bosh sahifa',sub:'Katalog',all:'Barchasi',agrow:'Ozuqa mashinasi',green:'A⁺-green',dark:'🌙 Qorongu',light:'☀️ Yorug',loading:'Yuklanmoqda...',lang:'Til'},
 };
 let curLang = localStorage.getItem('ag-lang') || 'ko';
 
@@ -288,6 +288,7 @@ function applyLang(lang) {
   document.querySelector('.back-btn').textContent = t.back;
   document.querySelector('.nav-sub').textContent = t.sub;
   document.getElementById('loading').textContent = t.loading;
+  document.getElementById('langDdLabel').textContent = t.lang;
   // 탭
   const tabs = document.querySelectorAll('.tab-btn');
   tabs[0].textContent = t.all + ' 16p';
