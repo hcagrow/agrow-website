@@ -990,7 +990,7 @@ function apply(lang){
   document.querySelectorAll('.pc img[src*="agrow_"]').forEach(im=>{
     if(!im.dataset.ko)im.dataset.ko=im.getAttribute('src');
     const f=im.dataset.ko.split('/').pop();
-    im.src=['en','ru','uz','zh','ja','vi'].includes(lang)&&!f.includes('company')?'images/loc/'+lang+'/'+f:im.dataset.ko;
+    im.src=['en','ru','uz','zh','ja','vi','id'].includes(lang)&&!f.includes('company')?'images/loc/'+lang+'/'+f:im.dataset.ko;
   });
   document.querySelectorAll('[data-ph]').forEach(el=>{el.placeholder=t[el.dataset.ph]||''});
   ['nav0','nav1','nav2','nav3','nav4','nav5'].forEach((k,i)=>{
