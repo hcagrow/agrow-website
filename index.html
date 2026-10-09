@@ -986,6 +986,11 @@ function apply(lang){
   document.querySelectorAll('[data-ia]').forEach(el=>{const v=t[el.dataset.ia];if(v!==undefined)el.alt=v;});
   document.querySelectorAll('[data-it]').forEach(el=>{const v=t[el.dataset.it];if(v!==undefined)el.title=v;});
   if(t.brand_n)document.title='Hydroponic Agrow — '+t.brand_n;
+  document.querySelectorAll('.pc img[src*="agrow_"]').forEach(im=>{
+    if(!im.dataset.ko)im.dataset.ko=im.getAttribute('src');
+    const f=im.dataset.ko.split('/').pop();
+    im.src=['en','ru','uz','zh','ja','vi'].includes(lang)&&!f.includes('company')?'images/loc/'+lang+'/'+f:im.dataset.ko;
+  });
   document.querySelectorAll('[data-ph]').forEach(el=>{el.placeholder=t[el.dataset.ph]||''});
   ['nav0','nav1','nav2','nav3','nav4','nav5'].forEach((k,i)=>{
     document.querySelectorAll('[data-i="'+k+'"]').forEach(el=>el.textContent=(t.nav&&t.nav[i])||'');
