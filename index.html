@@ -845,7 +845,7 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
         <div class="dl-desc" data-i="dl1_desc">Agrow 양액공급기 전 제품 스펙 및 특징이 담긴 공식 카탈로그입니다.</div>
         <div class="dl-meta">PDF · 18MB</div>
       </div>
-      <a href="downloads/agrow_catalog.pdf" download="Agrow_양액공급기_카탈로그.pdf" class="dl-btn">
+      <a href="downloads/agrow_catalog.pdf" download="Agrow_양액공급기_카탈로그.pdf" class="dl-btn" data-pdf="agrow">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span data-i="dl_btn">다운로드</span>
       </a>
@@ -857,7 +857,7 @@ footer{background:var(--foot);padding:48px 5% 24px;transition:background .3s}
         <div class="dl-desc" data-i="dl2_desc">복합환경제어기 A⁺-green의 기능 및 설치 사례가 담긴 공식 카탈로그입니다.</div>
         <div class="dl-meta">PDF · 3.8MB</div>
       </div>
-      <a href="downloads/agreen_catalog.pdf" download="APlus-green_카탈로그.pdf" class="dl-btn">
+      <a href="downloads/agreen_catalog.pdf" download="APlus-green_카탈로그.pdf" class="dl-btn" data-pdf="aplus">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span data-i="dl_btn">다운로드</span>
       </a>
@@ -1001,6 +1001,13 @@ function apply(lang){
   if(t.meta_desc){const sm=(n,v)=>{const e=document.querySelector(n);if(e)e.setAttribute('content',v)};
     sm('meta[name="description"]',t.meta_desc);sm('meta[property="og:description"]',t.meta_desc);sm('meta[property="og:title"]',document.title);
     sm('meta[property="og:locale"]',({ko:'ko_KR',en:'en_US',ru:'ru_RU',uz:'uz_UZ',zh:'zh_CN',ja:'ja_JP',vi:'vi_VN',id:'id_ID'})[lang]||'en_US');}
+  document.querySelectorAll('a[data-pdf]').forEach(a=>{
+    if(!a.dataset.h0){a.dataset.h0=a.getAttribute('href');a.dataset.d0=a.getAttribute('download');const m=a.closest('.dl-card').querySelector('.dl-meta');a.dataset.m0=m?m.textContent:'';}
+    const m=a.closest('.dl-card').querySelector('.dl-meta');const loc=['en','ru','uz','zh','ja','vi','id'].includes(lang);
+    const SZ={"agrow_en": 3.4, "aplus_en": 0.9, "agrow_ru": 3.5, "aplus_ru": 0.9, "agrow_uz": 3.5, "aplus_uz": 0.9, "agrow_zh": 3.3, "aplus_zh": 0.9, "agrow_ja": 3.3, "aplus_ja": 0.9, "agrow_vi": 3.4, "aplus_vi": 0.9, "agrow_id": 3.4, "aplus_id": 0.9};
+    if(loc){a.href='downloads/catalog/'+a.dataset.pdf+'_catalog_'+lang+'.pdf';a.setAttribute('download','Agrow_'+a.dataset.pdf+'_catalog_'+lang+'.pdf');if(m)m.textContent='PDF · '+SZ[a.dataset.pdf+'_'+lang]+'MB';}
+    else{a.href=a.dataset.h0;a.setAttribute('download',a.dataset.d0);if(m)m.textContent=a.dataset.m0;}
+  });
   document.querySelectorAll('.pc img[src*="agrow_"]').forEach(im=>{
     if(!im.dataset.ko)im.dataset.ko=im.getAttribute('src');
     const f=im.dataset.ko.split('/').pop();
