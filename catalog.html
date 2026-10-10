@@ -20,13 +20,19 @@ body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Inter',san
 /* NAV - fixed height */
 nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-items:center;padding:0 4%;gap:12px;background:var(--nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
 .nav-logo{font-family:'Inter',sans-serif;font-size:19px;font-weight:900;color:var(--acc);letter-spacing:-1px;text-decoration:none}
-.nav-sub{font-size:10px;color:var(--t3);letter-spacing:1.5px}
+.nav-sub{font-size:10px;color:var(--t3);letter-spacing:1.5px;white-space:nowrap}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.back-btn{display:flex;align-items:center;gap:5px;padding:6px 14px;border-radius:100px;border:1.5px solid var(--bdr);background:transparent;color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s}
+.back-btn{display:flex;align-items:center;gap:5px;padding:6px 14px;border-radius:100px;border:1.5px solid var(--bdr);background:transparent;color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .2s;white-space:nowrap}
 .back-btn:hover{border-color:var(--acc);color:var(--acc)}
-.tog{width:38px;height:20px;border-radius:10px;border:none;cursor:pointer;background:var(--tog);position:relative;transition:background .3s;flex-shrink:0}
-.tog::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s}
-[data-theme="dark"] .tog::after{transform:translateX(18px)}
+.tog{width:54px;height:28px;border-radius:14px;border:1px solid var(--bdr);cursor:pointer;background:#E3E9F0;position:relative;transition:background .3s;flex-shrink:0;padding:0}
+[data-theme="dark"] .tog{background:#1B2A40}
+.tog .tb{position:absolute;top:50%;width:13px;height:13px;margin-top:-6.5px;opacity:.45;pointer-events:none}
+.tog .tb.s{left:7px;color:#C98A00}.tog .tb.m{right:7px;color:#5A6B82}
+.tog-k{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .3s,background .3s;pointer-events:none}
+[data-theme="dark"] .tog-k{transform:translateX(26px);background:#0C1A2E}
+.tog-k svg{width:14px;height:14px}
+.tog-k .i-s{color:#F5A623}.tog-k .i-m{color:#FFD95A;display:none}
+[data-theme="dark"] .tog-k .i-s{display:none}[data-theme="dark"] .tog-k .i-m{display:block}
 
 /* TAB BAR - fixed height */
 .tab-bar{flex-shrink:0;display:flex;gap:6px;padding:10px 4%;background:var(--bg2);border-bottom:1px solid var(--bdr);flex-wrap:wrap}
@@ -37,7 +43,7 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
 
 /* MAIN - fills remaining height, NO scroll */
 .main{flex:1;display:grid;grid-template-columns:1fr 200px;gap:0;overflow:hidden;min-height:0}
-@media(max-width:860px){.main{grid-template-columns:1fr}.sidebar{display:none!important}}
+@media(max-width:860px){.main{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.sidebar{display:none!important}}
 
 /* VIEWER - fills height */
 .viewer{display:flex;flex-direction:column;padding:16px;gap:10px;overflow:hidden;min-height:0}
@@ -56,7 +62,7 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
 
 /* CONTROLS - fixed */
 .controls{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:8px}
-.ctrl-btn{padding:7px 16px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--card);color:var(--t2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.ctrl-btn{padding:7px 16px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--card);color:var(--t2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px}
 .ctrl-btn:hover:not(:disabled){background:var(--t1);color:#fff;border-color:var(--t1)}
 [data-theme="dark"] .ctrl-btn:hover:not(:disabled){background:var(--acc);color:#080F1C;border-color:var(--acc)}
 .ctrl-btn:disabled{opacity:.3;cursor:default}
@@ -87,16 +93,35 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
 .fullscreen-btn:hover{background:rgba(0,0,0,0.8)}
 .fullscreen-btn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
 
-.tog-wrap{display:flex;align-items:center;gap:6px}
-.tog-label{font-size:11px;font-weight:600;color:var(--t3);white-space:nowrap}
 .lang-dd{position:relative}
-.lang-dd-btn{padding:5px 12px;border-radius:100px;border:1.5px solid var(--bdr);background:transparent;color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.lang-dd-btn{padding:5px 12px;border-radius:100px;border:1.5px solid var(--bdr);background:transparent;color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
 .lang-dd-btn:hover{border-color:var(--acc);color:var(--acc)}
 .lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:6px;min-width:160px;max-width:calc(100vw - 24px);box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:9999;display:none}
 .lang-dd:hover .lang-menu,.lang-dd:focus-within .lang-menu{display:block}
 .lang-opt{display:block;width:100%;padding:6px 10px;border:none;background:transparent;color:var(--t2);font-size:12px;font-weight:500;cursor:pointer;border-radius:6px;text-align:left;font-family:inherit;transition:background .15s;white-space:nowrap}
 .lang-opt:hover{background:var(--bg2);color:var(--t1)}
 .lang-opt.on{color:var(--acc);font-weight:700}
+
+.ctrl-btn.ic{padding:7px 10px}
+.ctrl-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.page-info{white-space:nowrap}
+/* 하단 문의바 */
+.mbar{display:none}
+@media(max-width:560px){
+  nav{gap:8px;padding:0 3%}
+  .nav-sub,#langDdLabel,.back-btn .bt{display:none}
+  .back-btn{padding:6px 11px}
+  .lang-dd-btn{padding:5px 10px}
+  .controls{gap:6px}
+  .ctrl-btn{padding:7px 12px;font-size:12px}
+  .ctrl-btn .ct{display:none}
+}
+@media(max-width:768px){
+  .mbar{display:flex;flex-shrink:0;background:var(--nav);border-top:1px solid var(--bdr);padding:8px 10px calc(8px + env(safe-area-inset-bottom));gap:8px}
+  .mbar a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:46px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:700;color:#fff;white-space:nowrap}
+  .mbar a .mi{font-size:17px;line-height:1}
+  .mbar .m-call{background:#00C87A}.mbar .m-tg{background:#229ED9}.mbar .m-mail{background:#3A4A5E}
+}
 </style>
 </head>
 <body>
@@ -104,20 +129,17 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
   <a href="index.html" class="nav-logo">Agrow</a>
   <span class="nav-sub">카탈로그</span>
   <div class="nav-right">
-    <a href="index.html" class="back-btn">← 홈으로</a>
+    <a href="index.html" class="back-btn" id="backBtn">←<span class="bt"> 홈으로</span></a>
     <div class="lang-dd">
-      <button class="lang-dd-btn" id="langDdBtn">🌐 <span id="langDdLabel">언어</span></button>
+      <button class="lang-dd-btn" id="langDdBtn"><span id="langFlag">🌐</span> <span id="langDdLabel">언어</span></button>
       <div class="lang-menu" id="langMenu"></div>
     </div>
-    <div class="tog-wrap">
-      <span class="tog-label" id="togLabel">🌙 다크</span>
-      <button class="tog" id="togBtn"></button>
-    </div>
+    <button class="tog" id="togBtn" type="button" role="switch" aria-checked="false"><svg class="tb s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="tb m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><span class="tog-k"><svg class="i-s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="i-m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></span></button>
   </div>
 </nav>
 <div class="tab-bar">
-  <button class="tab-btn on" data-cat="all">전체 17p</button>
-  <button class="tab-btn" data-cat="agrow">양액공급기 13p</button>
+  <button class="tab-btn on" data-cat="all">전체 16p</button>
+  <button class="tab-btn" data-cat="agrow">양액공급기 12p</button>
   <button class="tab-btn" data-cat="green">A⁺-green 4p</button>
 </div>
 <div class="main">
@@ -129,18 +151,23 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
       <button class="arrow arr-r" id="arrR"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
     <div class="controls">
-      <button class="ctrl-btn" id="firstBtn">처음</button>
-      <button class="ctrl-btn" id="prevBtn">◀ 이전</button>
+      <button class="ctrl-btn ic" id="firstBtn" title="처음"><svg viewBox="0 0 24 24"><polyline points="18 17 13 12 18 7"/><polyline points="11 17 6 12 11 7"/></svg></button>
+      <button class="ctrl-btn" id="prevBtn"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span class="ct" id="prevTxt">이전</span></button>
       <span class="page-info" id="pageInfo">1 / 16</span>
-      <button class="ctrl-btn" id="nextBtn">다음 ▶</button>
-      <button class="ctrl-btn" id="lastBtn">마지막</button>
+      <button class="ctrl-btn" id="nextBtn"><span class="ct" id="nextTxt">다음</span><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <button class="ctrl-btn ic" id="lastBtn" title="마지막"><svg viewBox="0 0 24 24"><polyline points="6 17 11 12 6 7"/><polyline points="13 17 18 12 13 7"/></svg></button>
     </div>
   </div>
   <div class="mob-thumbs" id="mobThumbs"></div>
   <div class="sidebar">
-    <h4>페이지 목록</h4>
+    <h4 id="pgListT">페이지 목록</h4>
     <div class="thumb-list" id="thumbList"></div>
   </div>
+</div>
+<div class="mbar" role="navigation" aria-label="Quick contact">
+  <a href="tel:0337475114" class="m-call"><span class="mi">📞</span><span id="mbCall">전화</span></a>
+  <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi">✈️</span><span>Telegram</span></a>
+  <a href="mailto:hpagrow@hanmail.net" class="m-mail" id="mbMail"><span class="mi">✉️</span><span id="mbMailT">이메일</span></a>
 </div>
 <script>
 function getSrc(id){
@@ -207,6 +234,7 @@ function render(){
   document.getElementById('firstBtn').disabled=atFirst;
   document.getElementById('lastBtn').disabled=atLast;
   buildThumbs();
+  updMail();
 }
 
 function buildThumbs(){
@@ -214,7 +242,7 @@ function buildThumbs(){
   pages.forEach((p,i)=>{
     const d=document.createElement('div');
     d.className='thumb-item'+(i===idx?' on':'');
-    const lbl = curLang==='en' ? (p.label_en||p.label) : p.label;
+    const lbl = curLang==='ko' ? p.label : (p.label_en||p.label);
     d.innerHTML='<img src="'+getSrc(p.id)+'" loading="lazy"><span>'+lbl+'</span>';
     d.onclick=()=>{idx=i;render();};
     thumbList.appendChild(d);
@@ -276,29 +304,44 @@ stage.addEventListener('touchend',e=>{
 
 
 const CAT_I18N = {
-  ko:{back:'← 홈으로',sub:'카탈로그',all:'전체',agrow:'양액공급기',green:'A⁺-green',dark:'🌙 다크',light:'☀️ 라이트',loading:'불러오는 중...',lang:'언어'},
-  en:{back:'← Home',sub:'Catalog',all:'All',agrow:'Nutrient Feeder',green:'A⁺-green',dark:'🌙 Dark',light:'☀️ Light',loading:'Loading...',lang:'Language'},
-  zh:{back:'← 主页',sub:'产品目录',all:'全部',agrow:'养液供应机',green:'A⁺-green',dark:'🌙 深色',light:'☀️ 浅色',loading:'加载中...',lang:'语言'},
-  ja:{back:'← ホーム',sub:'カタログ',all:'すべて',agrow:'養液供給機',green:'A⁺-green',dark:'🌙 ダーク',light:'☀️ ライト',loading:'読み込み中...',lang:'言語'},
-  ru:{back:'← Главная',sub:'Каталог',all:'Все',agrow:'Питатель',green:'A⁺-green',dark:'🌙 Тёмный',light:'☀️ Светлый',loading:'Загрузка...',lang:'Язык'},
-  vi:{back:'← Trang chủ',sub:'Danh mục',all:'Tất cả',agrow:'Máy dinh dưỡng',green:'A⁺-green',dark:'🌙 Tối',light:'☀️ Sáng',loading:'Đang tải...',lang:'Ngôn ngữ'},
-  id:{back:'← Beranda',sub:'Katalog',all:'Semua',agrow:'Mesin Nutrisi',green:'A⁺-green',dark:'🌙 Gelap',light:'☀️ Terang',loading:'Memuat...',lang:'Bahasa'},
-  uz:{back:'← Bosh sahifa',sub:'Katalog',all:'Barchasi',agrow:'Ozuqa mashinasi',green:'A⁺-green',dark:'🌙 Qorongu',light:'☀️ Yorug',loading:'Yuklanmoqda...',lang:'Til'},
+  ko:{first:'처음',last:'마지막',prev:'이전',next:'다음',plist:'페이지 목록',call:'전화',mail:'이메일',subj:'[카탈로그 문의] ',tdark:'다크 모드로 전환',tlight:'라이트 모드로 전환',back:'← 홈으로',sub:'카탈로그',all:'전체',agrow:'양액공급기',green:'A⁺-green',dark:'🌙 다크',light:'☀️ 라이트',loading:'불러오는 중...',lang:'언어'},
+  en:{first:'First',last:'Last',prev:'Prev',next:'Next',plist:'Pages',call:'Call',mail:'Email',subj:'[Catalog inquiry] ',tdark:'Switch to dark mode',tlight:'Switch to light mode',back:'← Home',sub:'Catalog',all:'All',agrow:'Nutrient Feeder',green:'A⁺-green',dark:'🌙 Dark',light:'☀️ Light',loading:'Loading...',lang:'Language'},
+  zh:{first:'首页',last:'末页',prev:'上一页',next:'下一页',plist:'页面列表',call:'电话',mail:'邮件',subj:'[产品目录咨询] ',tdark:'切换到深色模式',tlight:'切换到浅色模式',back:'← 主页',sub:'产品目录',all:'全部',agrow:'养液供应机',green:'A⁺-green',dark:'🌙 深色',light:'☀️ 浅色',loading:'加载中...',lang:'语言'},
+  ja:{first:'最初',last:'最後',prev:'前へ',next:'次へ',plist:'ページ一覧',call:'電話',mail:'メール',subj:'[カタログお問い合わせ] ',tdark:'ダークモードに切り替え',tlight:'ライトモードに切り替え',back:'← ホーム',sub:'カタログ',all:'すべて',agrow:'養液供給機',green:'A⁺-green',dark:'🌙 ダーク',light:'☀️ ライト',loading:'読み込み中...',lang:'言語'},
+  ru:{first:'В начало',last:'В конец',prev:'Назад',next:'Далее',plist:'Страницы',call:'Позвонить',mail:'Почта',subj:'[Запрос по каталогу] ',tdark:'Включить тёмную тему',tlight:'Включить светлую тему',back:'← Главная',sub:'Каталог',all:'Все',agrow:'Питатель',green:'A⁺-green',dark:'🌙 Тёмный',light:'☀️ Светлый',loading:'Загрузка...',lang:'Язык'},
+  vi:{first:'Đầu',last:'Cuối',prev:'Trước',next:'Tiếp',plist:'Danh sách trang',call:'Gọi điện',mail:'Email',subj:'[Hỏi về danh mục] ',tdark:'Chuyển sang chế độ tối',tlight:'Chuyển sang chế độ sáng',back:'← Trang chủ',sub:'Danh mục',all:'Tất cả',agrow:'Máy dinh dưỡng',green:'A⁺-green',dark:'🌙 Tối',light:'☀️ Sáng',loading:'Đang tải...',lang:'Ngôn ngữ'},
+  id:{first:'Awal',last:'Akhir',prev:'Sebelumnya',next:'Berikutnya',plist:'Daftar halaman',call:'Telepon',mail:'Email',subj:'[Pertanyaan katalog] ',tdark:'Beralih ke mode gelap',tlight:'Beralih ke mode terang',back:'← Beranda',sub:'Katalog',all:'Semua',agrow:'Mesin Nutrisi',green:'A⁺-green',dark:'🌙 Gelap',light:'☀️ Terang',loading:'Memuat...',lang:'Bahasa'},
+  uz:{first:'Boshi',last:'Oxiri',prev:'Oldingi',next:'Keyingi',plist:'Sahifalar',call:"Qo'ng'iroq",mail:'Email',subj:"[Katalog bo'yicha so'rov] ",tdark:"Tungi rejimga o'tish",tlight:"Kunduzgi rejimga o'tish",back:'← Bosh sahifa',sub:'Katalog',all:'Barchasi',agrow:'Ozuqa mashinasi',green:'A⁺-green',dark:'🌙 Qorongu',light:'☀️ Yorug',loading:'Yuklanmoqda...',lang:'Til'},
 };
-let curLang = localStorage.getItem('ag-lang') || 'ko';
+let curLang='ko';
+try{const q=new URLSearchParams(location.search).get('lang');curLang=(q&&CAT_I18N[q])?q:(localStorage.getItem('ag-lang')||'ko');}catch(e){}
+if(!CAT_I18N[curLang])curLang='ko';
+const FLAGS={'ko':'🇰🇷','en':'🇺🇸','zh':'🇨🇳','ja':'🇯🇵','ru':'🇷🇺','vi':'🇻🇳','id':'🇮🇩','uz':'🇺🇿'};
+function updMail(){const t=CAT_I18N[curLang]||CAT_I18N.ko,a=document.getElementById('mbMail');if(!a||typeof pages==='undefined')return;
+const pg=pages[idx]||{},nm=curLang==='ko'?pg.label:(pg.label_en||pg.label);
+a.href='mailto:hpagrow@hanmail.net?subject='+encodeURIComponent(t.subj+(nm||''));}
 
 function applyLang(lang) {
   curLang = lang;
   const t = CAT_I18N[lang] || CAT_I18N.ko;
-  document.querySelector('.back-btn').textContent = t.back;
+  document.querySelector('#backBtn .bt').textContent = ' '+t.back.replace(/^←\s*/,'');
+  document.getElementById('backBtn').href='index.html?lang='+lang;
+  document.getElementById('langFlag').textContent=FLAGS[lang]||'🌐';
+  document.getElementById('prevTxt').textContent=t.prev;document.getElementById('nextTxt').textContent=t.next;
+  document.getElementById('prevBtn').title=t.prev;document.getElementById('nextBtn').title=t.next;
+  document.getElementById('firstBtn').title=t.first;document.getElementById('lastBtn').title=t.last;
+  document.getElementById('pgListT').textContent=t.plist;
+  document.getElementById('mbCall').textContent=t.call;document.getElementById('mbMailT').textContent=t.mail;
+  document.documentElement.lang=lang;
+  try{localStorage.setItem('ag-lang',lang)}catch(e){}
   document.querySelector('.nav-sub').textContent = t.sub;
   document.getElementById('loading').textContent = t.loading;
   document.getElementById('langDdLabel').textContent = t.lang;
   // 탭
   const tabs = document.querySelectorAll('.tab-btn');
-  tabs[0].textContent = t.all + ' 16p';
-  tabs[1].textContent = t.agrow + ' 12p';
-  tabs[2].textContent = t.green + ' 4p';
+  tabs[0].textContent = t.all + ' ' + ALL.length + 'p';
+  tabs[1].textContent = t.agrow + ' ' + AGROW.length + 'p';
+  tabs[2].textContent = t.green + ' ' + GREEN.length + 'p';
   // 토글 레이블
   updateTogLabel();
   // 언어 버튼 활성화
@@ -310,15 +353,16 @@ function applyLang(lang) {
 function updateTogLabel() {
   const t = CAT_I18N[curLang] || CAT_I18N.ko;
   const isDark = document.documentElement.dataset.theme === 'dark';
-  document.getElementById('togLabel').textContent = isDark ? t.light : t.dark;
+  const b=document.getElementById('togBtn'),v=isDark ? t.tlight : t.tdark;
+  b.title=v;b.setAttribute('aria-label',v);b.setAttribute('aria-checked',isDark?'true':'false');
 }
 
 // 다크모드
 const html=document.documentElement;
-html.dataset.theme=localStorage.getItem('ag-theme')||'light';
+try{html.dataset.theme=localStorage.getItem('ag-theme')||'light';}catch(e){}
 document.getElementById('togBtn').addEventListener('click',()=>{
   const t=html.dataset.theme==='light'?'dark':'light';
-  html.dataset.theme=t;localStorage.setItem('ag-theme',t);
+  html.dataset.theme=t;try{localStorage.setItem('ag-theme',t)}catch(e){}
   updateTogLabel();
 });
 
