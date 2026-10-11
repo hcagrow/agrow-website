@@ -79,7 +79,7 @@ a{color:inherit}
 .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
 header{position:sticky;top:0;z-index:50;background:var(--nav);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--bdr)}
 .hd{display:flex;align-items:center;gap:12px;height:60px}
-.logo{font-family:'Inter',sans-serif;font-weight:900;font-size:21px;letter-spacing:-1px;color:var(--acc);text-decoration:none}
+.lg{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}.lg .lg-sym{display:block;flex-shrink:0}.lg-tx{display:flex;flex-direction:column;line-height:1}.lg-k{font-family:'Noto Sans KR','Noto Sans CJK KR',sans-serif;font-weight:900;font-size:10.5px;letter-spacing:1.5px;color:var(--t1)}.lg-w{font-family:'Inter','Noto Sans KR',sans-serif;font-weight:900;font-size:23px;letter-spacing:-1px;color:var(--t1);margin-top:2px}
 .hd-r{margin-left:auto;display:flex;align-items:center;gap:8px}
 .lsel{position:relative}
 .lsel summary{list-style:none;cursor:pointer;padding:6px 12px;border:1.5px solid var(--bdr);border-radius:100px;font-size:12.5px;font-weight:600;color:var(--t2);white-space:nowrap}
@@ -220,7 +220,7 @@ def page(p, lang, T):
 </head>
 <body>
 <header><div class="wrap hd">
-  <a class="logo" href="{home}">Agrow</a>
+  <a class="logo lg" href="{home}" aria-label="한가람농업개발 Agrow"><svg class="lg-sym" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><defs><linearGradient id="lgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D68A"/><stop offset="1" stop-color="#00A36C"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#lgG)"/><path d="M32 9C32 9 15 29 15 40.5A17 17 0 0 0 49 40.5C49 29 32 9 32 9Z" fill="#fff"/><path d="M32 52C32 44 33 37 41 31C40 40 37 45 32 47" fill="#00B877"/><path d="M32 52C32 46 30.5 41 24.5 37.5C25 43 27.5 46.5 32 48" fill="#E8892B"/></svg><span class="lg-tx"><span class="lg-k">한가람농업개발</span><span class="lg-w">Agrow</span></span></a>
   <div class="hd-r">
     <details class="lsel"><summary>{FLAG[lang]} {LNAME[lang]} ▾</summary><ul>{langs}</ul></details>
     <button class="tog" id="togBtn" type="button" role="switch" aria-checked="false" title="{E(tg_lbl)}" aria-label="{E(tg_lbl)}">{cls(SUN,'tb s')}{cls(MOON,'tb m')}<span class="tog-k">{cls(SUN,'i-s')}{cls(MOON,'i-m')}</span></button>
