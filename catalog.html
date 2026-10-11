@@ -121,6 +121,7 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
   .mbar{display:flex;flex-shrink:0;background:var(--nav);border-top:1px solid var(--bdr);padding:8px 10px calc(8px + env(safe-area-inset-bottom));gap:8px}
   .mbar a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:46px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:700;color:#fff;white-space:nowrap}
   .mbar a .mi{font-size:17px;line-height:1}
+.lic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:inline-block;vertical-align:-.15em;flex-shrink:0}
   .mbar .m-call{background:#00C87A}.mbar .m-tg{background:#229ED9}.mbar .m-mail{background:#3A4A5E}
 }
 .lg{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
@@ -171,9 +172,9 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
   </div>
 </div>
 <div class="mbar" role="navigation" aria-label="Quick contact">
-  <a href="tel:0337475114" class="m-call"><span class="mi">📞</span><span id="mbCall">전화</span></a>
-  <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi">✈️</span><span>Telegram</span></a>
-  <a href="mailto:hpagrow@hanmail.net" class="m-mail" id="mbMail"><span class="mi">✉️</span><span id="mbMailT">이메일</span></a>
+  <a href="tel:0337475114" class="m-call"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span id="mbCall">전화</span></a>
+  <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></span><span>Telegram</span></a>
+  <a href="mailto:hpagrow@hanmail.net" class="m-mail" id="mbMail"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><span id="mbMailT">이메일</span></a>
 </div>
 <script>
 function getSrc(id){

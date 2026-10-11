@@ -240,7 +240,7 @@ html:not([lang="ko"]) .fbkr{letter-spacing:1px}
 .pc{background:var(--card);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s,background .3s,border-color .3s}
 .pc:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
 .ci{height:250px;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;transition:background .3s;overflow:hidden}
-.ci img{width:100%;height:100%;object-fit:contain;object-position:center;background:#fff;transition:transform .3s}.ci[onclick]:hover::after{content:"📖 카탈로그 보기";position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:11px;padding:4px 12px;border-radius:100px;white-space:nowrap;pointer-events:none}
+.ci img{width:100%;height:100%;object-fit:contain;object-position:center;background:#fff;transition:transform .3s}.ci[onclick]:hover::after{content:"카탈로그 보기 →";position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:11px;padding:4px 12px;border-radius:100px;white-space:nowrap;pointer-events:none}
 .pc:hover .ci img{transform:scale(1.05)}
 .ci-inner{text-align:center;opacity:.4;color:var(--t3);font-size:13px}
 .ci-inner .big{font-size:32px;display:block;margin-bottom:4px}
@@ -512,6 +512,14 @@ h3.cn{margin-top:0}
   .hx-c1{left:-6px;top:16%}.hx-c2{right:-6px;top:36%}.hx-c3{left:-6px;top:52%}
   .hx-tabs{margin-top:16px;gap:5px}.hx-tabs button{font-size:10.5px;padding:5px 9px}
 }
+.lic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:inline-block;vertical-align:-.15em;flex-shrink:0}
+.pt-ico,.supp-ico,.dash-feat-ico,.pat-ico,.port-img{color:var(--acc2)}
+.dash-feat-ico{width:44px;height:44px;border-radius:10px;background:rgba(0,200,122,0.08);border:1px solid rgba(0,200,122,0.15);display:flex;align-items:center;justify-content:center;font-size:21px}
+.pt-ico{font-size:20px}.supp-ico{font-size:22px}.pat-ico{font-size:22px}
+.port-img{font-size:46px}.port-img .lic{stroke-width:1.3;opacity:.75}
+.ic-ico{color:#fff}
+.dl-ico{font-size:22px}.dl-ico.green{color:var(--acc2)}.dl-ico.blue{color:#2F6FE0}.dl-ico.orange{color:#E07A10}
+.dl-modal h3 .lic{color:var(--acc2)}
 </style>
 </head>
 <body>
@@ -610,9 +618,9 @@ h3.cn{margin-top:0}
       <p class="sec-sub" data-i="about_p1">한가람농업개발은 대한민국을 대표하는 Agrow 토경관비기, 양액공급기, A⁺-Green 복합환경제어기 등 다양한 농업 기자재 전문기업입니다.</p>
       <p class="sec-sub" style="margin-top:14px" data-i="about_p2">30여년간 끊임없는 연구개발로 17개국에 양액공급기 명품 Agrow 시리즈를 수출하고 있으며, 농업 현장 실증 시험을 통해 검증된 제품만을 공급합니다.</p>
       <div class="pts">
-        <div class="pt"><div class="pt-ico">🔬</div><div><div class="pt-name" data-i="pt1_n">검증된 기술력</div><div class="pt-desc" data-i="pt1_d">특허 및 실용신안 등록. 현장 실증 시험을 통해 검증된 제품만 출시합니다.</div></div></div>
-        <div class="pt"><div class="pt-ico">🌏</div><div><div class="pt-name" data-i="pt2_n">글로벌 수출 역량</div><div class="pt-desc" data-i="pt2_d">국내 최초 세계 10개국 수출, 17개국 양액공급기 납품 이력을 보유합니다.</div></div></div>
-        <div class="pt"><div class="pt-ico">🛠</div><div><div class="pt-name" data-i="pt3_n">전문 A/S 지원</div><div class="pt-desc" data-i="pt3_d">연락 후 방문 접수. 평일 09:00–18:00.</div></div></div>
+        <div class="pt"><div class="pt-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7 15h10"/></svg></div><div><div class="pt-name" data-i="pt1_n">검증된 기술력</div><div class="pt-desc" data-i="pt1_d">특허 및 실용신안 등록. 현장 실증 시험을 통해 검증된 제품만 출시합니다.</div></div></div>
+        <div class="pt"><div class="pt-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div><div><div class="pt-name" data-i="pt2_n">글로벌 수출 역량</div><div class="pt-desc" data-i="pt2_d">국내 최초 세계 10개국 수출, 17개국 양액공급기 납품 이력을 보유합니다.</div></div></div>
+        <div class="pt"><div class="pt-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div><div><div class="pt-name" data-i="pt3_n">전문 A/S 지원</div><div class="pt-desc" data-i="pt3_d">연락 후 방문 접수. 평일 09:00–18:00.</div></div></div>
       </div>
     </div>
     <div class="about-vis rv" style="padding:0"><img src="images/agrow_company.jpg" alt="한가람농업개발 본사 전경" data-ia="about_alt" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="about-vis-tag" data-i="about_tag">Hydroponic Agrow 본사</div></div>
@@ -657,9 +665,9 @@ h3.cn{margin-top:0}
       </div>
     </div>
     <div class="rv" style="display:flex;flex-direction:column;gap:14px">
-      <div class="pt"><div class="pt-ico">🏆</div><div><div class="pt-name" data-i="tech1_n">KS 표준 준수</div><div class="pt-desc" data-i="tech1_d">한국산업표준(KS) 기반 설계. 스마트팜 장비 정부 보조사업 납품 적합.</div></div></div>
-      <div class="pt"><div class="pt-ico">📡</div><div><div class="pt-name" data-i="tech2_n">RS-485 / Modbus 통신</div><div class="pt-desc" data-i="tech2_d">표준 RS-485 Modbus RTU 프로토콜 지원. 복합환경제어기 및 외부 시스템과 완벽 연동.</div></div></div>
-      <div class="pt"><div class="pt-ico">🔒</div><div><div class="pt-name" data-i="tech3_n">EC/pH 정밀 보정 기능</div><div class="pt-desc" data-i="tech3_d">EC 1/2 및 pH 1/2 센서값 자동 보정. 오차 최소화로 최적의 양액 농도 유지.</div></div></div>
+      <div class="pt"><div class="pt-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg></div><div><div class="pt-name" data-i="tech1_n">KS 표준 준수</div><div class="pt-desc" data-i="tech1_d">한국산업표준(KS) 기반 설계. 스마트팜 장비 정부 보조사업 납품 적합.</div></div></div>
+      <div class="pt"><div class="pt-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.9 19.1a10 10 0 0 1 0-14.2M19.1 4.9a10 10 0 0 1 0 14.2M7.8 16.2a6 6 0 0 1 0-8.4M16.2 7.8a6 6 0 0 1 0 8.4"/><circle cx="12" cy="12" r="2"/></svg></div><div><div class="pt-name" data-i="tech2_n">RS-485 / Modbus 통신</div><div class="pt-desc" data-i="tech2_d">표준 RS-485 Modbus RTU 프로토콜 지원. 복합환경제어기 및 외부 시스템과 완벽 연동.</div></div></div>
+      <div class="pt"><div class="pt-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div><div><div class="pt-name" data-i="tech3_n">EC/pH 정밀 보정 기능</div><div class="pt-desc" data-i="tech3_d">EC 1/2 및 pH 1/2 센서값 자동 보정. 오차 최소화로 최적의 양액 농도 유지.</div></div></div>
     </div>
   </div>
 </section>
@@ -720,10 +728,10 @@ h3.cn{margin-top:0}
       </div>
     </div>
     <div class="dash-feats rv">
-      <div class="dash-feat"><div class="dash-feat-ico">📱</div><div><div class="dash-feat-name" data-i="df1_n">실시간 모니터링</div><div class="dash-feat-desc" data-i="df1_d">EC, pH, 일사량, 수분센서 등 모든 데이터를 스마트폰과 PC에서 실시간으로 확인.</div></div></div>
-      <div class="dash-feat"><div class="dash-feat-ico">🖥</div><div><div class="dash-feat-name" data-i="df2_n">PC 프로그램 연동</div><div class="dash-feat-desc" data-i="df2_d">전용 PC 소프트웨어로 상세 설정, 데이터 기록, 보정값 관리를 정밀하게 수행.</div></div></div>
-      <div class="dash-feat"><div class="dash-feat-ico">🔔</div><div><div class="dash-feat-name" data-i="df3_n">이상 알림 기능</div><div class="dash-feat-desc" data-i="df3_d">EC·pH 경보 상/하한 초과, 관수펌프 이상, 원수펌프 이상 발생 시 즉시 알림.</div></div></div>
-      <div class="dash-feat"><div class="dash-feat-ico">📊</div><div><div class="dash-feat-name" data-i="df4_n">1년치 데이터 저장</div><div class="dash-feat-desc" data-i="df4_d">매일 16개 밸브별 관수횟수와 평균 EC·pH값을 자동 저장. 최대 1년치 데이터 열람 가능.</div></div></div>
+      <div class="dash-feat"><div class="dash-feat-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div><div><div class="dash-feat-name" data-i="df1_n">실시간 모니터링</div><div class="dash-feat-desc" data-i="df1_d">EC, pH, 일사량, 수분센서 등 모든 데이터를 스마트폰과 PC에서 실시간으로 확인.</div></div></div>
+      <div class="dash-feat"><div class="dash-feat-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div><div class="dash-feat-name" data-i="df2_n">PC 프로그램 연동</div><div class="dash-feat-desc" data-i="df2_d">전용 PC 소프트웨어로 상세 설정, 데이터 기록, 보정값 관리를 정밀하게 수행.</div></div></div>
+      <div class="dash-feat"><div class="dash-feat-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div><div><div class="dash-feat-name" data-i="df3_n">이상 알림 기능</div><div class="dash-feat-desc" data-i="df3_d">EC·pH 경보 상/하한 초과, 관수펌프 이상, 원수펌프 이상 발생 시 즉시 알림.</div></div></div>
+      <div class="dash-feat"><div class="dash-feat-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/></svg></div><div><div class="dash-feat-name" data-i="df4_n">1년치 데이터 저장</div><div class="dash-feat-desc" data-i="df4_d">매일 16개 밸브별 관수횟수와 평균 EC·pH값을 자동 저장. 최대 1년치 데이터 열람 가능.</div></div></div>
     </div>
   </div>
 </section>
@@ -735,7 +743,7 @@ h3.cn{margin-top:0}
   <div class="port-grid">
 
     <div class="port-card rv">
-      <div class="port-img">🌱<div class="port-crop" data-i="pc1_crop">와사비</div></div>
+      <div class="port-img"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12C12 8 9 5 4 5c0 4 3 7 8 7z"/><path d="M12 14c0-3 2.5-6 7-6 0 3.5-2.5 6-7 6z"/></svg><div class="port-crop" data-i="pc1_crop">와사비</div></div>
       <div class="port-body">
         <div class="port-title" data-i="pc1_t">와사비 수경재배</div>
         <div class="port-desc" data-i="pc1_d">저온·저광 환경을 요구하는 와사비 특성상 양액 농도 편차가 생육에 직결됩니다. Agrow-5000 Master의 3개 독립 프로그램으로 뿌리구역별 EC를 따로 관리해 뿌리 부패를 줄이고 근경 비대를 유도했습니다.</div>
@@ -744,7 +752,7 @@ h3.cn{margin-top:0}
     </div>
 
     <div class="port-card rv">
-      <div class="port-img">🌿<div class="port-crop" data-i="pc2_crop">병풀</div></div>
+      <div class="port-img"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg><div class="port-crop" data-i="pc2_crop">병풀</div></div>
       <div class="port-body">
         <div class="port-title" data-i="pc2_t">병풀 수경재배</div>
         <div class="port-desc" data-i="pc2_d">유효성분(아시아티코사이드) 함량이 양액 농도와 공급 타이밍에 민감하게 반응하는 작물입니다. Agrow-5000 Master로 생육 단계마다 별도 프로그램을 운영해 품질 균일도를 높였습니다.</div>
@@ -753,7 +761,7 @@ h3.cn{margin-top:0}
     </div>
 
     <div class="port-card rv">
-      <div class="port-img">🍓<div class="port-crop" data-i="pc3_crop">딸기</div></div>
+      <div class="port-img"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7c-4 0-7 2-7 5.5C5 17 9 21 12 21s7-4 7-8.5C19 9 16 7 12 7z"/><path d="M8.5 4.5 12 7l3.5-2.5M12 7V3"/><path d="M9.5 12h.01M14.5 12h.01M12 15h.01M10 17.5h.01M14 17.5h.01"/></svg><div class="port-crop" data-i="pc3_crop">딸기</div></div>
       <div class="port-body">
         <div class="port-title" data-i="pc3_t">딸기 시설하우스</div>
         <div class="port-desc" data-i="pc3_d">비용 부담 없이 양액기급 정밀 관수를 원하는 농가에 Agrow-2000 Star를 도입했습니다. 12구역 독립 EC 제어와 구역별 원수 공급 기능으로 배관 염류 집적 문제를 해결했습니다.</div>
@@ -762,7 +770,7 @@ h3.cn{margin-top:0}
     </div>
 
     <div class="port-card rv">
-      <div class="port-img">🏡<div class="port-crop" data-i="pc4_crop">대규모단지</div></div>
+      <div class="port-img"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V11a9 9 0 0 1 18 0v9"/><path d="M2 20h20M8 20v-9.5M16 20v-9.5M12 20V2"/></svg><div class="port-crop" data-i="pc4_crop">대규모단지</div></div>
       <div class="port-body">
         <div class="port-title" data-i="pc4_t">시설원예 대규모 단지</div>
         <div class="port-desc" data-i="pc4_d">전국 주요 시설원예 주산지에서 가장 많이 선택하는 모델입니다. EC·pH 복합 제어와 일사량 연동으로 구역 간 생육 편차를 줄이고 상품 균일도를 높였습니다.</div>
@@ -771,7 +779,7 @@ h3.cn{margin-top:0}
     </div>
 
     <div class="port-card rv">
-      <div class="port-img">🏅<div class="port-crop" data-i="pc5_crop">철원</div></div>
+      <div class="port-img"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg><div class="port-crop" data-i="pc5_crop">철원</div></div>
       <div class="port-body">
         <div class="port-title" data-i="pc5_t">철원 — 타사 사용 후 한가람으로 재도입</div>
         <div class="port-desc" data-i="pc5_d">한가람 장비를 잘 쓰시다가 타사 기계로 교체하신 농가입니다. 그러나 철원의 혹독한 현장 환경에서 타사 장비의 EC·pH 수치가 정확하게 맞지 않아 작물 생육에 큰 어려움을 겪으셨습니다. 결국 도저히 못 쓰겠다며 오랫동안 고생하시다가, 세월이 지나도 정확한 수치와 내구성을 유지하는 Agrow를 다시 찾아 재도입하신 사례입니다.</div>
@@ -780,7 +788,7 @@ h3.cn{margin-top:0}
     </div>
 
     <div class="port-card rv">
-      <div class="port-img">🌿<div class="port-crop" data-i="pc6_crop">포항·원주·평창</div></div>
+      <div class="port-img"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg><div class="port-crop" data-i="pc6_crop">포항·원주·평창</div></div>
       <div class="port-body">
         <div class="port-title" data-i="pc6_t">포항·원주·평창 온실 통합 제어</div>
         <div class="port-desc" data-i="pc6_d">복합환경제어와 양액공급을 A⁺-green 하나로 통합 운영 중입니다. 외기 기상대와 연동해 측창·차광 커튼을 자동 제어하고, 환경 변화에 맞춰 양액기도 함께 연동 작동합니다.</div>
@@ -829,8 +837,8 @@ h3.cn{margin-top:0}
     <div class="nc"><div class="nb">1992<span class="nu" style="font-size:14px" data-i="num_yr">년</span></div><div class="nl" data-i="num_l3">창립</div></div>
   </div>
   <div class="pat-g rv">
-    <div class="pat-c"><div class="pat-ico">📋</div><div class="pat-n" data-i="pat1_n">A-Drop 버튼 특허</div><div class="pat-no" data-i="pat1_no">특허출원 제10-2014-0116185호</div></div>
-    <div class="pat-c"><div class="pat-ico">📋</div><div class="pat-n" data-i="pat2_n">연속혼합 보조액비 공급방식</div><div class="pat-no" data-i="pat2_no">실용신안등록출원 제0006471호</div></div>
+    <div class="pat-c"><div class="pat-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></div><div class="pat-n" data-i="pat1_n">A-Drop 버튼 특허</div><div class="pat-no" data-i="pat1_no">특허출원 제10-2014-0116185호</div></div>
+    <div class="pat-c"><div class="pat-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></div><div class="pat-n" data-i="pat2_n">연속혼합 보조액비 공급방식</div><div class="pat-no" data-i="pat2_no">실용신안등록출원 제0006471호</div></div>
   </div>
 </section>
 
@@ -840,10 +848,10 @@ h3.cn{margin-top:0}
   <div class="sec-t rv" data-i="supp_t">구매 후에도<br>든든하게 책임집니다</div>
   <div class="supp-grid">
     <div class="supp-cards rv">
-      <div class="supp-card"><div class="supp-ico">💻</div><div><div class="supp-name" data-i="s1_n">원격 진단</div><div class="supp-desc" data-i="s1_d">PC 원격 접속으로 프로그램 오류를 즉시 진단하고 해결합니다. 직접 방문 없이도 신속하게 처리 가능합니다.</div></div></div>
-      <div class="supp-card"><div class="supp-ico">📦</div><div><div class="supp-name" data-i="s2_n">자체 부품 직접 공급</div><div class="supp-desc" data-i="s2_d">모든 소모품 및 교체 부품을 자체 재고로 보유. 빠른 부품 공급으로 농가 피해 최소화.</div></div></div>
-      <div class="supp-card"><div class="supp-ico">🔧</div><div><div class="supp-name" data-i="s3_n">방문 접수</div><div class="supp-desc" data-i="s3_d">먼저 연락 주시면 증상 확인 후 방문 일정을 잡아드립니다. 방문 접수 시간 평일 09:00–18:00.</div></div></div>
-      <div class="supp-card"><div class="supp-ico">✉️</div><div><div class="supp-name" data-i="s4_n">이메일 문의 접수</div><div class="supp-desc" data-i="s4_d">hpagrow@hanmail.net으로 제품 모델명과 증상 송부 시 직접 연락하여 처리.</div></div></div>
+      <div class="supp-card"><div class="supp-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div><div class="supp-name" data-i="s1_n">원격 진단</div><div class="supp-desc" data-i="s1_d">PC 원격 접속으로 프로그램 오류를 즉시 진단하고 해결합니다. 직접 방문 없이도 신속하게 처리 가능합니다.</div></div></div>
+      <div class="supp-card"><div class="supp-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></div><div><div class="supp-name" data-i="s2_n">자체 부품 직접 공급</div><div class="supp-desc" data-i="s2_d">모든 소모품 및 교체 부품을 자체 재고로 보유. 빠른 부품 공급으로 농가 피해 최소화.</div></div></div>
+      <div class="supp-card"><div class="supp-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div><div><div class="supp-name" data-i="s3_n">방문 접수</div><div class="supp-desc" data-i="s3_d">먼저 연락 주시면 증상 확인 후 방문 일정을 잡아드립니다. 방문 접수 시간 평일 09:00–18:00.</div></div></div>
+      <div class="supp-card"><div class="supp-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div><div><div class="supp-name" data-i="s4_n">이메일 문의 접수</div><div class="supp-desc" data-i="s4_d">hpagrow@hanmail.net으로 제품 모델명과 증상 송부 시 직접 연락하여 처리.</div></div></div>
     </div>
     <div class="rv">
       <div class="supp-hours">
@@ -853,9 +861,9 @@ h3.cn{margin-top:0}
         <div class="hour-row"><span class="hour-day" data-i="supp_sun">일요일·공휴일</span><span class="hour-time closed" data-i="supp_closed">휴무</span></div>
       </div>
       <div class="supp-call" style="margin-top:20px">
-        <a href="tel:0337475114" class="call-btn"><span class="ico">📞</span><span class="num">033-747-5114</span></a>
-        <a href="mailto:hpagrow@hanmail.net" class="call-btn" style="background:var(--t1)"><span class="ico">✉️</span><span class="num">hpagrow@hanmail.net</span></a>
-        <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="call-btn" style="background:#229ED9;color:#fff"><span class="ico">✈️</span><span class="num">Telegram @Seongchan89</span></a>
+        <a href="tel:0337475114" class="call-btn"><span class="ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span class="num">033-747-5114</span></a>
+        <a href="mailto:hpagrow@hanmail.net" class="call-btn" style="background:var(--t1)"><span class="ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><span class="num">hpagrow@hanmail.net</span></a>
+        <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="call-btn" style="background:#229ED9;color:#fff"><span class="ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></span><span class="num">Telegram @Seongchan89</span></a>
       </div>
     </div>
   </div>
@@ -867,11 +875,11 @@ h3.cn{margin-top:0}
   <div class="sec-t rv" data-i="con_t">제품 문의 / 견적 요청</div>
   <div class="con-g">
     <div class="info-l rv">
-      <div class="ic"><div class="ic-ico">📍</div><div><div class="ic-lbl" data-i="con_addr_l">주소</div><div class="ic-val" data-i="con_addr">강원특별자치도 원주시 호저면 우무개로 274 (26349)</div></div></div>
-      <div class="ic"><div class="ic-ico">📞</div><div><div class="ic-lbl" data-i="con_tel_l">전화</div><div class="ic-val"><a href="tel:0337475114">033-747-5114</a></div><div class="ic-sub" data-i="con_fax">FAX: 033-746-1909</div></div></div>
-      <div class="ic"><div class="ic-ico">✉️</div><div><div class="ic-lbl" data-i="con_email_l">이메일</div><div class="ic-val"><a href="mailto:hpagrow@hanmail.net">hpagrow@hanmail.net</a></div></div></div>
-      <div class="ic"><div class="ic-ico">✈️</div><div><div class="ic-lbl">Telegram</div><div class="ic-val"><a href="https://t.me/Seongchan89" target="_blank" rel="noopener">@Seongchan89</a></div></div></div>
-      <div class="ic"><div class="ic-ico">🕐</div><div><div class="ic-lbl" data-i="con_as_l">A/S 방문접수</div><div class="ic-val" data-i="con_as">평일 09:00–18:00</div><div class="ic-sub" data-i="con_as2">토·일·공휴일 휴무</div></div></div>
+      <div class="ic"><div class="ic-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ic-lbl" data-i="con_addr_l">주소</div><div class="ic-val" data-i="con_addr">강원특별자치도 원주시 호저면 우무개로 274 (26349)</div></div></div>
+      <div class="ic"><div class="ic-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div><div><div class="ic-lbl" data-i="con_tel_l">전화</div><div class="ic-val"><a href="tel:0337475114">033-747-5114</a></div><div class="ic-sub" data-i="con_fax">FAX: 033-746-1909</div></div></div>
+      <div class="ic"><div class="ic-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div><div><div class="ic-lbl" data-i="con_email_l">이메일</div><div class="ic-val"><a href="mailto:hpagrow@hanmail.net">hpagrow@hanmail.net</a></div></div></div>
+      <div class="ic"><div class="ic-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></div><div><div class="ic-lbl">Telegram</div><div class="ic-val"><a href="https://t.me/Seongchan89" target="_blank" rel="noopener">@Seongchan89</a></div></div></div>
+      <div class="ic"><div class="ic-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><div class="ic-lbl" data-i="con_as_l">A/S 방문접수</div><div class="ic-val" data-i="con_as">평일 09:00–18:00</div><div class="ic-sub" data-i="con_as2">토·일·공휴일 휴무</div></div></div>
     </div>
     <div class="form rv">
       <div class="fr">
@@ -900,7 +908,7 @@ h3.cn{margin-top:0}
   <div class="sec-t rv" data-i="dl_title">자료 다운로드</div>
   <div class="dl-grid">
     <div class="dl-card rv">
-      <div class="dl-ico green">📋</div>
+      <div class="dl-ico green"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
       <div>
         <div class="dl-name" data-i="dl1_name">양액공급기 카탈로그</div>
         <div class="dl-desc" data-i="dl1_desc">Agrow 양액공급기 전 제품 스펙 및 특징이 담긴 공식 카탈로그입니다.</div>
@@ -912,7 +920,7 @@ h3.cn{margin-top:0}
       </a>
     </div>
     <div class="dl-card rv">
-      <div class="dl-ico blue">🌿</div>
+      <div class="dl-ico blue"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
       <div>
         <div class="dl-name" data-i="dl2_name">A⁺-green 카탈로그</div>
         <div class="dl-desc" data-i="dl2_desc">복합환경제어기 A⁺-green의 기능 및 설치 사례가 담긴 공식 카탈로그입니다.</div>
@@ -924,7 +932,7 @@ h3.cn{margin-top:0}
       </a>
     </div>
     <div class="dl-card rv">
-      <div class="dl-ico orange">📱</div>
+      <div class="dl-ico orange"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
       <div>
         <div class="dl-name" data-i="dl3_name">Agrow 원격제어 앱</div>
         <div class="dl-desc" data-i="dl3_desc">스마트폰으로 양액공급기를 실시간 모니터링하고 원격 제어할 수 있는 안드로이드 앱입니다.</div>
@@ -936,7 +944,7 @@ h3.cn{margin-top:0}
       </a>
     </div>
     <div class="dl-card rv">
-      <div class="dl-ico green">🌿</div>
+      <div class="dl-ico green"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
       <div>
         <div class="dl-name"><span data-i="dl4_name">A⁺-green 원격제어 앱</span> <span style="background:#00C87A;color:#fff;font-size:11px;padding:2px 8px;border-radius:100px;vertical-align:middle">NEW</span></div>
         <div class="dl-desc" data-i="dl4_desc">A⁺-green 복합환경제어기 전용 원격제어 앱입니다.</div>
@@ -948,7 +956,7 @@ h3.cn{margin-top:0}
       </a>
     </div>
     <div class="dl-card rv">
-      <div class="dl-ico orange">📱</div>
+      <div class="dl-ico orange"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
       <div>
         <div class="dl-name"><span data-i="dl5_name">Agrow 원격제어 앱</span> <span style="background:#00C87A;color:#fff;font-size:11px;padding:2px 8px;border-radius:100px;vertical-align:middle">NEW</span></div>
         <div class="dl-desc" data-i="dl5_desc">Agrow 원격제어 앱 최신 업데이트 버전입니다.</div>
@@ -960,7 +968,7 @@ h3.cn{margin-top:0}
       </a>
     </div>
     <div class="dl-card rv">
-      <div class="dl-ico blue">🖥</div>
+      <div class="dl-ico blue"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
       <div>
         <div class="dl-name" data-i="dl6_name">Agrow 양액기 PC 프로그램</div>
         <div class="dl-desc" data-i="dl6_desc">양액공급기 설정, 모니터링, 데이터 기록을 PC에서 관리할 수 있는 전용 윈도우 프로그램입니다.</div>
@@ -972,7 +980,7 @@ h3.cn{margin-top:0}
       </a>
     </div>
     <div class="dl-card rv">
-      <div class="dl-ico green">🖥</div>
+      <div class="dl-ico green"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
       <div>
         <div class="dl-name" data-i="dl7_name">A⁺-green PC 프로그램</div>
         <div class="dl-desc" data-i="dl7_desc">A⁺-green 복합환경제어기 설정, 모니터링, 데이터 기록을 PC에서 관리할 수 있는 전용 윈도우 프로그램입니다.</div>
@@ -992,7 +1000,7 @@ h3.cn{margin-top:0}
 <!-- 다운로드 비밀번호 모달 -->
 <div class="dl-modal-bg" id="dlModalBg">
   <div class="dl-modal">
-    <h3><span>🔒</span> <span data-i="dl_modal_title">다운로드 인증</span></h3>
+    <h3><span><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span> <span data-i="dl_modal_title">다운로드 인증</span></h3>
     <p data-i="dl_modal_desc">이 파일은 비밀번호가 필요합니다.<br>문의: 033-747-5114</p>
     <div class="dl-pw-wrap">
       <input class="dl-pw-input" type="password" id="dlPwInput" placeholder="비밀번호 입력" data-ph="dl_modal_ph" autocomplete="off">
@@ -1057,9 +1065,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script>
 <div class="mbar" role="navigation" aria-label="Quick contact">
-  <a href="tel:0337475114" class="m-call"><span class="mi">📞</span><span data-i="mb_call">전화</span></a>
-  <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi">✈️</span><span>Telegram</span></a>
-  <a href="mailto:hpagrow@hanmail.net" class="m-mail"><span class="mi">✉️</span><span data-i="mb_mail">이메일</span></a>
+  <a href="tel:0337475114" class="m-call"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span data-i="mb_call">전화</span></a>
+  <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></span><span>Telegram</span></a>
+  <a href="mailto:hpagrow@hanmail.net" class="m-mail"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><span data-i="mb_mail">이메일</span></a>
 </div>
 <button class="totop" id="totop" type="button" title="맨 위로" aria-label="맨 위로" data-it="to_top">↑</button>
 <script>

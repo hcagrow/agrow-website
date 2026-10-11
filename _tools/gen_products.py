@@ -141,6 +141,7 @@ h2{font-size:24px;letter-spacing:-.5px;margin-bottom:18px}
 .oc .nm small{display:block;font-size:11px;font-weight:600;color:var(--t3)}
 footer{border-top:1px solid var(--bdr);margin-top:30px;padding:28px 0 36px;font-size:13px;color:var(--t3)}
 footer b{color:var(--t2)}
+.lic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:inline-block;vertical-align:-.15em;flex-shrink:0}
 .mbar{display:none}
 @media(max-width:860px){.hero{grid-template-columns:1fr;gap:22px}.cbox{grid-template-columns:1fr}}
 @media(max-width:768px){
@@ -236,24 +237,24 @@ def page(p, lang, T):
       <span class="mno">{E(u['model'])} {E(p[2])}</span>
       <p class="desc">{E(desc)}</p>
       <div class="btns">
-        <a class="btn pri" href="{r}catalog.html?product={slug}&amp;lang={lang}">📖 {E(u['catalog'])}</a>
-        <a class="btn" href="{r}{pdf_rel(p,lang)}" download>⬇ {E(u['pdf'])}</a>
-        <a class="btn" href="{E(mail)}">✉ {E(u['inquire'])}</a>
-        <a class="btn tg" href="https://t.me/Seongchan89" target="_blank" rel="noopener">✈ Telegram</a>
+        <a class="btn pri" href="{r}catalog.html?product={slug}&amp;lang={lang}"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg> {E(u['catalog'])}</a>
+        <a class="btn" href="{r}{pdf_rel(p,lang)}" download><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg> {E(u['pdf'])}</a>
+        <a class="btn" href="{E(mail)}"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> {E(u['inquire'])}</a>
+        <a class="btn tg" href="https://t.me/Seongchan89" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg> Telegram</a>
       </div>
       <div class="meta"><span><b>{E(u['maker'])}</b> {E(t['brand_n'])}</span><span><b>{E(u['brand'])}</b> Agrow</span><span>🇰🇷 {E(u['made'])}</span></div>
     </div>
   </div>
   <section><h2>{E(u['specs'])}</h2><ul class="feat">{li}</ul></section>
   <section><div class="cbox"><div><h2>{E(u['ctitle'])}</h2><p>{E(u['cdesc'])}</p></div>
-    <div class="clist"><a href="tel:+82337475114">📞 033-747-5114</a><a href="{E(mail)}">✉️ hpagrow@hanmail.net</a><a class="tgl" href="https://t.me/Seongchan89" target="_blank" rel="noopener">✈️ Telegram @Seongchan89</a></div></div></section>
+    <div class="clist"><a href="tel:+82337475114"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> 033-747-5114</a><a href="{E(mail)}"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> hpagrow@hanmail.net</a><a class="tgl" href="https://t.me/Seongchan89" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg> Telegram @Seongchan89</a></div></div></section>
   <section><h2>{E(u['others'])}</h2><div class="grid">{others}</div></section>
 </main>
 <footer><div class="wrap"><b>Agrow · {E(t['brand_n'])}</b><br>{E(strip_br(t['con_addr']))}<br>TEL 033-747-5114 · FAX 033-746-1909 · hpagrow@hanmail.net<br>{E(strip_br(t['copyright']))}<br><small style="opacity:.7">{E(GA_NOTE[lang])}</small></div></footer>
 <div class="mbar" role="navigation" aria-label="Quick contact">
-  <a href="tel:+82337475114" class="m-call"><span class="mi">📞</span><span>{E(t['mb_call'])}</span></a>
-  <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi">✈️</span><span>Telegram</span></a>
-  <a href="{E(mail)}" class="m-mail"><span class="mi">✉️</span><span>{E(t['mb_mail'])}</span></a>
+  <a href="tel:+82337475114" class="m-call"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span>{E(t['mb_call'])}</span></a>
+  <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></span><span>Telegram</span></a>
+  <a href="{E(mail)}" class="m-mail"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span><span>{E(t['mb_mail'])}</span></a>
 </div>
 <script>
 (function(){{var h=document.documentElement,b=document.getElementById('togBtn'),L={json.dumps([t['th_dark'],t['th_light']],ensure_ascii=False)};
