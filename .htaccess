@@ -1,4 +1,5 @@
 # 호스팅(Apache) 이전용 설정 — GitHub Pages에서는 무시됨
+DirectoryIndex index.html index.php
 ErrorDocument 404 /404.html
 Options -Indexes
 AddDefaultCharset UTF-8
@@ -20,7 +21,23 @@ AddType image/webp .webp
   ExpiresByType application/pdf "access plus 7 days"
 </IfModule>
 
-# 새 도메인 연결 후 https 강제 (SSL 설치 확인 뒤 주석 해제)
-# RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # [SSL 설치 확인 후 주석 해제] http → https
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # agrow.co.kr → www.agrow.co.kr (주소 하나로 통일)
+  RewriteCond %{HTTP_HOST} ^agrow\.co\.kr$ [NC]
+  RewriteRule ^(.*)$ http://www.agrow.co.kr/$1 [L,R=301]
+
+  # 옛 XE 주소 → 새 페이지 (검색·즐겨찾기 링크 보존)
+  RewriteRule ^index\.php$ /? [L,R=301]
+  RewriteRule ^products/?$ /#products [L,R=301,NE]
+  RewriteRule ^(intro|about|company)/?$ /#about [L,R=301,NE]
+  RewriteRule ^(help|faq|as|support|notice)/?$ /#contact [L,R=301,NE]
+
+  # 옛 사이트 보관 폴더는 외부 접근 차단
+  RewriteRule ^old(/|$) - [F,L]
+</IfModule>

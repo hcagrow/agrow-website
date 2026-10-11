@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agrow 카탈로그 | 한가람농업개발</title>
 <link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="favicons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicons/icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#00C87A">
 <script src="js/ga.js"></script>
@@ -334,6 +334,7 @@ function applyLang(lang) {
   document.getElementById('pgListT').textContent=t.plist;
   document.getElementById('mbCall').textContent=t.call;document.getElementById('mbMailT').textContent=t.mail;
   document.documentElement.lang=lang;
+  document.title = lang==='ko' ? 'Agrow 카탈로그 | 한가람농업개발' : 'Agrow '+t.sub+' | Hangaram Agricultural Development';
   try{localStorage.setItem('ag-lang',lang)}catch(e){}
   document.querySelector('.nav-sub').textContent = t.sub;
   document.getElementById('loading').textContent = t.loading;

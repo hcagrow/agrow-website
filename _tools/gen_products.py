@@ -3,8 +3,9 @@
 사용: python3 _tools/gen_products.py        (저장소 루트에서 실행, node 필요)
 도메인 변경 시 BASE만 바꾸고 다시 실행."""
 import json, os, re, subprocess, html, datetime
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = 'https://agrow.hpagrow.com'
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # 원본(index.html, features.json 읽는 곳)
+OUT  = os.environ.get('AGROW_OUT', ROOT)                               # 생성 결과를 쓸 곳
+BASE = os.environ.get('AGROW_BASE', 'https://agrow.hpagrow.com')
 LANGS = ['ko','en','ru','uz','zh','ja','vi','id']
 HREFLANG = {'ko':'ko','en':'en','ru':'ru','uz':'uz','zh':'zh-Hans','ja':'ja','vi':'vi','id':'id'}
 LOCALE = {'ko':'ko_KR','en':'en_US','ru':'ru_RU','uz':'uz_UZ','zh':'zh_CN','ja':'ja_JP','vi':'vi_VN','id':'id_ID'}
@@ -62,7 +63,7 @@ def strip_br(x): return re.sub(r'<br\s*/?>',' ',str(x)).replace('\n',' ')
 def pname(p,t): return t[p[1][1:]] if p[1].startswith('@') else p[1]
 def img_rel(p,lang): return ('images/'+p[6]) if lang=='ko' else ('images/loc/%s/%s'%(lang,p[6]))
 def url(lang,slug): return '%s/products/%s/%s.html'%(BASE,lang,slug)
-def pdf_rel(p,lang): return ('downloads/%s_catalog.pdf'%p[7]) if lang=='ko' else ('downloads/catalog/%s_catalog_%s.pdf'%(p[7],lang))
+def pdf_rel(p,lang): return ('downloads/%s_catalog.pdf'%('agreen' if p[7]=='aplus' else p[7])) if lang=='ko' else ('downloads/catalog/%s_catalog_%s.pdf'%(p[7],lang))
 
 SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>'
 MOON='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>'
@@ -207,8 +208,8 @@ def page(p, lang, T):
 <meta property="og:locale" content="{LOCALE[lang]}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{r}favicon.ico" sizes="any">
-<link rel="icon" href="{r}icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="{r}icons/icon-180.png">
+<link rel="icon" href="{r}favicons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{r}favicons/icon-180.png">
 <meta name="theme-color" content="#00C87A">
 <script src="{r}js/ga.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -277,14 +278,14 @@ def sitemap():
         for l in LANGS:
             out.append('  <url>\n    <loc>%s</loc>\n%s    <lastmod>%s</lastmod>\n    <priority>0.8</priority>\n  </url>' % (url(l,p[0]),alt(lambda x,s=p[0]:url(x,s)),today))
     out.append('</urlset>\n')
-    open(os.path.join(ROOT,'sitemap.xml'),'w',encoding='utf-8').write('\n'.join(out))
+    open(os.path.join(OUT,'sitemap.xml'),'w',encoding='utf-8').write('\n'.join(out))
 
 if __name__ == '__main__':
     T = load_T()
     FEATS = json.load(open(os.path.join(ROOT,'_tools','features.json'),encoding='utf-8'))
     n = 0
     for lang in LANGS:
-        d = os.path.join(ROOT,'products',lang); os.makedirs(d,exist_ok=True)
+        d = os.path.join(OUT,'products',lang); os.makedirs(d,exist_ok=True)
         for p in PRODUCTS:
             open(os.path.join(d,p[0]+'.html'),'w',encoding='utf-8').write(page(p,lang,T)); n += 1
     sitemap()
