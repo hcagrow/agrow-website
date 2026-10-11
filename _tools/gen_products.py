@@ -36,6 +36,8 @@ def feat_items(slug,lines):
         out.append([f.startswith('-'), f.lstrip('- ').strip()])
     return out
 
+GA_NOTE = {'ko': '이 사이트는 방문 통계를 위해 Google Analytics(쿠키)를 사용합니다. 개인을 식별하는 정보는 수집하지 않습니다.', 'en': 'This site uses Google Analytics (cookies) for visitor statistics. No personally identifying information is collected.', 'ru': 'Сайт использует Google Analytics (cookie) для статистики посещений. Персональные данные не собираются.', 'uz': "Sayt tashriflar statistikasi uchun Google Analytics (cookie) dan foydalanadi. Shaxsni aniqlovchi ma'lumotlar yig'ilmaydi.", 'zh': '本网站使用 Google Analytics（Cookie）进行访问统计，不收集可识别个人身份的信息。', 'ja': '当サイトでは訪問統計のため Google Analytics（Cookie）を使用しています。個人を特定する情報は収集しません。', 'vi': 'Trang web sử dụng Google Analytics (cookie) để thống kê lượt truy cập. Không thu thập thông tin nhận dạng cá nhân.', 'id': 'Situs ini menggunakan Google Analytics (cookie) untuk statistik pengunjung. Tidak ada informasi identitas pribadi yang dikumpulkan.'}
+
 UI = {
 'ko':dict(brand='브랜드',specs='주요 사양 및 기능',model='모델명',catalog='카탈로그 보기',pdf='카탈로그 PDF',inquire='제품 문의',others='다른 제품',home='홈',products='제품',ctitle='구매 · 견적 문의',cdesc='모델 선정, 견적, 설치·수출 상담은 편하게 연락주세요.',subj='[제품 문의] ',maker='제조사',made='대한민국 제조'),
 'en':dict(brand='Brand',specs='Key Specifications & Features',model='Model No.',catalog='View Catalog',pdf='Catalog PDF',inquire='Inquire',others='Other Products',home='Home',products='Products',ctitle='Sales & Quotation',cdesc='Contact us for model selection, quotes, installation and export.',subj='[Product inquiry] ',maker='Manufacturer',made='Made in Korea'),
@@ -208,6 +210,7 @@ def page(p, lang, T):
 <link rel="icon" href="{r}icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{r}icons/icon-180.png">
 <meta name="theme-color" content="#00C87A">
+<script src="{r}js/ga.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script>try{{document.documentElement.dataset.theme=localStorage.getItem('ag-theme')||'light';localStorage.setItem('ag-lang','{lang}')}}catch(e){{}}</script>
@@ -245,7 +248,7 @@ def page(p, lang, T):
     <div class="clist"><a href="tel:+82337475114">📞 033-747-5114</a><a href="{E(mail)}">✉️ hpagrow@hanmail.net</a><a class="tgl" href="https://t.me/Seongchan89" target="_blank" rel="noopener">✈️ Telegram @Seongchan89</a></div></div></section>
   <section><h2>{E(u['others'])}</h2><div class="grid">{others}</div></section>
 </main>
-<footer><div class="wrap"><b>Agrow · {E(t['brand_n'])}</b><br>{E(strip_br(t['con_addr']))}<br>TEL 033-747-5114 · FAX 033-746-1909 · hpagrow@hanmail.net<br>{E(strip_br(t['copyright']))}</div></footer>
+<footer><div class="wrap"><b>Agrow · {E(t['brand_n'])}</b><br>{E(strip_br(t['con_addr']))}<br>TEL 033-747-5114 · FAX 033-746-1909 · hpagrow@hanmail.net<br>{E(strip_br(t['copyright']))}<br><small style="opacity:.7">{E(GA_NOTE[lang])}</small></div></footer>
 <div class="mbar" role="navigation" aria-label="Quick contact">
   <a href="tel:+82337475114" class="m-call"><span class="mi">📞</span><span>{E(t['mb_call'])}</span></a>
   <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi">✈️</span><span>Telegram</span></a>
