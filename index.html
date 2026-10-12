@@ -520,9 +520,63 @@ h3.cn{margin-top:0}
 .ic-ico{color:#fff}
 .dl-ico{font-size:22px}.dl-ico.green{color:var(--acc2)}.dl-ico.blue{color:#2F6FE0}.dl-ico.orange{color:#E07A10}
 .dl-modal h3 .lic{color:var(--acc2)}
+
+.print-hd{display:none}
+@media print{
+  @page{size:A4;margin:12mm 11mm}
+  html,html[data-theme]{--bg:#fff;--bg2:#fff;--bg3:#fff;--card:#fff;--input:#fff;--bdr:#D5DBE3;--div:#D5DBE3;
+    --t1:#0C1A2E;--t2:#3D5068;--t3:#5A6B80;--acc:#00965C;--acc2:#00965C;--tag:#00965C;--badge:#0C1A2E;--badge-t:#fff;
+    --stat:#fff;--foot:#fff;--foot-t:#3D5068;--sh:none;--sh-lg:none;--gl:transparent}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none!important;text-shadow:none!important;animation:none!important;transition:none!important}
+  body{background:#fff!important;color:#0C1A2E;font-size:11pt}
+  nav,#mobNav,.hero-r,.hero-btns,.mbar,#totop,.totop,#dlModalBg,#downloads,.form,.tabs,.pmore,.product-marquee,.hero::before,.hero::after,.lang-dd,.tog{display:none!important}
+  .rv{opacity:1!important;transform:none!important}
+  .pc{display:block!important}
+  .print-hd{display:flex;align-items:center;gap:16px;padding:0 0 10px;margin-bottom:6px;border-bottom:2px solid #00965C}
+  .print-hd .lg-sym{width:44px;height:44px;flex-shrink:0}
+  .ph-l{display:flex;align-items:center;gap:10px;flex:1}
+  .ph-co{font-size:16pt;font-weight:800;color:#0C1A2E;letter-spacing:-.3px}.ph-co b{color:#00965C}
+  .ph-en{font-size:8pt;color:#5A6B80}
+  .ph-r{font-size:8pt;line-height:1.5;color:#3D5068;text-align:right}.ph-url{font-weight:700;color:#00965C}
+  .ph-qr{width:21mm;height:21mm;flex-shrink:0}
+  .hero{min-height:0!important;padding:14px 0 6px!important;display:block!important;background:none!important}
+  .hero-l{max-width:none!important;padding:0!important}
+  .hero .hl{font-size:24pt!important;margin:6px 0!important}
+  .hero-stats{margin-top:12px!important;padding-top:10px!important}
+  section.sec,.nums{padding:16px 0!important;background:#fff!important}
+  .nums *{color:#0C1A2E!important}.nums .nn,.nums [class*="-n"]{color:#00965C!important}
+  .sec-t{font-size:17pt!important;margin-bottom:12px!important}
+  .ey,.sec-t,h2,h3{break-after:avoid;page-break-after:avoid}
+  .pc,.port-card,.pt,.supp-card,.ic,.hist-item,.dash-feat,.pat-c,.perf-grid>*,.sec-t,.dash,.dash-mock{break-inside:avoid;page-break-inside:avoid}
+  .about-g{gap:16px!important}
+  .about-g img{max-height:65mm;object-fit:cover}
+  footer>*:not(.fbot){display:none!important}footer .ga-note,footer .facc{display:none!important}
+  .pg,.port-grid{display:flex!important;flex-wrap:wrap;gap:8px!important}
+  .pg>.pc,.port-grid>.port-card{width:calc((100% - 16px)/3)!important;flex:none}
+  .about-g{display:block!important}.about-vis{height:auto!important;min-height:0!important;max-width:120mm;margin:10px 0 0!important}
+  .about-vis img{height:55mm!important;width:100%;object-fit:cover}
+  .ng{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:8px!important;margin:8px 0!important}
+  .nc{padding:8px!important;min-height:0!important}.nums-hd{margin-bottom:6px!important}
+  .pat-g{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .supp-hours,.pat-c,.nc{break-inside:avoid;page-break-inside:avoid}
+  .supp-call{display:none!important}
+  .port-img{height:70px!important;font-size:30px!important}
+  .ci{height:34mm!important;aspect-ratio:auto!important}.ci img{height:100%!important;object-fit:contain}.ci::after{display:none!important}
+  .dash-screen{display:none!important}.dash-grid{display:block!important}
+  .con-g{display:block!important}
+  footer{border-top:1px solid #D5DBE3;padding:14px 0 0!important;background:#fff!important}
+  footer *{color:#3D5068!important}
+  footer .flg .lg-k,footer .flg .lg-w{color:#0C1A2E!important}
+  a{color:inherit;text-decoration:none}
+}
 </style>
 </head>
 <body>
+<div class="print-hd" aria-hidden="true">
+  <div class="ph-l"><svg class="lg-sym" viewBox="0 0 64 64" width="38" height="38" aria-hidden="true"><defs><linearGradient id="lgGp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D68A"/><stop offset="1" stop-color="#00A36C"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#lgGp)"/><path d="M32 9C32 9 15 29 15 40.5A17 17 0 0 0 49 40.5C49 29 32 9 32 9Z" fill="#fff"/><path d="M32 52C32 44 33 37 41 31C40 40 37 45 32 47" fill="#00B877"/><path d="M32 52C32 46 30.5 41 24.5 37.5C25 43 27.5 46.5 32 48" fill="#E8892B"/></svg><div><div class="ph-co">한가람농업개발 <b>Agrow</b></div><div class="ph-en">Hangaram Agricultural Development Co. · Since 1992</div></div></div>
+  <div class="ph-r"><div>TEL +82-33-747-5114 · FAX +82-33-746-1909</div><div>hpagrow@hanmail.net · Telegram @Seongchan89</div><div>강원특별자치도 원주시 호저면 우무개로 274</div><div class="ph-url">https://agrow.hpagrow.com</div></div>
+  <img class="ph-qr" src="images/qr-site.svg" alt="">
+</div>
 
 <nav>
   <a href="#" class="n-logo lg" aria-label="한가람농업개발 Agrow"><svg class="lg-sym" viewBox="0 0 64 64" width="38" height="38" aria-hidden="true"><defs><linearGradient id="lgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D68A"/><stop offset="1" stop-color="#00A36C"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#lgG)"/><path d="M32 9C32 9 15 29 15 40.5A17 17 0 0 0 49 40.5C49 29 32 9 32 9Z" fill="#fff"/><path d="M32 52C32 44 33 37 41 31C40 40 37 45 32 47" fill="#00B877"/><path d="M32 52C32 46 30.5 41 24.5 37.5C25 43 27.5 46.5 32 48" fill="#E8892B"/></svg><span class="lg-tx"><span class="lg-k">한가람농업개발</span><span class="lg-w">Agrow</span></span></a>
@@ -1261,6 +1315,12 @@ u.addEventListener('click',e=>{if(mv){e.preventDefault();mv=false}},true);
 u.addEventListener('dragstart',e=>e.preventDefault());
 u.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){u.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
 })();
+</script>
+<script>
+/* 인쇄 시 지연 로딩 이미지 즉시 로드 */
+(function(){function eager(){document.querySelectorAll('img[loading="lazy"]').forEach(function(i){i.loading='eager';});}
+window.addEventListener('beforeprint',eager);if(window.matchMedia){var m=matchMedia('print');m.addListener&&m.addListener(function(e){if(e.matches)eager();});}
+window.addEventListener('load',function(){setTimeout(eager,4000);});})();
 </script>
 </body>
 </html>
