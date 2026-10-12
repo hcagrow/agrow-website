@@ -10,7 +10,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#00A86B">
 <script src="js/ga.js"></script>
-<meta name="description" content="한가람농업개발 Agrow — 양액공급기, 관비공급기, A⁺-green 복합환경제어기 전문 제조업체. 강원도 원주 본사, 1992년 설립, 세계 17개국 수출, A-Drop 특허 보유.">
+<meta name="description" content="한가람농업개발 Agrow — 양액공급기, 관비공급기, A⁺-green 복합환경제어기 전문 제조업체. 강원도 원주 본사, 1992년 설립, 세계 17개국 수출.">
 <meta name="keywords" content="양액공급기, 관비공급기, 복합환경제어기, 스마트팜, 한가람농업개발, Agrow, A+-green, 양액기, 원격제어">
 <link rel="canonical" href="https://agrow.hpagrow.com/">
 <link rel="alternate" hreflang="ko" href="https://agrow.hpagrow.com/?lang=ko">
@@ -656,6 +656,8 @@ button,.btn-fill,.btn-ghost,.call-btn,.dl-btn{transition-property:transform,back
 .dash-feat-ico{width:auto!important;height:auto!important;background:none!important;border:0!important;border-radius:0!important;display:block!important;font-family:var(--font-display);font-size:14px!important;font-weight:800;color:var(--acc);letter-spacing:.5px;padding-top:2px}
 @media(max-width:600px){#about .pt{grid-template-columns:92px 1fr;gap:12px}#about .pt-st{font-size:23px}}
 .pat-g{grid-template-columns:minmax(0,560px)!important}
+/* 특허 표시 숨김: 다시 보이려면 이 줄만 삭제 */
+[data-patent]{display:none!important}
 </style>
 </head>
 <body>
@@ -755,7 +757,7 @@ button,.btn-fill,.btn-ghost,.call-btn,.dl-btn{transition-property:transform,back
       <p class="sec-sub" data-i="about_p1">한가람농업개발은 대한민국을 대표하는 Agrow 토경관비기, 양액공급기, A⁺-Green 복합환경제어기 등 다양한 농업 기자재 전문기업입니다.</p>
       <p class="sec-sub" style="margin-top:14px" data-i="about_p2">30여년간 끊임없는 연구개발로 17개국에 양액공급기 명품 Agrow 시리즈를 수출하고 있으며, 농업 현장 실증 시험을 통해 검증된 제품만을 공급합니다.</p>
       <div class="pts">
-        <div class="pt"><div class="pt-ico pt-st">2018<small data-i="pt1_u">특허</small></div><div><div class="pt-name" data-i="pt1_n">검증된 기술력</div><div class="pt-desc" data-i="pt1_d">A-Drop 버튼 특허 등록. 현장 실증 시험을 통해 검증된 제품만 출시합니다.</div></div></div>
+        <div class="pt" data-patent><div class="pt-ico pt-st">2018<small data-i="pt1_u">특허</small></div><div><div class="pt-name" data-i="pt1_n">검증된 기술력</div><div class="pt-desc" data-i="pt1_d">A-Drop 버튼 특허 등록. 현장 실증 시험을 통해 검증된 제품만 출시합니다.</div></div></div>
         <div class="pt"><div class="pt-ico pt-st">17<small class="unit-country"></small></div><div><div class="pt-name" data-i="pt2_n">글로벌 수출 역량</div><div class="pt-desc" data-i="pt2_d">17개국에 양액공급기 명품 Agrow 시리즈를 수출하고 있습니다.</div></div></div>
         <div class="pt"><div class="pt-ico pt-st">09–18</div><div><div class="pt-name" data-i="pt3_n">전문 A/S 지원</div><div class="pt-desc" data-i="pt3_d">연락 후 방문 접수. 평일 09:00–18:00.</div></div></div>
       </div>
@@ -780,7 +782,7 @@ button,.btn-fill,.btn-ghost,.call-btn,.dl-btn{transition-property:transform,back
         <div class="hist-title" data-i="h00_t">양액공급기 본격 수출 시작</div>
         <div class="hist-desc" data-i="h00_d">국내 최초로 양액공급기를 해외 시장에 수출하기 시작. Agrow 시리즈 글로벌 진출.</div>
       </div>
-      <div class="hist-item">
+      <div class="hist-item" data-patent>
         <div class="hist-year">2014</div>
         <div class="hist-title" data-i="h14_t">A-Drop 버튼 특허 출원</div>
         <div class="hist-desc" data-i="h14_d">혁신적인 A-Drop 버튼 특허출원(제10-2014-0116185호), 2018년 특허 등록(제10-1902044호). 기술 독자성 확보.</div>
@@ -982,7 +984,7 @@ button,.btn-fill,.btn-ghost,.call-btn,.dl-btn{transition-property:transform,back
     <div class="nc"><div class="nb">30<span class="nu unit-year"></span></div><div class="nl" data-i="num_l2">연구개발 경력</div></div>
     <div class="nc"><div class="nb">1992<span class="nu" style="font-size:14px" data-i="num_yr">년</span></div><div class="nl" data-i="num_l3">창립</div></div>
   </div>
-  <div class="pat-g rv">
+  <div class="pat-g rv" data-patent>
     <div class="pat-c"><div class="pat-ico" data-i="pat1_b">특허 등록</div><div class="pat-n" data-i="pat1_n">A-Drop 버튼 특허</div><div class="pat-no" data-i="pat1_no">특허 제10-1902044호 · 관수 시설용 점적 버튼</div></div>
   </div>
 </section>
