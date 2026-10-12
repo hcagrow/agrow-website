@@ -619,10 +619,6 @@ nav{flex-wrap:nowrap}.nm-b{white-space:nowrap}
 /* de-slop pass 2 */
 .hero-r-bg{display:none!important}
 
-.hx-specs{display:flex;justify-content:center;gap:0;margin-top:14px;flex-wrap:wrap}
-.hx-specs .hx-chip{position:static!important;inset:auto!important;background:none!important;box-shadow:none!important;border-radius:0!important;max-width:none!important;padding:0 18px!important;border-left:1px solid var(--div);color:var(--t2)!important;display:flex;align-items:baseline;gap:6px;font-size:12.5px!important}
-.hx-specs .hx-chip:first-child{border-left:0}
-.hx-specs .hx-chip b{display:inline!important;font-size:17px!important;color:var(--acc)!important}
 .hx-tabs{margin-top:16px}
 html:is([lang=ko],[lang=zh],[lang=ja]) :is(.ey-t,.ic-lbl,.kicker span,.perf-label,.hist-year,.port-crop,.dash-card-label,.cc,.chip-l,.lg-k,.flg-k,.fbkr,.fcol h5){letter-spacing:0!important}
 .perf-grid{display:flex!important;flex-wrap:wrap;gap:0!important;border-top:1px solid var(--div);border-bottom:1px solid var(--div);margin-bottom:20px}
@@ -638,7 +634,7 @@ html:is([lang=ko],[lang=zh],[lang=ja]) :is(.ey-t,.ic-lbl,.kicker span,.perf-labe
 .dl-btn:hover{background:var(--acc)!important;color:#fff!important}
 [data-theme="dark"] .dl-btn:hover{color:#080F1C!important}
 .fcopy{color:rgba(255,255,255,.55)!important}
-@media(max-width:600px){.perf-card,.perf-highlight{border-right:0!important;margin-right:0;padding:18px 0!important;border-bottom:1px solid var(--div)!important;width:100%}.perf-card:last-child{border-bottom:0!important}.hx-specs .hx-chip{padding:0 10px!important;font-size:11px!important}.hx-specs .hx-chip b{font-size:14px!important}.dl-card{flex-wrap:wrap}}
+@media(max-width:600px){.perf-card,.perf-highlight{border-right:0!important;margin-right:0;padding:18px 0!important;border-bottom:1px solid var(--div)!important;width:100%}.perf-card:last-child{border-bottom:0!important}.dl-card{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -699,7 +695,9 @@ html:is([lang=ko],[lang=zh],[lang=ja]) :is(.ey-t,.ic-lbl,.kicker span,.perf-labe
         <img id="hxImg" src="images/agrow_7000plus.jpg" alt="Agrow-7000 Plus" width="543" height="430">
         <span class="hx-name"><b id="hxName">Agrow-7000 Plus</b><small id="hxModel">HPA-7000 PLUS</small></span>
       </a>
-      <div class="hx-specs"><div class="hx-chip hx-c1"><b id="hxV1">10.2"</b><span id="hxL1" data-i="hx_touch">터치스크린</span></div><div class="hx-chip hx-c2"><b id="hxV2">16</b><span id="hxL2" data-i="hx_zones">독립 관수 구역</span></div><div class="hx-chip hx-c3"><b id="hxV3">10ch</b><span id="hxL3" data-i="hx_remote">PC·스마트폰 원격제어</span></div></div>
+      <div class="hx-chip hx-c1"><b id="hxV1">10.2"</b><span id="hxL1" data-i="hx_touch">터치스크린</span></div>
+      <div class="hx-chip hx-c2"><b id="hxV2">16</b><span id="hxL2" data-i="hx_zones">독립 관수 구역</span></div>
+      <div class="hx-chip hx-c3"><b id="hxV3">10ch</b><span id="hxL3" data-i="hx_remote">PC·스마트폰 원격제어</span></div>
       <div class="hx-tabs" id="hxTabs" role="tablist"></div>
     </div>
   </div>
