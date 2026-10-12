@@ -241,7 +241,7 @@ html:not([lang="ko"]) .fbkr{letter-spacing:1px}
 .pc{background:var(--card);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s,background .3s,border-color .3s}
 .pc:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
 .ci{height:250px;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;transition:background .3s;overflow:hidden}
-.ci img{width:100%;height:100%;object-fit:contain;object-position:center;background:#fff;transition:transform .3s}.ci[onclick]:hover::after{content:"카탈로그 보기 →";position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:11px;padding:4px 12px;border-radius:100px;white-space:nowrap;pointer-events:none}
+.ci img{width:100%;height:100%;object-fit:contain;object-position:center;background:#fff;transition:transform .3s}a.ci:hover::after{content:"카탈로그 보기 →";position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:11px;padding:4px 12px;border-radius:100px;white-space:nowrap;pointer-events:none}
 .pc:hover .ci img{transform:scale(1.05)}
 .ci-inner{text-align:center;opacity:.4;color:var(--t3);font-size:13px}
 .ci-inner .big{font-size:32px;display:block;margin-bottom:4px}
@@ -580,13 +580,18 @@ h3.cn{margin-top:0}
 .h-stat-n,.nb,.perf-val,.dash-card-val,.hist-year,.hx-chip b{font-variant-numeric:tabular-nums}
 .ey{display:none}#products .ey,#portfolio .ey{display:flex}
 .rv,.rv.shown{opacity:1;transform:none;transition:none}
+
+/* 접근성: 키보드 초점 표시 */
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.fg input:focus-visible,.fg select:focus-visible,.fg textarea:focus-visible,.dl-pw-input:focus-visible{outline:2px solid var(--acc);outline-offset:1px;border-color:var(--acc)}
+a.ci{display:flex;text-decoration:none;color:inherit}
 </style>
 </head>
 <body>
 <div class="print-hd" aria-hidden="true">
   <div class="ph-l"><svg class="lg-sym" viewBox="0 0 64 64" width="38" height="38" aria-hidden="true"><defs><linearGradient id="lgGp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D68A"/><stop offset="1" stop-color="#00A36C"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#lgGp)"/><path d="M32 9C32 9 15 29 15 40.5A17 17 0 0 0 49 40.5C49 29 32 9 32 9Z" fill="#fff"/><path d="M32 52C32 44 33 37 41 31C40 40 37 45 32 47" fill="#00B877"/><path d="M32 52C32 46 30.5 41 24.5 37.5C25 43 27.5 46.5 32 48" fill="#E8892B"/></svg><div><div class="ph-co">한가람농업개발 <b>Agrow</b></div><div class="ph-en">Hangaram Agricultural Development Co. · Since 1992</div></div></div>
   <div class="ph-r"><div>TEL +82-33-747-5114 · FAX +82-33-746-1909</div><div>hpagrow@hanmail.net · Telegram @Seongchan89</div><div>강원특별자치도 원주시 호저면 우무개로 274</div><div class="ph-url">https://agrow.hpagrow.com</div></div>
-  <img class="ph-qr" src="images/qr-site.svg" alt="">
+  <img width="100" height="100" class="ph-qr" src="images/qr-site.svg" alt="">
 </div>
 
 <nav>
@@ -607,7 +612,7 @@ h3.cn{margin-top:0}
     </div>
     <button class="tog" id="togBtn" type="button" role="switch" aria-checked="false" title="다크 모드로 전환" aria-label="다크 모드로 전환"><svg class="tb s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="tb m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><span class="tog-k"><svg class="i-s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="i-m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></span></button>
     <button class="n-cta" data-i="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">제품 문의</button>
-    <button class="hamburger" id="menuBtn"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="menuBtn" type="button" aria-label="Menu" aria-controls="mobNav" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="mob-nav" id="mobNav">
@@ -688,7 +693,7 @@ h3.cn{margin-top:0}
         <div class="pt"><div class="pt-ico"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div><div><div class="pt-name" data-i="pt3_n">전문 A/S 지원</div><div class="pt-desc" data-i="pt3_d">연락 후 방문 접수. 평일 09:00–18:00.</div></div></div>
       </div>
     </div>
-    <div class="about-vis rv" style="padding:0"><img src="images/agrow_company.jpg" alt="한가람농업개발 본사 전경" data-ia="about_alt" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="about-vis-tag" data-i="about_tag">Hydroponic Agrow 본사</div></div>
+    <div class="about-vis rv" style="padding:0"><img width="900" height="436" src="images/agrow_company.jpg" alt="한가람농업개발 본사 전경" data-ia="about_alt" loading="lazy" style="width:100%;height:100%;object-fit:cover"><div class="about-vis-tag" data-i="about_tag">Hydroponic Agrow 본사</div></div>
   </div>
 </section>
 
@@ -753,16 +758,16 @@ h3.cn{margin-top:0}
   <div class="sec-t rv" data-i="prod_t">전체 제품 라인업</div>
   <div class="tabs rv" id="tabRow"></div>
   <div class="pg" id="prodGrid">
-    <div class="pc" data-c="0"><div class="ci" onclick="window.open('catalog.html?product=perfect','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_new">신제품</span><img src="images/agrow_perfect.jpg" alt="Agrow-Perfect" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/perfect.html" data-slug="perfect">Agrow-Perfect</a></h3><div class="cd" data-i="pd_perfect">PID 양액 제어방식 완성품. 혼합통 없는 직접공급방식. 10.2" 터치스크린 + PC + 모바일 원격제어.</div><span class="cm">HPA-9001</span><a class="pmore" href="products/ko/perfect.html" data-slug="perfect" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="0"><div class="ci" onclick="window.open('catalog.html?product=7000plus','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><span class="bdg gold" data-i="bdg_top">최고사양</span><img src="images/agrow_7000plus.jpg" alt="Agrow-7000 Plus" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/7000plus.html" data-slug="7000plus">Agrow-7000 Plus</a></h3><div class="cd" data-i="pd_7000p">PC+스마트폰 연동, 독립 프로그램 5개, 원격제어 10채널. 복합비례제어 지원.</div><span class="cm">HPA-7000 PLUS</span><a class="pmore" href="products/ko/7000plus.html" data-slug="7000plus" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="0"><div class="ci" onclick="window.open('catalog.html?product=7000','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><img src="images/agrow_7000.jpg" alt="Agrow-7000" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/7000.html" data-slug="7000">Agrow-7000</a></h3><div class="cd" data-i="pd_7000">수출 20년 노하우. 5개 독립 프로그램. 양액 6종(A~F) 복합비례제어.</div><span class="cm">HPA-7000</span><a class="pmore" href="products/ko/7000.html" data-slug="7000" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="0"><div class="ci" onclick="window.open('catalog.html?product=6000plus','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><span class="bdg gold" data-i="bdg_no1">판매 1위</span><img src="images/agrow_6000plus.jpg" alt="Agrow-6000 Plus" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/6000plus.html" data-slug="6000plus">Agrow-6000 Plus</a></h3><div class="cd" data-i="pd_6000p">농가 선택 판매 1위. PC+스마트폰 연동. 10.2" 터치스크린. 복합작물 우선 제품.</div><span class="cm">HPA-6000 PLUS</span><a class="pmore" href="products/ko/6000plus.html" data-slug="6000plus" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="0"><div class="ci" onclick="window.open('catalog.html?product=6000','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><img src="images/agrow_6000.jpg" alt="Agrow-6000" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/6000.html" data-slug="6000">Agrow-6000</a></h3><div class="cd" data-i="pd_6000">2022년 판매 2위. 독립 프로그램 4개. EC·pH 정밀 제어. 16구역 관수밸브.</div><span class="cm">HPA-6000</span><a class="pmore" href="products/ko/6000.html" data-slug="6000" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="0"><div class="ci" onclick="window.open('catalog.html?product=5000master','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img src="images/agrow_5000master.jpg" alt="Agrow-5000 Master" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/5000master.html" data-slug="5000master">Agrow-5000 Master</a></h3><div class="cd" data-i="pd_5000m">3개 독립 양액 제어. 7" 터치스크린 LCD. EC·pH그룹 제어 2개 구성.</div><span class="cm">HPA-5002</span><a class="pmore" href="products/ko/5000master.html" data-slug="5000master" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="0"><div class="ci" onclick="window.open('catalog.html?product=5000magic','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img src="images/agrow_5000magic.jpg" alt="Agrow-5000 Magic" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/5000magic.html" data-slug="5000magic">Agrow-5000 Magic</a></h3><div class="cd" data-i="pd_5000mg">3개 양액제어 프로그램. 누적 일사량 제어 가능. 12구역 관수 지원.</div><span class="cm">HPA-5001</span><a class="pmore" href="products/ko/5000magic.html" data-slug="5000magic" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="1"><div class="ci" onclick="window.open('catalog.html?product=2000a','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img src="images/agrow_2000star_a.jpg" alt="Agrow-2000 Star A" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_i">관비공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/2000a.html" data-slug="2000a" data-i="n2000a">Agrow-2000 Star A형</a></h3><div class="cd" data-i="pd_2000a">직접공급방식(Direct-Injection). 12구역 독립 EC제어. 7" 터치스크린.</div><span class="cm">HPA-2005A</span><a class="pmore" href="products/ko/2000a.html" data-slug="2000a" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="1"><div class="ci" onclick="window.open('catalog.html?product=2000b','_blank')" style="cursor:pointer" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img src="images/agrow_2000star_b.jpg" alt="Agrow-2000 Star B" loading="lazy"></div><div class="cb"><div class="cc" data-i="cat_i">관비공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/2000b.html" data-slug="2000b" data-i="n2000b">Agrow-2000 Star B형</a></h3><div class="cd" data-i="pd_2000b">혼합공급방식(Continuous Mixing). 관수 전후 원수공급 기능 내장.</div><span class="cm">HPA-2005B</span><a class="pmore" href="products/ko/2000b.html" data-slug="2000b" data-i="prod_more">상세 사양 보기 →</a></div></div>
-    <div class="pc" data-c="2"><div class="ci" onclick="window.open('catalog.html?product=aplus','_blank')" style="cursor:pointer;background:#0a1628" title="카탈로그 보기" data-it="cat_view"><img src="images/agrow_aplusgreen.jpg" alt="A⁺-green" loading="lazy" style="object-fit:contain;object-position:center;padding:10px"></div><div class="cb"><div class="cc" data-i="cat_e">복합환경제어</div><h3 class="cn"><a class="cn-a" href="products/ko/aplus.html" data-slug="aplus">A⁺-green</a></h3><div class="cd" data-i="pd_aplus">모바일+PC 연동. 온실 복합환경제어. 양액공급기 통합 연동. 기상대 연결.</div><span class="cm">HPAG-8001</span><a class="pmore" href="products/ko/aplus.html" data-slug="aplus" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="0"><a class="ci" href="catalog.html?product=perfect" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_new">신제품</span><img width="538" height="433" src="images/agrow_perfect.jpg" alt="Agrow-Perfect" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/perfect.html" data-slug="perfect">Agrow-Perfect</a></h3><div class="cd" data-i="pd_perfect">PID 양액 제어방식 완성품. 혼합통 없는 직접공급방식. 10.2" 터치스크린 + PC + 모바일 원격제어.</div><span class="cm">HPA-9001</span><a class="pmore" href="products/ko/perfect.html" data-slug="perfect" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="0"><a class="ci" href="catalog.html?product=7000plus" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><span class="bdg gold" data-i="bdg_top">최고사양</span><img width="543" height="430" src="images/agrow_7000plus.jpg" alt="Agrow-7000 Plus" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/7000plus.html" data-slug="7000plus">Agrow-7000 Plus</a></h3><div class="cd" data-i="pd_7000p">PC+스마트폰 연동, 독립 프로그램 5개, 원격제어 10채널. 복합비례제어 지원.</div><span class="cm">HPA-7000 PLUS</span><a class="pmore" href="products/ko/7000plus.html" data-slug="7000plus" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="0"><a class="ci" href="catalog.html?product=7000" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><img width="553" height="458" src="images/agrow_7000.jpg" alt="Agrow-7000" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/7000.html" data-slug="7000">Agrow-7000</a></h3><div class="cd" data-i="pd_7000">수출 20년 노하우. 5개 독립 프로그램. 양액 6종(A~F) 복합비례제어.</div><span class="cm">HPA-7000</span><a class="pmore" href="products/ko/7000.html" data-slug="7000" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="0"><a class="ci" href="catalog.html?product=6000plus" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><span class="bdg gold" data-i="bdg_no1">판매 1위</span><img width="566" height="433" src="images/agrow_6000plus.jpg" alt="Agrow-6000 Plus" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/6000plus.html" data-slug="6000plus">Agrow-6000 Plus</a></h3><div class="cd" data-i="pd_6000p">농가 선택 판매 1위. PC+스마트폰 연동. 10.2" 터치스크린. 복합작물 우선 제품.</div><span class="cm">HPA-6000 PLUS</span><a class="pmore" href="products/ko/6000plus.html" data-slug="6000plus" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="0"><a class="ci" href="catalog.html?product=6000" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><img width="520" height="474" src="images/agrow_6000.jpg" alt="Agrow-6000" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/6000.html" data-slug="6000">Agrow-6000</a></h3><div class="cd" data-i="pd_6000">2022년 판매 2위. 독립 프로그램 4개. EC·pH 정밀 제어. 16구역 관수밸브.</div><span class="cm">HPA-6000</span><a class="pmore" href="products/ko/6000.html" data-slug="6000" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="0"><a class="ci" href="catalog.html?product=5000master" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img width="623" height="498" src="images/agrow_5000master.jpg" alt="Agrow-5000 Master" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/5000master.html" data-slug="5000master">Agrow-5000 Master</a></h3><div class="cd" data-i="pd_5000m">3개 독립 양액 제어. 7" 터치스크린 LCD. EC·pH그룹 제어 2개 구성.</div><span class="cm">HPA-5002</span><a class="pmore" href="products/ko/5000master.html" data-slug="5000master" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="0"><a class="ci" href="catalog.html?product=5000magic" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img width="557" height="483" src="images/agrow_5000magic.jpg" alt="Agrow-5000 Magic" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_n">양액공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/5000magic.html" data-slug="5000magic">Agrow-5000 Magic</a></h3><div class="cd" data-i="pd_5000mg">3개 양액제어 프로그램. 누적 일사량 제어 가능. 12구역 관수 지원.</div><span class="cm">HPA-5001</span><a class="pmore" href="products/ko/5000magic.html" data-slug="5000magic" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="1"><a class="ci" href="catalog.html?product=2000a" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img width="609" height="503" src="images/agrow_2000star_a.jpg" alt="Agrow-2000 Star A" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_i">관비공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/2000a.html" data-slug="2000a" data-i="n2000a">Agrow-2000 Star A형</a></h3><div class="cd" data-i="pd_2000a">직접공급방식(Direct-Injection). 12구역 독립 EC제어. 7" 터치스크린.</div><span class="cm">HPA-2005A</span><a class="pmore" href="products/ko/2000a.html" data-slug="2000a" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="1"><a class="ci" href="catalog.html?product=2000b" target="_blank" rel="noopener" title="카탈로그 보기" data-it="cat_view"><span class="bdg" data-i="bdg_2024">2024 신제품</span><img width="636" height="502" src="images/agrow_2000star_b.jpg" alt="Agrow-2000 Star B" loading="lazy"></a><div class="cb"><div class="cc" data-i="cat_i">관비공급기</div><h3 class="cn"><a class="cn-a" href="products/ko/2000b.html" data-slug="2000b" data-i="n2000b">Agrow-2000 Star B형</a></h3><div class="cd" data-i="pd_2000b">혼합공급방식(Continuous Mixing). 관수 전후 원수공급 기능 내장.</div><span class="cm">HPA-2005B</span><a class="pmore" href="products/ko/2000b.html" data-slug="2000b" data-i="prod_more">상세 사양 보기 →</a></div></div>
+    <div class="pc" data-c="2"><a class="ci" href="catalog.html?product=aplus" target="_blank" rel="noopener" style="background:#0a1628" title="카탈로그 보기" data-it="cat_view"><img width="700" height="890" src="images/agrow_aplusgreen.jpg" alt="A⁺-green" loading="lazy" style="object-fit:contain;object-position:center;padding:10px"></a><div class="cb"><div class="cc" data-i="cat_e">복합환경제어</div><h3 class="cn"><a class="cn-a" href="products/ko/aplus.html" data-slug="aplus">A⁺-green</a></h3><div class="cd" data-i="pd_aplus">모바일+PC 연동. 온실 복합환경제어. 양액공급기 통합 연동. 기상대 연결.</div><span class="cm">HPAG-8001</span><a class="pmore" href="products/ko/aplus.html" data-slug="aplus" data-i="prod_more">상세 사양 보기 →</a></div></div>
   </div>
 </section>
 
@@ -958,11 +963,11 @@ h3.cn{margin-top:0}
     </div>
     <div class="form rv">
       <div class="fr">
-        <div class="fg"><label data-i="f_name">이름</label><input type="text" id="f_name_v" data-ph="f_name_ph"></div>
-        <div class="fg"><label data-i="f_tel">연락처</label><input type="tel" id="f_tel_v" data-ph="f_tel_ph"></div>
+        <div class="fg"><label for="f_name_v" data-i="f_name">이름</label><input type="text" id="f_name_v" name="name" autocomplete="name" data-ph="f_name_ph"></div>
+        <div class="fg"><label for="f_tel_v" data-i="f_tel">연락처</label><input type="tel" id="f_tel_v" name="tel" autocomplete="tel" inputmode="tel" data-ph="f_tel_ph"></div>
       </div>
-      <div class="fg"><label data-i="f_prod">관심 제품</label>
-        <select id="f_prod_v">
+      <div class="fg"><label for="f_prod_v" data-i="f_prod">관심 제품</label>
+        <select id="f_prod_v" name="product">
           <option data-i="f_prod_ph">제품을 선택해주세요</option>
           <option>Agrow-Perfect</option><option>Agrow-7000 Plus</option><option>Agrow-7000</option>
           <option>Agrow-6000 Plus</option><option>Agrow-6000</option><option>Agrow-5000 Master</option>
@@ -970,7 +975,7 @@ h3.cn{margin-top:0}
           <option>A⁺-green</option>
         </select>
       </div>
-      <div class="fg"><label data-i="f_msg">문의 내용</label><textarea id="f_msg_v" data-ph="f_msg_ph"></textarea></div>
+      <div class="fg"><label for="f_msg_v" data-i="f_msg">문의 내용</label><textarea id="f_msg_v" name="message" data-ph="f_msg_ph"></textarea></div>
       <button class="sbtn" id="f_submit_btn" data-i="f_submit">문의 보내기 →</button>
     </div>
 
@@ -1078,7 +1083,7 @@ h3.cn{margin-top:0}
     <h3><span><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span> <span data-i="dl_modal_title">다운로드 인증</span></h3>
     <p data-i="dl_modal_desc">이 파일은 비밀번호가 필요합니다.<br>문의: 033-747-5114</p>
     <div class="dl-pw-wrap">
-      <input class="dl-pw-input" type="password" id="dlPwInput" placeholder="비밀번호 입력" data-ph="dl_modal_ph" autocomplete="off">
+      <input class="dl-pw-input" type="password" id="dlPwInput" aria-label="다운로드 비밀번호" placeholder="비밀번호 입력" data-ph="dl_modal_ph" autocomplete="off">
     </div>
     <div class="dl-pw-err" id="dlPwErr" data-i="dl_modal_err">비밀번호가 올바르지 않습니다.</div>
     <div class="dl-modal-btns">
@@ -1248,7 +1253,7 @@ togLbl();
 
 /* mobile menu */
 const mob=document.getElementById('mobNav');
-document.getElementById('menuBtn').addEventListener('click',()=>mob.classList.toggle('open'));
+document.getElementById('menuBtn').addEventListener('click',e=>{const o=mob.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',o);});
 function closeMob(){mob.classList.remove('open')}
 
 /* contact form -> mailto */
