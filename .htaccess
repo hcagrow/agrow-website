@@ -35,7 +35,7 @@ AddType image/webp .webp
   # 옛 XE 주소 → 새 페이지 (검색·즐겨찾기 링크 보존)
   RewriteRule ^index\.php$ /? [L,R=301]
   RewriteRule ^products/?$ /#products [L,R=301,NE]
-  RewriteRule ^(intro|about|company)/?$ /#about [L,R=301,NE]
+  RewriteRule ^(intro|about|company|agrow_info)/?$ /#about [L,R=301,NE]
   RewriteRule ^(help|faq|as|support|notice)/?$ /#contact [L,R=301,NE]
 
   # 옛 사이트 보관 폴더는 외부 접근 차단
