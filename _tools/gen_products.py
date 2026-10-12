@@ -58,6 +58,42 @@ def load_T():
     return json.loads(out.stdout)
 
 E = lambda x: html.escape(str(x), quote=True)
+
+# ── 공인 시험 성적 (성적서 원본에서 옮김) ──
+CERTS = {
+ '5000magic':  [('perf','koat','26-KOATMP-213','2026.07.29',(1.48,3.58,0.71,1.77)), ('std','koat','26-KOATMP-214','2026.07.29',None)],
+ '5000master': [('perf','koat','26-KOATMP-152','2026.07.01',(1.28,1.82,1.41,2.37)), ('std','koat','26-KOATMP-174','2026.07.20',None)],
+ '6000plus':   [('perf','koat','26-KOATMP-215','2026.07.29',(1.65,4.51,0.47,1.14)), ('std','koat','26-KOATMP-216','2026.07.29',None)],
+ '6000':       [('kam','kamico','T-16-1111','2016.05.12','HPA-6000')],
+ '7000':       [('kam','kamico','T-16-1111','2016.05.12','HPA-7000')],
+}
+STDS = 'KS B 7952:2022 · KS X 3288:2022'
+CL = {
+'ko':["공인 시험 성적","농업기계 성능시험","농업기계 국가표준시험","농기계 시험성적서","한국농업기술진흥원(KOAT)","한국농기계공업협동조합(KAMICO)","성적서 번호","발행일","측정 오차","공급시간 제어","공급량 제어","EC 제어","pH 제어","검정기준(각 5% 이하) 적합","양액공급기 일반요구사항 및 통신 기준 적합","HPA-5000 시험성적서에 파생모델({m})로 포함"],
+'en':["Certified Test Results","Agricultural Machinery Performance Test","National Standard Conformity Test","Agricultural Machinery Test Report","Korea Agriculture Technology Promotion Agency (KOAT)","Korea Agricultural Machinery Industry Cooperative (KAMICO)","Report No.","Issued","Measured error","Supply time control","Supply volume control","EC control","pH control","Meets criteria (≤5% each)","Meets general requirements and communication standards for nutrient feeders","Covered as a derivative model ({m}) in the HPA-5000 test report"],
+'ru':["Результаты официальных испытаний","Испытание производительности сельхозтехники","Испытание на соответствие национальным стандартам","Протокол испытаний сельхозтехники","Корейское агентство содействия сельскохозяйственным технологиям (KOAT)","Корейский кооператив производителей сельхозтехники (KAMICO)","№ протокола","Дата","Погрешность","Управление временем подачи","Управление объёмом подачи","Управление EC","Управление pH","Соответствует критериям (≤5% каждый)","Соответствует общим требованиям и стандартам связи для систем подачи раствора","Включён как производная модель ({m}) в протокол испытаний HPA-5000"],
+'uz':["Rasmiy sinov natijalari","Qishloq xo'jaligi texnikasi unumdorlik sinovi","Milliy standartga muvofiqlik sinovi","Qishloq xo'jaligi texnikasi sinov hisoboti","Koreya qishloq xo'jaligi texnologiyalarini rivojlantirish agentligi (KOAT)","Koreya qishloq xo'jaligi texnikasi sanoati kooperativi (KAMICO)","Hisobot raqami","Sana","O'lchangan xatolik","Ta'minot vaqtini boshqarish","Ta'minot hajmini boshqarish","EC boshqaruvi","pH boshqaruvi","Mezonlarga mos (har biri ≤5%)","Ozuqa ta'minot uskunalari uchun umumiy talablar va aloqa standartlariga mos","HPA-5000 sinov hisobotiga hosila model ({m}) sifatida kiritilgan"],
+'zh':["官方检测结果","农业机械性能试验","农业机械国家标准试验","农业机械试验报告","韩国农业技术振兴院（KOAT）","韩国农机工业协同组合（KAMICO）","报告编号","签发日期","实测误差","供液时间控制","供液量控制","EC控制","pH控制","符合检定标准（各≤5%）","符合营养液供给机一般要求及通信标准","作为衍生型号（{m}）收录于HPA-5000试验报告"],
+'ja':["公的試験成績","農業機械性能試験","農業機械国家標準試験","農業機械試験成績書","韓国農業技術振興院（KOAT）","韓国農機械工業協同組合（KAMICO）","成績書番号","発行日","測定誤差","供給時間制御","供給量制御","EC制御","pH制御","検定基準（各5%以下）に適合","養液供給機の一般要求事項および通信基準に適合","HPA-5000試験成績書に派生モデル（{m}）として収録"],
+'vi':["Kết quả thử nghiệm chính thức","Thử nghiệm hiệu suất máy nông nghiệp","Thử nghiệm tiêu chuẩn quốc gia","Biên bản thử nghiệm máy nông nghiệp","Cơ quan Xúc tiến Công nghệ Nông nghiệp Hàn Quốc (KOAT)","Hợp tác xã Công nghiệp Máy nông nghiệp Hàn Quốc (KAMICO)","Số biên bản","Ngày cấp","Sai số đo","Điều khiển thời gian cấp","Điều khiển lượng cấp","Điều khiển EC","Điều khiển pH","Đạt tiêu chuẩn (mỗi mục ≤5%)","Đạt yêu cầu chung và tiêu chuẩn truyền thông cho máy cấp dinh dưỡng","Được đưa vào biên bản thử nghiệm HPA-5000 dưới dạng model phái sinh ({m})"],
+'id':["Hasil Uji Resmi","Uji Kinerja Mesin Pertanian","Uji Standar Nasional","Laporan Uji Mesin Pertanian","Badan Promosi Teknologi Pertanian Korea (KOAT)","Koperasi Industri Mesin Pertanian Korea (KAMICO)","No. Laporan","Tanggal terbit","Galat terukur","Kontrol waktu suplai","Kontrol volume suplai","Kontrol EC","Kontrol pH","Memenuhi kriteria (masing-masing ≤5%)","Memenuhi persyaratan umum dan standar komunikasi untuk mesin suplai nutrisi","Tercakup sebagai model turunan ({m}) dalam laporan uji HPA-5000"],
+}
+def cert_html(slug, lang):
+    if slug not in CERTS: return ''
+    c = CL[lang]; rows = ''
+    for kind, org, no, date, extra in CERTS[slug]:
+        ttl = {'perf':c[1],'std':c[2],'kam':c[3]}[kind]
+        orgn = c[4] if org=='koat' else c[5]
+        body = ''
+        if kind=='perf':
+            body = '<table class="ct"><tbody>' + ''.join('<tr><th>%s</th><td>%.2f %%</td></tr>' % (E(c[9+i]), v) for i,v in enumerate(extra)) + '</tbody></table><p class="cres">✓ %s</p>' % E(c[13])
+        elif kind=='std':
+            body = '<p class="cres">✓ %s<br><span>%s</span></p>' % (E(c[14]), STDS)
+        else:
+            body = '<p class="cres">%s</p>' % E(c[15].replace('{m}', extra))
+        rows += '<div class="cert"><div class="ch"><b>%s</b><span>%s</span></div><dl><dt>%s</dt><dd>%s</dd><dt>%s</dt><dd>%s</dd></dl>%s</div>' % (
+            E(ttl), E(orgn), E(c[6]), E(no), E(c[7]), E(date), body)
+    return '<section><h2>%s</h2><div class="certs">%s</div></section>' % (E(c[0]), rows)
 def strip_br(x): return re.sub(r'<br\s*/?>',' ',str(x)).replace('\n',' ')
 
 def pname(p,t): return t[p[1][1:]] if p[1].startswith('@') else p[1]
@@ -70,6 +106,13 @@ MOON='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0
 def cls(svg,c): return svg.replace('<svg ','<svg class="'+c+'" ',1)
 
 CSS = r'''
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:16px}
+.cert{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:20px 22px}
+.cert .ch b{display:block;font-size:16px;color:var(--t1)}.cert .ch span{font-size:12.5px;color:var(--t3)}
+.cert dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:14px 0 10px;font-size:13.5px}.cert dt{color:var(--t3)}.cert dd{margin:0;font-weight:700;color:var(--t1);font-variant-numeric:tabular-nums}
+.ct{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}.ct th{text-align:left;font-weight:500;color:var(--t2);padding:7px 0;border-top:1px solid var(--bdr)}.ct td{text-align:right;font-weight:800;color:var(--acc);padding:7px 0;border-top:1px solid var(--bdr);font-variant-numeric:tabular-nums}
+.cres{font-size:13px;color:var(--t2);margin-top:10px;line-height:1.6}.cres span{font-size:12px;color:var(--t3)}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 [data-theme="light"]{--bg:#F4F6F9;--bg2:#EAEDF2;--card:#fff;--t1:#0C1A2E;--t2:#3D5068;--t3:#7A8FA6;--bdr:rgba(12,26,46,.09);--acc:#007A4D;--acc2:#007A4D;--nav:rgba(244,246,249,.94);--sh:0 2px 8px rgba(12,26,46,.06),0 12px 32px rgba(12,26,46,.08)}
 [data-theme="dark"]{--bg:#080F1C;--bg2:#0D1726;--card:#112035;--t1:#E8EFF8;--t2:#9DB1C7;--t3:#6A86A4;--bdr:rgba(0,200,122,.14);--acc:#00E5A0;--acc2:#00C87A;--nav:rgba(8,15,28,.94);--sh:0 2px 8px rgba(0,0,0,.3),0 12px 32px rgba(0,0,0,.3)}
@@ -248,6 +291,7 @@ def page(p, lang, T):
     </div>
   </div>
   <section><h2>{E(u['specs'])}</h2><ul class="feat">{li}</ul></section>
+  {cert_html(slug,lang)}
   <section><div class="cbox"><div><h2>{E(u['ctitle'])}</h2><p>{E(u['cdesc'])}</p></div>
     <div class="clist"><a href="tel:+82337475114"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> {TELN}</a><a href="{E(mail)}"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> hpagrow@hanmail.net</a><a class="tgl" href="https://t.me/Seongchan89" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg> Telegram @Seongchan89</a></div></div></section>
   <section><h2>{E(u['others'])}</h2><div class="grid">{others}</div></section>
