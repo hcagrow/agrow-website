@@ -211,7 +211,7 @@ def page(p, lang, T):
 <link rel="icon" href="{r}favicon.ico" sizes="any">
 <link rel="icon" href="{r}favicons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{r}favicons/icon-180.png">
-<meta name="theme-color" content="#00C87A">
+<meta name="theme-color" content="#00A86B">
 <link rel="stylesheet" href="{r}fonts/pretendard/pretendard-subset.css">
 <script src="{r}js/ga.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -222,7 +222,7 @@ def page(p, lang, T):
 </head>
 <body>
 <header><div class="wrap hd">
-  <a class="logo lg" href="{home}" aria-label="한가람농업개발 Agrow"><svg class="lg-sym" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><defs><linearGradient id="lgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00D68A"/><stop offset="1" stop-color="#00A36C"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#lgG)"/><path d="M32 9C32 9 15 29 15 40.5A17 17 0 0 0 49 40.5C49 29 32 9 32 9Z" fill="#fff"/><path d="M32 52C32 44 33 37 41 31C40 40 37 45 32 47" fill="#00B877"/><path d="M32 52C32 46 30.5 41 24.5 37.5C25 43 27.5 46.5 32 48" fill="#E8892B"/></svg><span class="lg-tx"><span class="lg-k">한가람농업개발</span><span class="lg-w">Agrow</span></span></a>
+  <a class="logo lg" href="{home}" aria-label="한가람농업개발 Agrow"><svg class="lg-sym" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#00A86B"/><path d="M32 9C32 9 15 29 15 40.5A17 17 0 0 0 49 40.5C49 29 32 9 32 9Z" fill="#fff"/><path d="M32 52C32 44 33 37 41 31C40 40 37 45 32 47" fill="#00A86B"/><path d="M32 52C32 46 30.5 41 24.5 37.5C25 43 27.5 46.5 32 48" fill="#E8892B"/></svg><span class="lg-tx"><span class="lg-k">한가람농업개발</span><span class="lg-w">Agrow</span></span></a>
   <div class="hd-r">
     <details class="lsel"><summary>{FLAG[lang]} {LNAME[lang]} ▾</summary><ul>{langs}</ul></details>
     <button class="tog" id="togBtn" type="button" role="switch" aria-checked="false" title="{E(tg_lbl)}" aria-label="{E(tg_lbl)}">{cls(SUN,'tb s')}{cls(MOON,'tb m')}<span class="tog-k">{cls(SUN,'i-s')}{cls(MOON,'i-m')}</span></button>
