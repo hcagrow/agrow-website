@@ -157,6 +157,7 @@ footer b{color:var(--t2)}
 '''
 
 def page(p, lang, T):
+    TELN='033-747-5114' if lang=='ko' else '+82-33-747-5114'; FAXN='033-746-1909' if lang=='ko' else '+82-33-746-1909'
     t = T[lang]; u = UI[lang]; slug = p[0]
     name = pname(p,t); cat = t[p[3]]; desc = strip_br(t[p[4]])
     feats = FEATS[slug][lang]
@@ -248,10 +249,10 @@ def page(p, lang, T):
   </div>
   <section><h2>{E(u['specs'])}</h2><ul class="feat">{li}</ul></section>
   <section><div class="cbox"><div><h2>{E(u['ctitle'])}</h2><p>{E(u['cdesc'])}</p></div>
-    <div class="clist"><a href="tel:+82337475114"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> 033-747-5114</a><a href="{E(mail)}"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> hpagrow@hanmail.net</a><a class="tgl" href="https://t.me/Seongchan89" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg> Telegram @Seongchan89</a></div></div></section>
+    <div class="clist"><a href="tel:+82337475114"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> {TELN}</a><a href="{E(mail)}"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> hpagrow@hanmail.net</a><a class="tgl" href="https://t.me/Seongchan89" target="_blank" rel="noopener"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg> Telegram @Seongchan89</a></div></div></section>
   <section><h2>{E(u['others'])}</h2><div class="grid">{others}</div></section>
 </main>
-<footer><div class="wrap"><b>Agrow · {E(t['brand_n'])}</b><br>{E(strip_br(t['con_addr']))}<br>TEL 033-747-5114 · FAX 033-746-1909 · hpagrow@hanmail.net<br>{E(strip_br(t['copyright']))}<br><small style="opacity:.7">{E(GA_NOTE[lang])}</small></div></footer>
+<footer><div class="wrap"><b>Agrow · {E(t['brand_n'])}</b><br>{E(strip_br(t['con_addr']))}<br>TEL {TELN} · FAX {FAXN} · hpagrow@hanmail.net<br>{E(strip_br(t['copyright']))}<br><small style="opacity:.7">{E(GA_NOTE[lang])}</small></div></footer>
 <div class="mbar" role="navigation" aria-label="Quick contact">
   <a href="tel:+82337475114" class="m-call"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span>{E(t['mb_call'])}</span></a>
   <a href="https://t.me/Seongchan89" target="_blank" rel="noopener" class="m-tg"><span class="mi"><svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></span><span>Telegram</span></a>
