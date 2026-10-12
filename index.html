@@ -35,14 +35,15 @@
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="fonts/pretendard/pretendard-subset.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 [data-theme="light"]{
-  --bg:#F4F6F9;--bg2:#EAEDF2;--bg3:#fff;--nav:rgba(244,246,249,0.93);
+  --bg:#F4F6F9;--bg2:#EAEDF2;--bg3:#FCFDFB;--nav:rgba(244,246,249,0.93);
   --bdr:rgba(12,26,46,0.09);--t1:#0C1A2E;--t2:#3D5068;--t3:#7A8FA6;
-  --acc:#00C87A;--acc2:#009F62;--card:#fff;--input:#EAEDF2;
+  --acc:#00C87A;--acc2:#009F62;--card:#FCFDFB;--input:#EAEDF2;
   --foot:#0C1A2E;--foot-t:rgba(255,255,255,0.65);--stat:#0C1A2E;
   --tog:#0C1A2E;--badge:#0C1A2E;--badge-t:#fff;--tag:#009F62;
   --gl:rgba(12,26,46,0.04);--div:rgba(12,26,46,0.08);
@@ -571,6 +572,14 @@ h3.cn{margin-top:0}
 }
 .map-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.map-btns a{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:100px;font-size:12px;font-weight:700;text-decoration:none;border:1px solid var(--bdr);background:var(--card);color:var(--t1);transition:transform .15s,border-color .15s}.map-btns a:hover{transform:translateY(-1px);border-color:var(--acc)}.map-btns .lic{font-size:13px}.map-btns .mb-n .lic{color:#03C75A}.map-btns .mb-k .lic{color:#E5A800}.map-btns .mb-g .lic{color:#4285F4}
 @media print{.map-btns{display:none!important}}
+
+/* 1단계 다듬기: 제목 글꼴 · 섹션 라벨 축소 · 스크롤 효과 제거 */
+:root{--font-display:'Pretendard','Inter','Noto Sans KR',sans-serif}
+.hero h1,.sec-t,.cn,.pt-name,.supp-name,.dash-feat-name,.port-title,.hist-title,.dl-name,.h-stat-n,.nb,.perf-val,.dash-card-val{font-family:var(--font-display)}
+.hero h1{letter-spacing:-2px}.sec-t{letter-spacing:-1.2px}
+.h-stat-n,.nb,.perf-val,.dash-card-val,.hist-year,.hx-chip b{font-variant-numeric:tabular-nums}
+.ey{display:none}#products .ey,#portfolio .ey{display:flex}
+.rv,.rv.shown{opacity:1;transform:none;transition:none}
 </style>
 </head>
 <body>
