@@ -19,10 +19,10 @@ PRODUCTS = [
  ('6000plus',  'Agrow-6000 Plus',   'HPA-6000 PLUS',  'cat_n','pd_6000p',  'bdg_no1', 'agrow_6000plus.jpg',  'agrow'),
  ('7000',      'Agrow-7000',        'HPA-7000',       'cat_n','pd_7000',   None,      'agrow_7000.jpg',      'agrow'),
  ('6000',      'Agrow-6000',        'HPA-6000',       'cat_n','pd_6000',   None,      'agrow_6000.jpg',      'agrow'),
- ('5000master','Agrow-5000 Master', 'HPA-5002',       'cat_n','pd_5000m',  'bdg_2024','agrow_5000master.jpg','agrow'),
- ('5000magic', 'Agrow-5000 Magic',  'HPA-5001',       'cat_n','pd_5000mg', 'bdg_2024','agrow_5000magic.jpg', 'agrow'),
- ('2000a',     '@n2000a',           'HPA-2005A',      'cat_i','pd_2000a',  'bdg_2024','agrow_2000star_a.jpg','agrow'),
- ('2000b',     '@n2000b',           'HPA-2005B',      'cat_i','pd_2000b',  'bdg_2024','agrow_2000star_b.jpg','agrow'),
+ ('5000master','Agrow-5000 Master', 'HPA-5002',       'cat_n','pd_5000m',  '','agrow_5000master.jpg','agrow'),
+ ('5000magic', 'Agrow-5000 Magic',  'HPA-5001',       'cat_n','pd_5000mg', '','agrow_5000magic.jpg', 'agrow'),
+ ('2000a',     '@n2000a',           'HPA-2005A',      'cat_i','pd_2000a',  '','agrow_2000star_a.jpg','agrow'),
+ ('2000b',     '@n2000b',           'HPA-2005B',      'cat_i','pd_2000b',  '','agrow_2000star_b.jpg','agrow'),
  ('aplus',     'A⁺-green',          'HPAG-8001',      'cat_e','pd_aplus',  None,      'agrow_aplusgreen.jpg','aplus'),
 ]
 
