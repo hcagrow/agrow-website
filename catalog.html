@@ -342,6 +342,7 @@ a.href='mailto:hpagrow@hanmail.net?subject='+encodeURIComponent(t.subj+(nm||''))
 function applyLang(lang) {
   curLang = lang;
   const t = CAT_I18N[lang] || CAT_I18N.ko;
+  document.querySelectorAll('.lg-k').forEach(el=>el.textContent=lang==='ko'?'한가람농업개발':'HANGARAM AGRI');
   document.querySelector('#backBtn .bt').textContent = ' '+t.back.replace(/^←\s*/,'');
   document.getElementById('backBtn').href='index.html?lang='+lang;
   document.getElementById('langFlag').textContent=FLAGS[lang]||'🌐';
