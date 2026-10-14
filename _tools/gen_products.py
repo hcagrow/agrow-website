@@ -61,6 +61,7 @@ E = lambda x: html.escape(str(x), quote=True)
 
 # ── 공인 시험 성적 (성적서 원본에서 옮김) ──
 CERTS = {
+ '7000plus':   [('perf','koat','26-KOATMP-344','2026.10.12',None), ('std','koat','26-KOATMP-345','2026.10.12',None)],
  '5000magic':  [('perf','koat','26-KOATMP-213','2026.07.29',None), ('std','koat','26-KOATMP-214','2026.07.29',None)],
  '5000master': [('perf','koat','26-KOATMP-152','2026.07.01',None), ('std','koat','26-KOATMP-174','2026.07.20',None)],
  '6000plus':   [('perf','koat','26-KOATMP-215','2026.07.29',None), ('std','koat','26-KOATMP-216','2026.07.29',None)],
