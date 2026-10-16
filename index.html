@@ -641,6 +641,20 @@ html[lang=ko] .sec-t,html[lang=ko] .sec-sub{word-break:keep-all}
 .pc:hover,.port-card:hover{box-shadow:var(--sh)!important;transform:none!important}
 @media(max-width:640px){.port-img{height:110px}}
 @media(max-width:420px){#langLabel{display:none}.lang-btn{padding:5px 9px}}
+.parts{margin-top:56px;padding-top:40px;border-top:1px solid var(--bdr)}
+.parts-t{font-size:22px;font-weight:800;color:var(--t1);margin:0 0 8px}
+.parts-sub{font-size:14px;color:var(--t2);margin:0 0 28px;word-break:keep-all}
+.parts-g{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--bdr)}
+.parts-gt{font-size:14px;font-weight:700;color:var(--acc)}
+.parts-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:14px}
+.parts-grid li{display:flex;flex-direction:column;gap:4px}
+.parts-grid img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border:1px solid var(--bdr);border-radius:8px}
+.parts-grid b{font-size:13.5px;color:var(--t1);margin-top:4px}
+.parts-grid span{font-size:12px;color:var(--t3,var(--t2))}
+.parts-spec{font-size:12px;font-weight:700;color:var(--acc);text-decoration:underline;margin-top:2px}
+.parts-cta{margin-top:20px;font-size:14px;color:var(--t2)}.parts-cta a{color:var(--acc);font-weight:700}
+@media(max-width:640px){.parts-g{grid-template-columns:1fr;gap:10px}.parts-grid{grid-template-columns:repeat(3,1fr);gap:10px}.parts-grid b{font-size:12.5px}.parts-grid span{font-size:11px}}
+html:not([lang=ko]) .parts{display:none}
 </style>
 </head>
 <body>
@@ -949,6 +963,38 @@ html[lang=ko] .sec-t,html[lang=ko] .sec-sub{word-break:keep-all}
     <li><span class="ss-n">3</span><div class="supp-name" data-i="s3_n">방문 접수</div><div class="supp-desc" data-i="s3_d">먼저 연락 주시면 증상 확인 후 방문 일정을 잡아드립니다. 방문 접수 시간 평일 09:00–18:00.</div></li>
   </ol>
   <p class="supp-cta"><span data-i="supp_cta_t">A/S 접수는 전화 · 이메일 · 텔레그램으로 받습니다.</span> <a href="#contact" data-i="supp_cta_l">연락처 보기</a></p>
+  <div class="parts">
+<h3 class="parts-t">교체 부품 · 소모품</h3>
+<p class="parts-sub">양액공급기에 쓰이는 부품을 직접 보유하고 있습니다. 모델명과 부품명을 알려주시면 바로 안내해 드립니다.</p>
+<div class="parts-g"><div class="parts-gt">센서</div><ul class="parts-grid">
+<li><img src="images/parts/sun.jpg" alt="일사센서" loading="lazy" width="360" height="360"><b>일사센서</b><span>누적 일사량 제어용</span></li>
+<li><img src="images/parts/ec1.jpg" alt="EC센서-1" loading="lazy" width="360" height="360"><b>EC센서-1</b><span>케이블형</span></li>
+
+<li><img src="images/parts/ec_asens.jpg" alt="EC센서-2 EC A-SENS" loading="lazy" width="360" height="360"><b>EC센서-2</b><span>EC A-SENS · 배관 인라인형</span><a class="parts-spec" href="downloads/EC_A-SENS_spec.pdf" target="_blank" rel="noopener">사양서 PDF</a></li>
+<li><img src="images/parts/ph.jpg" alt="pH센서 + 어댑터" loading="lazy" width="360" height="360"><b>pH센서 + 어댑터</b></li>
+</ul></div>
+<div class="parts-g"><div class="parts-gt">유량·혼합</div><ul class="parts-grid">
+<li><img src="images/parts/venturi.jpg" alt="벤츄리관" loading="lazy" width="360" height="360"><b>벤츄리관</b><span>양액 흡입</span></li>
+<li><img src="images/parts/flow2.jpg" alt="플로우미터 2L" loading="lazy" width="360" height="360"><b>플로우미터 2L</b></li>
+<li><img src="images/parts/flow4.jpg" alt="플로우미터 4L" loading="lazy" width="360" height="360"><b>플로우미터 4L</b></li>
+<li><img src="images/parts/ctrl.jpg" alt="양액조절밸브" loading="lazy" width="360" height="360"><b>양액조절밸브</b></li>
+</ul></div>
+<div class="parts-g"><div class="parts-gt">밸브</div><ul class="parts-grid">
+<li><img src="images/parts/cv50s.jpg" alt="체크밸브 50mm" loading="lazy" width="360" height="360"><b>체크밸브 50mm</b><span>나사 · 결속</span></li>
+<li><img src="images/parts/cv25s.jpg" alt="체크밸브 25mm" loading="lazy" width="360" height="360"><b>체크밸브 25mm</b><span>나사 · 결속</span></li>
+<li><img src="images/parts/u1.jpg" alt="유니온 50mm" loading="lazy" width="360" height="360"><b>유니온 50mm</b><span>결속·숫나사·암나사 조합 4종</span></li>
+</ul></div>
+<div class="parts-g"><div class="parts-gt">배관 부속</div><ul class="parts-grid">
+<li><img src="images/parts/l50.jpg" alt="L류 (엘보)" loading="lazy" width="360" height="360"><b>L류 (엘보)</b><span>50 · 30 · 20 · 15mm, 25mm 45°</span></li>
+<li><img src="images/parts/t50.jpg" alt="T류 (티)" loading="lazy" width="360" height="360"><b>T류 (티)</b><span>50 · 25mm</span></li>
+<li><img src="images/parts/y3025.jpg" alt="Y자" loading="lazy" width="360" height="360"><b>Y자</b><span>30×25 · 25×25mm</span></li>
+<li><img src="images/parts/vs50.jpg" alt="밸브소켓" loading="lazy" width="360" height="360"><b>밸브소켓</b><span>50 · 25mm</span></li>
+<li><img src="images/parts/cap.jpg" alt="앤드캡 + 플러그캡" loading="lazy" width="360" height="360"><b>앤드캡 + 플러그캡</b></li>
+<li><img src="images/parts/nipple.jpg" alt="반니쁠" loading="lazy" width="360" height="360"><b>반니쁠</b></li>
+<li><img src="images/parts/bush.jpg" alt="부싱" loading="lazy" width="360" height="360"><b>부싱</b></li>
+<li><img src="images/parts/barb.jpg" alt="숫나사 / 미늘" loading="lazy" width="360" height="360"><b>숫나사 / 미늘</b></li>
+</ul></div>
+<p class="parts-cta">부품 문의 <a href="tel:+82337475114" class="tel-n">033-747-5114</a> · <a href="#contact">문의하기</a></p></div>
 </section>
 
 <!-- 제품 문의 / 견적 요청 -->
