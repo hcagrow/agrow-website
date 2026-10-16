@@ -259,6 +259,7 @@ def page(p, lang, T):
 <meta name="theme-color" content="#00A86B">
 <link rel="stylesheet" href="{r}fonts/pretendard/pretendard-subset.css">
 <script src="{r}js/ga.js"></script>
+<script src="{r}js/logo-fit.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script>try{{document.documentElement.dataset.theme=localStorage.getItem('ag-theme')||'light';localStorage.setItem('ag-lang','{lang}')}}catch(e){{}}</script>
