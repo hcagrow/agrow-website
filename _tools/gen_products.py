@@ -6,11 +6,12 @@ import json, os, re, subprocess, html, datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # 원본(index.html, features.json 읽는 곳)
 OUT  = os.environ.get('AGROW_OUT', ROOT)                               # 생성 결과를 쓸 곳
 BASE = os.environ.get('AGROW_BASE', 'https://agrow.hpagrow.com')
-LANGS = ['ko','en','ru','uz','zh','ja','vi','id']
-HREFLANG = {'ko':'ko','en':'en','ru':'ru','uz':'uz','zh':'zh-Hans','ja':'ja','vi':'vi','id':'id'}
-LOCALE = {'ko':'ko_KR','en':'en_US','ru':'ru_RU','uz':'uz_UZ','zh':'zh_CN','ja':'ja_JP','vi':'vi_VN','id':'id_ID'}
-FLAG = {'ko':'🇰🇷','en':'🇺🇸','ru':'🇷🇺','uz':'🇺🇿','zh':'🇨🇳','ja':'🇯🇵','vi':'🇻🇳','id':'🇮🇩'}
-LNAME = {'ko':'한국어','en':'English','ru':'Русский','uz':"O'zbekcha",'zh':'中文','ja':'日本語','vi':'Tiếng Việt','id':'Indonesia'}
+LANGS = ['ko','en','ru','uz','zh','ja','vi','id','th','tl']
+AL = lambda l: {'th':'en','tl':'en'}.get(l,l)   # 번역 이미지·카탈로그가 없는 언어는 영어본 사용
+HREFLANG = {'ko':'ko','en':'en','ru':'ru','uz':'uz','zh':'zh-Hans','ja':'ja','vi':'vi','id':'id','th':'th','tl':'fil'}
+LOCALE = {'ko':'ko_KR','en':'en_US','ru':'ru_RU','uz':'uz_UZ','zh':'zh_CN','ja':'ja_JP','vi':'vi_VN','id':'id_ID','th':'th_TH','tl':'fil_PH'}
+FLAG = {'ko':'🇰🇷','en':'🇺🇸','ru':'🇷🇺','uz':'🇺🇿','zh':'🇨🇳','ja':'🇯🇵','vi':'🇻🇳','id':'🇮🇩','th':'🇹🇭','tl':'🇵🇭'}
+LNAME = {'ko':'한국어','en':'English','ru':'Русский','uz':"O'zbekcha",'zh':'中文','ja':'日本語','vi':'Tiếng Việt','id':'Indonesia','th':'ไทย','tl':'Filipino'}
 
 # slug, 표시명(키 또는 고정), 모델번호, 분류키, 설명키, 배지키, 이미지, 카탈로그 PDF
 PRODUCTS = [
@@ -37,7 +38,7 @@ def feat_items(slug,lines):
         out.append([f.startswith('-'), f.lstrip('- ').strip()])
     return out
 
-GA_NOTE = {'ko': '이 사이트는 방문 통계를 위해 Google Analytics(쿠키)를 사용합니다. 개인을 식별하는 정보는 수집하지 않습니다.', 'en': 'This site uses Google Analytics (cookies) for visitor statistics. No personally identifying information is collected.', 'ru': 'Сайт использует Google Analytics (cookie) для статистики посещений. Персональные данные не собираются.', 'uz': "Sayt tashriflar statistikasi uchun Google Analytics (cookie) dan foydalanadi. Shaxsni aniqlovchi ma'lumotlar yig'ilmaydi.", 'zh': '本网站使用 Google Analytics（Cookie）进行访问统计，不收集可识别个人身份的信息。', 'ja': '当サイトでは訪問統計のため Google Analytics（Cookie）を使用しています。個人を特定する情報は収集しません。', 'vi': 'Trang web sử dụng Google Analytics (cookie) để thống kê lượt truy cập. Không thu thập thông tin nhận dạng cá nhân.', 'id': 'Situs ini menggunakan Google Analytics (cookie) untuk statistik pengunjung. Tidak ada informasi identitas pribadi yang dikumpulkan.'}
+GA_NOTE = {'ko': '이 사이트는 방문 통계를 위해 Google Analytics(쿠키)를 사용합니다. 개인을 식별하는 정보는 수집하지 않습니다.', 'en': 'This site uses Google Analytics (cookies) for visitor statistics. No personally identifying information is collected.', 'ru': 'Сайт использует Google Analytics (cookie) для статистики посещений. Персональные данные не собираются.', 'uz': "Sayt tashriflar statistikasi uchun Google Analytics (cookie) dan foydalanadi. Shaxsni aniqlovchi ma'lumotlar yig'ilmaydi.", 'zh': '本网站使用 Google Analytics（Cookie）进行访问统计，不收集可识别个人身份的信息。', 'ja': '当サイトでは訪問統計のため Google Analytics（Cookie）を使用しています。個人を特定する情報は収集しません。', 'vi': 'Trang web sử dụng Google Analytics (cookie) để thống kê lượt truy cập. Không thu thập thông tin nhận dạng cá nhân.', 'id': 'Situs ini menggunakan Google Analytics (cookie) untuk statistik pengunjung. Tidak ada informasi identitas pribadi yang dikumpulkan.', 'th': 'เว็บไซต์นี้ใช้ Google Analytics (คุกกี้) เพื่อเก็บสถิติผู้เข้าชม โดยไม่เก็บข้อมูลที่ระบุตัวบุคคล', 'tl': 'Gumagamit ang site na ito ng Google Analytics (cookies) para sa estadistika ng bisita. Walang kinokolektang personal na impormasyon.'}
 
 UI = {
 'ko':dict(brand='브랜드',specs='주요 사양 및 기능',model='모델명',catalog='카탈로그 보기',pdf='카탈로그 PDF',inquire='제품 문의',others='다른 제품',home='홈',products='제품',ctitle='구매 · 견적 문의',cdesc='모델 선정, 견적, 설치·수출 상담은 편하게 연락주세요.',subj='[제품 문의] ',maker='제조사',made='대한민국 제조'),
@@ -48,6 +49,8 @@ UI = {
 'ja':dict(brand='ブランド',specs='主な仕様と機能',model='型番',catalog='カタログを見る',pdf='カタログ PDF',inquire='お問い合わせ',others='その他の製品',home='ホーム',products='製品',ctitle='販売・お見積りのお問い合わせ',cdesc='機種選定、お見積り、設置・輸出のご相談はお気軽にご連絡ください。',subj='[製品お問い合わせ] ',maker='メーカー',made='韓国製'),
 'vi':dict(brand='Thương hiệu',specs='Thông số và tính năng chính',model='Mã model',catalog='Xem catalogue',pdf='Catalogue PDF',inquire='Liên hệ',others='Sản phẩm khác',home='Trang chủ',products='Sản phẩm',ctitle='Liên hệ mua hàng & báo giá',cdesc='Liên hệ với chúng tôi để được tư vấn chọn model, báo giá, lắp đặt và xuất khẩu.',subj='[Hỏi về sản phẩm] ',maker='Nhà sản xuất',made='Sản xuất tại Hàn Quốc'),
 'id':dict(brand='Merek',specs='Spesifikasi & Fitur Utama',model='No. Model',catalog='Lihat Katalog',pdf='Katalog PDF',inquire='Tanya Produk',others='Produk Lainnya',home='Beranda',products='Produk',ctitle='Penjualan & Penawaran Harga',cdesc='Hubungi kami untuk pemilihan model, penawaran harga, instalasi, dan ekspor.',subj='[Pertanyaan produk] ',maker='Produsen',made='Buatan Korea'),
+'th':dict(brand='แบรนด์',specs='สเปกและฟังก์ชันหลัก',model='รุ่น',catalog='ดูแคตตาล็อก',pdf='แคตตาล็อก PDF',inquire='สอบถาม',others='ผลิตภัณฑ์อื่น',home='หน้าแรก',products='ผลิตภัณฑ์',ctitle='สอบถามการซื้อและใบเสนอราคา',cdesc='ติดต่อเราเพื่อขอคำแนะนำการเลือกรุ่น ใบเสนอราคา การติดตั้ง และการส่งออก',subj='[สอบถามสินค้า] ',maker='ผู้ผลิต',made='ผลิตในเกาหลี'),
+'tl':dict(brand='Brand',specs='Pangunahing Spec at Feature',model='Model No.',catalog='Tingnan ang Katalogo',pdf='Katalogo PDF',inquire='Magtanong',others='Ibang Produkto',home='Home',products='Mga Produkto',ctitle='Bentahan at Quote',cdesc='Makipag-ugnayan para sa pagpili ng model, quote, instalasyon at export.',subj='[Tanong sa produkto] ',maker='Manufacturer',made='Gawa sa Korea'),
 }
 
 def load_T():
@@ -78,6 +81,8 @@ CL = {
 'ja':["公的試験成績","農業機械性能試験","農業機械国家標準試験","農業機械試験成績書","韓国農業技術振興院（KOAT）","韓国農機械工業協同組合（KAMICO）","成績書番号","発行日","測定誤差","供給時間制御","供給量制御","EC制御","pH制御","検定基準に適合","養液供給機の一般要求事項および通信基準に適合","HPA-5000試験成績書に派生モデル（{m}）として収録"],
 'vi':["Kết quả thử nghiệm chính thức","Thử nghiệm hiệu suất máy nông nghiệp","Thử nghiệm tiêu chuẩn quốc gia","Biên bản thử nghiệm máy nông nghiệp","Cơ quan Xúc tiến Công nghệ Nông nghiệp Hàn Quốc (KOAT)","Hợp tác xã Công nghiệp Máy nông nghiệp Hàn Quốc (KAMICO)","Số biên bản","Ngày cấp","Sai số đo","Điều khiển thời gian cấp","Điều khiển lượng cấp","Điều khiển EC","Điều khiển pH","Đạt tiêu chuẩn kiểm định","Đạt yêu cầu chung và tiêu chuẩn truyền thông cho máy cấp dinh dưỡng","Được đưa vào biên bản thử nghiệm HPA-5000 dưới dạng model phái sinh ({m})"],
 'id':["Hasil Uji Resmi","Uji Kinerja Mesin Pertanian","Uji Standar Nasional","Laporan Uji Mesin Pertanian","Badan Promosi Teknologi Pertanian Korea (KOAT)","Koperasi Industri Mesin Pertanian Korea (KAMICO)","No. Laporan","Tanggal terbit","Galat terukur","Kontrol waktu suplai","Kontrol volume suplai","Kontrol EC","Kontrol pH","Memenuhi kriteria uji","Memenuhi persyaratan umum dan standar komunikasi untuk mesin suplai nutrisi","Tercakup sebagai model turunan ({m}) dalam laporan uji HPA-5000"],
+'th':["ผลการทดสอบที่ได้รับการรับรอง","การทดสอบสมรรถนะเครื่องจักรกลการเกษตร","การทดสอบมาตรฐานแห่งชาติ","รายงานผลทดสอบเครื่องจักรกลการเกษตร","สำนักงานส่งเสริมเทคโนโลยีการเกษตรเกาหลี (KOAT)","สหกรณ์อุตสาหกรรมเครื่องจักรกลการเกษตรเกาหลี (KAMICO)","เลขที่รายงาน","วันที่ออก","ค่าคลาดเคลื่อนที่วัดได้","ควบคุมเวลาจ่าย","ควบคุมปริมาณจ่าย","ควบคุม EC","ควบคุม pH","ผ่านเกณฑ์การทดสอบ","ผ่านข้อกำหนดทั่วไปและมาตรฐานการสื่อสารสำหรับเครื่องจ่ายสารละลาย","รวมอยู่ในรายงานทดสอบ HPA-5000 ในฐานะรุ่นย่อย ({m})"],
+'tl':["Sertipikadong Resulta ng Pagsubok","Performance Test ng Makinaryang Pang-agrikultura","National Standard Conformity Test","Test Report ng Makinaryang Pang-agrikultura","Korea Agriculture Technology Promotion Agency (KOAT)","Korea Agricultural Machinery Industry Cooperative (KAMICO)","Report No.","Petsa ng paglabas","Nasukat na error","Kontrol sa oras ng supply","Kontrol sa dami ng supply","EC control","pH control","Pumasa sa pamantayan ng pagsubok","Pumasa sa pangkalahatang requirement at communication standard para sa nutrient feeder","Kasama bilang derivative model ({m}) sa test report ng HPA-5000"],
 }
 def cert_html(slug, lang):
     if slug not in CERTS: return ''
@@ -98,9 +103,9 @@ def cert_html(slug, lang):
 def strip_br(x): return re.sub(r'<br\s*/?>',' ',str(x)).replace('\n',' ')
 
 def pname(p,t): return t[p[1][1:]] if p[1].startswith('@') else p[1]
-def img_rel(p,lang): return ('images/'+p[6]) if lang=='ko' else ('images/loc/%s/%s'%(lang,p[6]))
+def img_rel(p,lang): return ('images/'+p[6]) if lang=='ko' else ('images/loc/%s/%s'%(AL(lang),p[6]))
 def url(lang,slug): return '%s/products/%s/%s.html'%(BASE,lang,slug)
-def pdf_rel(p,lang): return ('downloads/%s_catalog.pdf'%('agreen' if p[7]=='aplus' else p[7])) if lang=='ko' else ('downloads/catalog/%s_catalog_%s.pdf'%(p[7],lang))
+def pdf_rel(p,lang): return ('downloads/%s_catalog.pdf'%('agreen' if p[7]=='aplus' else p[7])) if lang=='ko' else ('downloads/catalog/%s_catalog_%s.pdf'%(p[7],AL(lang)))
 
 SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>'
 MOON='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>'
@@ -118,6 +123,7 @@ CSS = r'''
 [data-theme="light"]{--bg:#F4F6F9;--bg2:#EAEDF2;--card:#fff;--t1:#0C1A2E;--t2:#3D5068;--t3:#7A8FA6;--bdr:rgba(12,26,46,.09);--acc:#007A4D;--acc2:#007A4D;--nav:rgba(244,246,249,.94);--sh:0 2px 8px rgba(12,26,46,.06),0 12px 32px rgba(12,26,46,.08)}
 [data-theme="dark"]{--bg:#080F1C;--bg2:#0D1726;--card:#112035;--t1:#E8EFF8;--t2:#9DB1C7;--t3:#6A86A4;--bdr:rgba(0,200,122,.14);--acc:#00E5A0;--acc2:#00C87A;--nav:rgba(8,15,28,.94);--sh:0 2px 8px rgba(0,0,0,.3),0 12px 32px rgba(0,0,0,.3)}
 html{scroll-behavior:smooth}
+html[lang=th] body,html[lang=th] body *{font-family:'Inter','Noto Sans Thai',sans-serif!important;letter-spacing:0!important}
 body{background:var(--bg);color:var(--t1);font-family:'Noto Sans KR','Inter',system-ui,sans-serif;line-height:1.6;transition:background .3s,color .3s}
 a{color:inherit}
 .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
@@ -261,7 +267,7 @@ def page(p, lang, T):
 <script src="{r}js/ga.js"></script>
 <script src="{r}js/logo-fit.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+Thai:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script>try{{document.documentElement.dataset.theme=localStorage.getItem('ag-theme')||'light';localStorage.setItem('ag-lang','{lang}')}}catch(e){{}}</script>
 <script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>
 <style>{CSS}</style>

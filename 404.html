@@ -52,9 +52,11 @@ uz:["Sahifa topilmadi","Sahifa ko'chirilgan yoki o'chirilgan bo'lishi mumkin.","
 zh:["找不到页面","该页面可能已移动或不存在。","返回首页","联系我们"],
 ja:["ページが見つかりません","ページが移動または削除された可能性があります。","ホームへ","お問い合わせ"],
 vi:["Không tìm thấy trang","Trang có thể đã được chuyển hoặc không còn tồn tại.","Về trang chủ","Liên hệ"],
-id:["Halaman tidak ditemukan","Halaman mungkin telah dipindahkan atau tidak ada lagi.","Ke beranda","Hubungi kami"]};
+id:["Halaman tidak ditemukan","Halaman mungkin telah dipindahkan atau tidak ada lagi.","Ke beranda","Hubungi kami"],
+th:["ไม่พบหน้านี้","หน้านี้อาจถูกย้ายหรือไม่มีอยู่แล้ว","กลับหน้าแรก","ติดต่อเรา"],
+tl:["Hindi nahanap ang pahina","Maaaring nailipat o wala na ang pahinang ito.","Pumunta sa homepage","Makipag-ugnayan"]};
 let l;try{l=localStorage.getItem('ag-lang')}catch(e){}
-if(!M[l]){l=(navigator.languages||[navigator.language||'en']).map(x=>String(x).slice(0,2).toLowerCase()).find(x=>M[x])||'en'}
+if(!M[l]){l=(navigator.languages||[navigator.language||'en']).map(x=>{x=String(x).toLowerCase();return x.startsWith('fil')?'tl':x.slice(0,2)}).find(x=>M[x])||'en'}
 const t=M[l];document.documentElement.lang=l;
 h.textContent=t[0];d.textContent=t[1];home.textContent=t[2];ct.textContent=t[3];
 home.href='/?lang='+l;ct.href='/?lang='+l+'#contact';

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="fonts/pretendard/pretendard-subset.css">
 <script src="js/ga.js"></script>
 <script src="js/logo-fit.js" defer></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
@@ -141,6 +141,7 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
   html,body,.main,.viewer,.stage{height:auto!important;overflow:visible!important}
 }
 .nav-sub,#pgListT,.page-info{font-family:'Pretendard','Inter','Noto Sans KR',sans-serif}
+html[lang=th] body,html[lang=th] body *{font-family:'Inter','Noto Sans Thai',sans-serif!important;letter-spacing:0!important}
 </style>
 </head>
 <body>
@@ -190,7 +191,7 @@ nav{position:relative;z-index:1000;flex-shrink:0;height:56px;display:flex;align-
 </div>
 <script>
 function getSrc(id){
-  return ({en:'catalog_images_en/',ru:'catalog_images_ru/',uz:'catalog_images_uz/',zh:'catalog_images_zh/',ja:'catalog_images_ja/',vi:'catalog_images_vi/',id:'catalog_images_id/'}[curLang] || 'catalog_images/') + id + '.webp';
+  return ({en:'catalog_images_en/',ru:'catalog_images_ru/',uz:'catalog_images_uz/',zh:'catalog_images_zh/',ja:'catalog_images_ja/',vi:'catalog_images_vi/',id:'catalog_images_id/',th:'catalog_images_en/',tl:'catalog_images_en/'}[curLang] || 'catalog_images/') + id + '.webp';
 }
 const AGROW = [
   {id:'p2', label:'Agrow 앞표지', label_en:'Agrow Front Cover'},
@@ -331,11 +332,13 @@ const CAT_I18N = {
   vi:{first:'Đầu',last:'Cuối',prev:'Trước',next:'Tiếp',plist:'Danh sách trang',call:'Gọi điện',mail:'Email',subj:'[Hỏi về danh mục] ',tdark:'Chuyển sang chế độ tối',tlight:'Chuyển sang chế độ sáng',back:'← Trang chủ',sub:'Danh mục',all:'Tất cả',agrow:'Máy dinh dưỡng',green:'A⁺-green',dark:'🌙 Tối',light:'☀️ Sáng',loading:'Đang tải...',lang:'Ngôn ngữ'},
   id:{first:'Awal',last:'Akhir',prev:'Sebelumnya',next:'Berikutnya',plist:'Daftar halaman',call:'Telepon',mail:'Email',subj:'[Pertanyaan katalog] ',tdark:'Beralih ke mode gelap',tlight:'Beralih ke mode terang',back:'← Beranda',sub:'Katalog',all:'Semua',agrow:'Mesin Nutrisi',green:'A⁺-green',dark:'🌙 Gelap',light:'☀️ Terang',loading:'Memuat...',lang:'Bahasa'},
   uz:{first:'Boshi',last:'Oxiri',prev:'Oldingi',next:'Keyingi',plist:'Sahifalar',call:"Qo'ng'iroq",mail:'Email',subj:"[Katalog bo'yicha so'rov] ",tdark:"Tungi rejimga o'tish",tlight:"Kunduzgi rejimga o'tish",back:'← Bosh sahifa',sub:'Katalog',all:'Barchasi',agrow:'Ozuqa mashinasi',green:'A⁺-green',dark:'🌙 Qorongu',light:'☀️ Yorug',loading:'Yuklanmoqda...',lang:'Til'},
+  th:{first:'แรก',last:'สุดท้าย',prev:'ก่อนหน้า',next:'ถัดไป',plist:'รายการหน้า',call:'โทร',mail:'อีเมล',subj:'[สอบถามแคตตาล็อก] ',tdark:'เปลี่ยนเป็นโหมดมืด',tlight:'เปลี่ยนเป็นโหมดสว่าง',back:'← หน้าแรก',sub:'แคตตาล็อก',all:'ทั้งหมด',agrow:'เครื่องจ่ายสารละลาย',green:'A⁺-green',dark:'🌙 มืด',light:'☀️ สว่าง',loading:'กำลังโหลด...',lang:'ภาษา'},
+  tl:{first:'Una',last:'Huli',prev:'Nakaraan',next:'Susunod',plist:'Mga pahina',call:'Tumawag',mail:'Email',subj:'[Tanong sa katalogo] ',tdark:'Lumipat sa dark mode',tlight:'Lumipat sa light mode',back:'← Home',sub:'Katalogo',all:'Lahat',agrow:'Nutrient Feeder',green:'A⁺-green',dark:'🌙 Dark',light:'☀️ Light',loading:'Naglo-load...',lang:'Wika'},
 };
 let curLang='ko';
 try{const q=new URLSearchParams(location.search).get('lang');curLang=(q&&CAT_I18N[q])?q:(localStorage.getItem('ag-lang')||'ko');}catch(e){}
 if(!CAT_I18N[curLang])curLang='ko';
-const FLAGS={'ko':'🇰🇷','en':'🇺🇸','zh':'🇨🇳','ja':'🇯🇵','ru':'🇷🇺','vi':'🇻🇳','id':'🇮🇩','uz':'🇺🇿'};
+const FLAGS={'ko':'🇰🇷','en':'🇺🇸','zh':'🇨🇳','ja':'🇯🇵','ru':'🇷🇺','vi':'🇻🇳','id':'🇮🇩','uz':'🇺🇿','th':'🇹🇭','tl':'🇵🇭'};
 function updMail(){const t=CAT_I18N[curLang]||CAT_I18N.ko,a=document.getElementById('mbMail');if(!a||typeof pages==='undefined')return;
 const pg=pages[idx]||{},nm=curLang==='ko'?pg.label:(pg.label_en||pg.label);
 a.href='mailto:hpagrow@hanmail.net?subject='+encodeURIComponent(t.subj+(nm||''));}
@@ -390,8 +393,8 @@ document.getElementById('togBtn').addEventListener('click',()=>{
 // 언어 메뉴 생성
 const langMenu=document.getElementById('langMenu');
 Object.keys(CAT_I18N).forEach(lang=>{
-  const flags={'ko':'🇰🇷','en':'🇺🇸','zh':'🇨🇳','ja':'🇯🇵','ru':'🇷🇺','vi':'🇻🇳','id':'🇮🇩','uz':'🇺🇿'};
-  const names={'ko':'한국어','en':'English','zh':'中文','ja':'日本語','ru':'Русский','vi':'Tiếng Việt','id':'Indonesia','uz':"O'zbek"};
+  const flags={'ko':'🇰🇷','en':'🇺🇸','zh':'🇨🇳','ja':'🇯🇵','ru':'🇷🇺','vi':'🇻🇳','id':'🇮🇩','uz':'🇺🇿','th':'🇹🇭','tl':'🇵🇭'};
+  const names={'ko':'한국어','en':'English','zh':'中文','ja':'日本語','ru':'Русский','vi':'Tiếng Việt','id':'Indonesia','uz':"O'zbek",'th':'ไทย','tl':'Filipino'};
   const btn=document.createElement('button');
   btn.className='lang-opt'; btn.dataset.lang=lang;
   btn.textContent=flags[lang]+' '+names[lang];
