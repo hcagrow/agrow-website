@@ -1,0 +1,9 @@
+{
+  "_설명": "상단 공지 띠. show를 true로 바꾸고 날짜와 문구를 넣으면 그 기간에만 나타납니다. 다른 언어 문구가 비어 있으면 en, en도 비어 있으면 ko 문구가 나옵니다.",
+  "show": false,
+  "start": "2026-10-01",
+  "end": "2026-10-10",
+  "ko": "추석 연휴 휴무: 10월 3일(금) ~ 10월 9일(목). 10월 10일부터 정상 운영합니다.",
+  "en": "Closed for Chuseok holidays: Oct 3 (Fri) – Oct 9 (Thu). Normal operation resumes Oct 10.",
+  "ru": "", "uz": "", "zh": "", "ja": "", "vi": "", "id": "", "th": "", "tl": ""
+}
