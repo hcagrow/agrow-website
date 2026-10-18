@@ -6,6 +6,30 @@ AddDefaultCharset UTF-8
 AddType application/manifest+json .webmanifest
 AddType image/webp .webp
 
+# 보안 헤더 (알파컴 Apache에서만 적용, GitHub Pages는 무시)
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header unset X-Powered-By
+  # [SSL 설치 확인 후 주석 해제] 브라우저가 항상 https로 접속하게 함
+  # Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+ServerSignature Off
+
+# 숨김 파일(.git, .env 등)과 작업용 파일 접근 차단 (.well-known은 SSL 발급용이라 허용)
+RedirectMatch 404 ^/(?!\.well-known/)\..*$
+<FilesMatch "\.(md|py|sh|bak|log|ini|sql|env)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json application/manifest+json image/svg+xml text/xml text/plain
 </IfModule>
