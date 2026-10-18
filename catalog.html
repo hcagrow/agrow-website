@@ -359,7 +359,7 @@ function applyLang(lang) {
   document.getElementById('pgListT').textContent=t.plist;
   document.getElementById('mbCall').textContent=t.call;document.getElementById('mbMailT').textContent=t.mail;
   document.documentElement.lang=lang;
-  document.getElementById('catCopy').textContent='COPYRIGHT © 1992–'+new Date().getFullYear()+' '+(lang==='ko'?'한가람농업개발':'Hangaram Agricultural Development')+'. All rights reserved.';
+  document.getElementById('catCopy').textContent='COPYRIGHT © 1992–'+new Date().getFullYear()+' '+(lang==='ko'?'한가람농업개발':'Hangaram Agricultural Development')+'. All rights reserved. · ';var pa=document.createElement('a');pa.href='privacy.html?lang='+lang;pa.textContent=({ko:'개인정보처리방침',en:'Privacy Policy',ru:'Политика конфиденциальности',uz:'Maxfiylik siyosati',zh:'隐私政策',ja:'プライバシーポリシー',vi:'Chính sách bảo mật',id:'Kebijakan Privasi',th:'นโยบายความเป็นส่วนตัว',tl:'Patakaran sa Privacy'})[lang]||'Privacy Policy';pa.style.color='inherit';document.getElementById('catCopy').appendChild(pa);
   document.title = lang==='ko' ? 'Agrow 카탈로그 | 한가람농업개발' : 'Agrow '+t.sub+' | Hangaram Agricultural Development';
   try{localStorage.setItem('ag-lang',lang)}catch(e){}
   document.querySelector('.nav-sub').textContent = t.sub;
