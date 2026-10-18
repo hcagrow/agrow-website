@@ -161,6 +161,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://agrow.hpagrow.com/privacy.html</loc>
+    <lastmod>2026-10-18</lastmod>
+    <priority>0.2</priority>
+  </url>
+  <url>
     <loc>https://agrow.hpagrow.com/products/ko/perfect.html</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://agrow.hpagrow.com/products/ko/perfect.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://agrow.hpagrow.com/products/en/perfect.html"/>

@@ -330,6 +330,7 @@ def sitemap():
     for l in LANGS:
         out.append('  <url>\n    <loc>%s/?lang=%s</loc>\n%s    <lastmod>%s</lastmod>\n    <priority>1.0</priority>\n  </url>' % (BASE,l,alt(lambda x:'%s/?lang=%s'%(BASE,x)),today))
     out.append('  <url>\n    <loc>%s/catalog.html</loc>\n    <lastmod>%s</lastmod>\n    <priority>0.6</priority>\n  </url>' % (BASE,today))
+    out.append('  <url>\n    <loc>%s/privacy.html</loc>\n    <lastmod>%s</lastmod>\n    <priority>0.2</priority>\n  </url>' % (BASE,today))
     for p in PRODUCTS:
         for l in LANGS:
             out.append('  <url>\n    <loc>%s</loc>\n%s    <lastmod>%s</lastmod>\n    <priority>0.8</priority>\n  </url>' % (url(l,p[0]),alt(lambda x,s=p[0]:url(x,s)),today))
