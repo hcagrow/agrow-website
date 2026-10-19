@@ -202,6 +202,7 @@ html:not([lang="ko"]) .fbkr{letter-spacing:1px}
 .cd{font-size:13px;color:var(--t3);line-height:1.75}
 .cm{display:inline-block;margin-top:12px;font-family:'Inter',sans-serif;font-size:10px;color:var(--t3);background:var(--bg2);padding:3px 9px;border-radius:4px}
 /* DASHBOARD */
+.dash-vis img{width:100%;height:auto;display:block}
 .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:52px}
 .dash-screen{background:var(--bg3);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;box-shadow:var(--sh-lg);transition:background .3s,border-color .3s}
 .dash-bar{background:var(--t1);padding:12px 18px;display:flex;align-items:center;gap:8px}
@@ -508,7 +509,7 @@ h3.cn{margin-top:0}
   .supp-call{display:none!important}
   .port-img{height:70px!important;font-size:30px!important}
   .ci{height:34mm!important;aspect-ratio:auto!important}.ci img{height:100%!important;object-fit:contain}.ci::after{display:none!important}
-  .dash-screen{display:none!important}.dash-grid{display:block!important}
+  .dash-screen,.dash-vis{display:none!important}.dash-grid{display:block!important}
   .con-g{display:block!important}
   footer{border-top:1px solid #D5DBE3;padding:14px 0 0!important;background:#fff!important}
   footer *{color:#3D5068!important}
@@ -832,37 +833,7 @@ html[lang=th] body,html[lang=th] body *{font-family:'Inter','Noto Sans Thai',san
   <div class="ey rv"><div class="ey-line"></div><span class="ey-t" data-i="dash_ey">스마트폰 원격제어</span></div>
   <h2 class="sec-t rv" data-i="dash_t">스마트폰과 PC로 원격 관리</h2>
   <div class="dash-grid">
-    <div class="dash-screen rv">
-      <div class="dash-bar">
-        <div class="dash-dots"><span></span><span></span><span></span></div>
-        <span class="dash-title-bar" data-i="rm_title">Agrow 원격 모니터링</span>
-      </div>
-      <div class="dash-content">
-        <div class="dash-card ok">
-          <div class="dash-card-label" data-i="rm_ec">EC 현재값</div>
-          <div class="dash-card-val">2.4<span class="dash-card-unit">mS/cm</span></div>
-        </div>
-        <div class="dash-card ok">
-          <div class="dash-card-label" data-i="rm_ph">pH 현재값</div>
-          <div class="dash-card-val">6.2<span class="dash-card-unit">pH</span></div>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-label" data-i="rm_rad">일사량</div>
-          <div class="dash-card-val">414<span class="dash-card-unit">W/m²</span></div>
-        </div>
-        <div class="dash-card warn">
-          <div class="dash-card-label" data-i="rm_moist">수분센서</div>
-          <div class="dash-card-val">45<span class="dash-card-unit">%</span></div>
-        </div>
-        <div class="dash-bar-chart">
-          <div class="dash-card-label" style="margin-bottom:12px" data-i="rm_zone">구역별 관수 현황</div>
-          <div class="bar-chart-row"><span class="bar-chart-label" data-i="rm_zn" data-n="1">1구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:85%"></div></div><span class="bar-chart-num">850L</span></div>
-          <div class="bar-chart-row"><span class="bar-chart-label" data-i="rm_zn" data-n="2">2구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:62%"></div></div><span class="bar-chart-num">620L</span></div>
-          <div class="bar-chart-row"><span class="bar-chart-label" data-i="rm_zn" data-n="3">3구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:91%"></div></div><span class="bar-chart-num">910L</span></div>
-          <div class="bar-chart-row" style="margin-bottom:0"><span class="bar-chart-label" data-i="rm_zn" data-n="4">4구역</span><div class="bar-chart-track"><div class="bar-chart-fill" style="width:44%"></div></div><span class="bar-chart-num">440L</span></div>
-        </div>
-      </div>
-    </div>
+    <div class="dash-vis rv"><img src="images/remote_system.webp" width="999" height="551" alt="스마트폰과 PC로 원격 관리" data-ia="dash_t" loading="lazy"></div>
     <div class="dash-feats rv">
       <div class="dash-feat"><div class="dash-feat-ico" aria-hidden="true">01</div><div><div class="dash-feat-name" data-i="df1_n">실시간 모니터링</div><div class="dash-feat-desc" data-i="df1_d">EC, pH, 일사량, 수분센서 등 모든 데이터를 스마트폰과 PC에서 실시간으로 확인.</div></div></div>
       <div class="dash-feat"><div class="dash-feat-ico" aria-hidden="true">02</div><div><div class="dash-feat-name" data-i="df2_n">PC 프로그램 연동</div><div class="dash-feat-desc" data-i="df2_d">전용 PC 소프트웨어로 상세 설정, 데이터 기록, 보정값 관리를 정밀하게 수행.</div></div></div>
