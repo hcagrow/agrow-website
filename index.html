@@ -1268,7 +1268,7 @@ function apply(lang){
   document.querySelectorAll('a[data-pdf]').forEach(a=>{
     if(!a.dataset.h0){a.dataset.h0=a.getAttribute('href');a.dataset.d0=a.getAttribute('download');const m=a.closest('.dl-card').querySelector('.dl-meta');a.dataset.m0=m?m.textContent:'';}
     const m=a.closest('.dl-card').querySelector('.dl-meta');const al=AL(lang),loc=['en','ru','uz','zh','ja','vi','id','th','tl'].includes(al);
-    const SZ={"agrow_en": 3.4, "aplus_en": 0.9, "agrow_ru": 3.5, "aplus_ru": 0.9, "agrow_uz": 3.5, "aplus_uz": 0.9, "agrow_zh": 3.3, "aplus_zh": 0.9, "agrow_ja": 3.3, "aplus_ja": 0.9, "agrow_vi": 3.4, "aplus_vi": 0.9, "agrow_id": 3.4, "aplus_id": 0.9, "agrow_th": 3.3, "agrow_tl": 3.6, "aplus_th": 0.9, "aplus_tl": 0.9};
+    const SZ={"agrow_en": 4.1, "aplus_en": 0.9, "agrow_ru": 4.2, "aplus_ru": 0.9, "agrow_uz": 4.2, "aplus_uz": 0.9, "agrow_zh": 3.9, "aplus_zh": 0.9, "agrow_ja": 4.0, "aplus_ja": 0.9, "agrow_vi": 4.2, "aplus_vi": 0.9, "agrow_id": 4.1, "aplus_id": 0.9, "agrow_th": 4.0, "agrow_tl": 4.1, "aplus_th": 0.9, "aplus_tl": 0.9};
     if(loc){a.href='downloads/catalog/'+a.dataset.pdf+'_catalog_'+al+'.pdf';a.setAttribute('download','Agrow_'+a.dataset.pdf+'_catalog_'+al+'.pdf');if(m)m.textContent='PDF · '+SZ[a.dataset.pdf+'_'+al]+'MB';}
     else{a.href=a.dataset.h0;a.setAttribute('download',a.dataset.d0);if(m)m.textContent=a.dataset.m0;}
   });
