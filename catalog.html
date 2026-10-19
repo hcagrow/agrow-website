@@ -196,45 +196,50 @@ html[lang=th] body,html[lang=th] body *{font-family:'Inter','Noto Sans Thai',san
 function getSrc(id){
   return ({en:'catalog_images_en/',ru:'catalog_images_ru/',uz:'catalog_images_uz/',zh:'catalog_images_zh/',ja:'catalog_images_ja/',vi:'catalog_images_vi/',id:'catalog_images_id/',th:'catalog_images_th/',tl:'catalog_images_tl/'}[curLang] || 'catalog_images/') + id + '.webp';
 }
-const AGROW = [
-  {id:'p2', label:'Agrow 앞표지', label_en:'Agrow Front Cover'},
-  {id:'p3', label:'Agrow-Perfect', label_en:'Agrow-Perfect'},
-  {id:'p4', label:'Agrow-7000 Plus', label_en:'Agrow-7000 Plus'},
-  {id:'p5', label:'Agrow-6000 Plus (옵션형)', label_en:'Agrow-6000 Plus (Optional)'},
-  {id:'p6', label:'Agrow-6000 Plus (기본형)', label_en:'Agrow-6000 Plus (Standard)'},
-  {id:'p7', label:'Agrow-7000', label_en:'Agrow-7000'},
-  {id:'p8', label:'Agrow-6000', label_en:'Agrow-6000'},
-  {id:'p9', label:'Agrow-5000 Master', label_en:'Agrow-5000 Master'},
-  {id:'p10', label:'Agrow-5000 Magic', label_en:'Agrow-5000 Magic'},
-  {id:'p11', label:'Agrow-2000 Star B형', label_en:'Agrow-2000 Star Type B'},
-  {id:'p12', label:'Agrow-2000 Star A형', label_en:'Agrow-2000 Star Type A'},
-  {id:'p1', label:'Agrow 뒤표지', label_en:'Agrow Back Cover'},
+const AGROW_OLD = [
+  {id:'p2', key:'front', label:'Agrow 앞표지', label_en:'Agrow Front Cover'},
+  {id:'p3', key:'perfect', label:'Agrow-Perfect', label_en:'Agrow-Perfect'},
+  {id:'p4', key:'7000plus', label:'Agrow-7000 Plus', label_en:'Agrow-7000 Plus'},
+  {id:'p5', key:'6000plus', label:'Agrow-6000 Plus (옵션형)', label_en:'Agrow-6000 Plus (Optional)'},
+  {id:'p6', key:'6000plus_b', label:'Agrow-6000 Plus (기본형)', label_en:'Agrow-6000 Plus (Standard)'},
+  {id:'p7', key:'7000', label:'Agrow-7000', label_en:'Agrow-7000'},
+  {id:'p8', key:'6000', label:'Agrow-6000', label_en:'Agrow-6000'},
+  {id:'p9', key:'5000master', label:'Agrow-5000 Master', label_en:'Agrow-5000 Master'},
+  {id:'p10', key:'5000magic', label:'Agrow-5000 Magic', label_en:'Agrow-5000 Magic'},
+  {id:'p11', key:'2000b', label:'Agrow-2000 Star B형', label_en:'Agrow-2000 Star Type B'},
+  {id:'p12', key:'2000a', label:'Agrow-2000 Star A형', label_en:'Agrow-2000 Star Type A'},
+  {id:'p1', key:'back', label:'Agrow 뒤표지', label_en:'Agrow Back Cover'},
+];
+// 한국어: 2026년 10월 카탈로그 (Perfect는 새 카탈로그에 없어 이전 쪽 사용)
+const AGROW_KO = [
+  {id:'k_front', key:'front', label:'Agrow 앞표지', label_en:'Agrow Front Cover'},
+  {id:'k_p01', key:'lineup', label:'제품 라인업', label_en:'Product Lineup'},
+  {id:'k_p02', key:'system', label:'양액 통합관리 시스템', label_en:'Integrated Management'},
+  {id:'p3', key:'perfect', label:'Agrow-Perfect', label_en:'Agrow-Perfect'},
+  {id:'k_p03', key:'7000plus', label:'Agrow-7000 Plus', label_en:'Agrow-7000 Plus'},
+  {id:'k_p04', key:'6000plus', label:'Agrow-6000 Plus', label_en:'Agrow-6000 Plus'},
+  {id:'k_p05', key:'7000', label:'Agrow-7000', label_en:'Agrow-7000'},
+  {id:'k_p06', key:'6000', label:'Agrow-6000', label_en:'Agrow-6000'},
+  {id:'k_p07', key:'5000master', label:'Agrow-5000 Master', label_en:'Agrow-5000 Master'},
+  {id:'k_p08', key:'5000magic', label:'Agrow-5000 Magic', label_en:'Agrow-5000 Magic'},
+  {id:'k_p09', key:'2000b', label:'Agrow-2000 Star B형', label_en:'Agrow-2000 Star Type B'},
+  {id:'k_p10', key:'2000a', label:'Agrow-2000 Star A형', label_en:'Agrow-2000 Star Type A'},
+  {id:'k_back', key:'back', label:'Agrow 뒤표지', label_en:'Agrow Back Cover'},
 ];
 const GREEN = [
-  {id:'g2', label:'A⁺-green 앞표지', label_en:'A⁺-green Front Cover'},
+  {id:'g2', key:'aplus', label:'A⁺-green 앞표지', label_en:'A⁺-green Front Cover'},
   {id:'g3', label:'A⁺-green 스펙 상세', label_en:'A⁺-green Specifications'},
   {id:'g4', label:'A⁺-green 설치 현장', label_en:'A⁺-green Installation'},
   {id:'g1', label:'A⁺-green 뒤표지', label_en:'A⁺-green Back Cover'},
 ];
-const ALL = [...AGROW, ...GREEN];
-
-const PRODUCT_PAGE = {
-  perfect:     1,  // p3
-  '7000plus':  2,  // p4
-  '6000plus':  3,  // p5
-  '7000':      5,  // p7
-  '6000':      6,  // p8
-  '5000master':7,  // p9
-  '5000magic': 8,  // p10
-  '2000b':     9,  // p11
-  '2000a':    10,  // p12
-  aplus:      12,  // g2 A⁺-green 앞표지
-};
-
-let pages=[...ALL], idx=0;
+let AGROW=AGROW_OLD, ALL=[...AGROW_OLD, ...GREEN];
+function setFor(lang){AGROW=(lang==='ko'?AGROW_KO:AGROW_OLD);ALL=[...AGROW,...GREEN];}
+let curTab='all';
+function tabPages(){return curTab==='agrow'?[...AGROW]:curTab==='green'?[...GREEN]:[...ALL];}
+let pages=[], idx=0;
 const params=new URLSearchParams(location.search);
 const prod=params.get('product');
-if(prod && PRODUCT_PAGE[prod]!=null) idx=PRODUCT_PAGE[prod];
+
 
 const pageImg=document.getElementById('pageImg');
 const loading=document.getElementById('loading');
@@ -306,7 +311,7 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
     btn.classList.add('on');
     const cat=btn.dataset.cat;
-    pages=cat==='all'?[...ALL]:cat==='agrow'?[...AGROW]:[...GREEN];
+    curTab=cat;pages=tabPages();
     idx=0;render();
   };
 });
@@ -348,6 +353,7 @@ a.href='mailto:hpagrow@hanmail.net?subject='+encodeURIComponent(t.subj+(nm||''))
 
 function applyLang(lang) {
   curLang = lang;
+  {const k=(pages[idx]||{}).key||prod;setFor(lang);pages=tabPages();const j=k?pages.findIndex(p=>p.key===k):-1;idx=j>=0?j:Math.min(idx,pages.length-1);}
   const t = CAT_I18N[lang] || CAT_I18N.ko;
   document.querySelectorAll('.lg-k').forEach(el=>el.textContent=lang==='ko'?'한가람농업개발':'HANGARAM AGRI');
   document.querySelector('#backBtn .bt').textContent = ' '+t.back.replace(/^←\s*/,'');
