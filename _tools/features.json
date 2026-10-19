@@ -1191,6 +1191,7 @@
 },
 "5000master": {
 "ko": [
+"PC프로그램 - 스마트폰 연동 작동 및 원격제어 = 10채널",
 "3개의 독립적인 양액 제어 프로그램으로 구성",
 "일사량(2단계) 제어 프로그램 - 2개 / 함수량 제어 프로그램 - 1개로 구성",
 "EC-pH 그룹 제어 = 2개 / EC-pH 밸브별 제어 = 1개의 프로그램으로 구성",
@@ -1208,6 +1209,7 @@
 "안전장치 = 3상 380V - 결상차단 / 저수위 경보 / 관수펌프 이상 / 원수펌프 이상 / EC경보 / pH경보 / 유량경보"
 ],
 "en": [
+"PC & smartphone: linked operation, remote control = 10 ch.",
 "Consists of 3 independent nutrient control programs",
 "Programs: radiation (2-step) — 2 / moisture — 1",
 "EC-pH group control = 2 / EC-pH valve control = 1 program",
@@ -1225,6 +1227,7 @@
 "Safety = 3-phase 380V — phase loss / low level / pumps / EC, pH, flow alarms"
 ],
 "ru": [
+"ПК и смартфон: совместная работа, ДУ = 10 каналов",
 "Состоит из 3 независимых программ управления раствором",
 "Программы: по радиации (2 ступени) — 2 / по влажности — 1",
 "Управление группой EC-pH = 2 / по клапанам EC-pH = 1 программа",
@@ -1242,6 +1245,7 @@
 "Защита = 3 фазы, 380 В — обрыв фазы / низкий уровень / насосы / сигнализация EC, pH, расхода"
 ],
 "uz": [
+"PC/smartfon: birga ishlash, masofaviy boshqaruv = 10 kanal",
 "3 ta mustaqil oziq eritma boshqaruv dasturidan iborat",
 "Dasturlar: radiatsiya (2 bosqich) — 2 ta / namlik — 1 ta",
 "EC-pH guruh boshqaruvi = 2 ta / klapan bo'yicha EC-pH = 1 ta dastur",
@@ -1259,6 +1263,7 @@
 "Himoya = 3 faza, 380V — faza uzilishi / past daraja / nasoslar / EC, pH, oqim signalizatsiyasi"
 ],
 "zh": [
+"PC及智能手机:联动运行、远程控制=10通道",
 "由3个独立的营养液控制程序组成",
 "程序:太阳辐射(2段)——2个/含水量——1个",
 "EC-pH分组控制=2个/EC-pH阀门控制=1个程序",
@@ -1276,6 +1281,7 @@
 "安全装置=三相380V——缺相/低液位/水泵/EC、pH、流量报警"
 ],
 "ja": [
+"PC・スマートフォン:連動運転、遠隔制御=10チャンネル",
 "独立した3つの養液制御プログラムで構成",
 "プログラム:日射(2段階)——2/含水率——1",
 "EC-pHグループ制御=2/EC-pHバルブ制御=1プログラム",
@@ -1293,6 +1299,7 @@
 "安全装置=三相380V——欠相/低水位/ポンプ/EC・pH・流量アラーム"
 ],
 "vi": [
+"PC & điện thoại: vận hành liên kết, điều khiển từ xa = 10 kênh",
 "Gồm 3 chương trình điều khiển dinh dưỡng độc lập",
 "Chương trình: bức xạ (2 bước) — 2 / độ ẩm — 1",
 "Điều khiển nhóm EC-pH = 2 / điều khiển van EC-pH = 1 chương trình",
@@ -1310,6 +1317,7 @@
 "Thiết bị an toàn = 3 pha 380V — mất pha / mức thấp / bơm / cảnh báo EC, pH, lưu lượng"
 ],
 "id": [
+"PC & smartphone: operasi terhubung, kontrol jarak jauh = 10 kanal",
 "Terdiri dari 3 program kontrol nutrisi mandiri",
 "Program: radiasi (2 tahap) — 2 / kelembapan — 1",
 "Kontrol grup EC-pH = 2 / kontrol katup EC-pH = 1 program",
@@ -1327,6 +1335,7 @@
 "Keamanan = 3 fase 380V — fase hilang / level rendah / pompa / alarm EC, pH, aliran"
 ],
 "th": [
+"PC และสมาร์ทโฟน: ทำงานเชื่อมกัน ควบคุมระยะไกล = 10 ช่อง",
 "ประกอบด้วยโปรแกรมควบคุมสารละลายอิสระ 3 ชุด",
 "โปรแกรม: แสง (2 ขั้น) — 2 / ความชื้น — 1",
 "ควบคุม EC-pH แบบกลุ่ม = 2 / ควบคุม EC-pH รายวาล์ว = 1 โปรแกรม",
@@ -1344,6 +1353,7 @@
 "ระบบความปลอดภัย = 3 เฟส 380V — ไฟขาดเฟส / ระดับน้ำต่ำ / ปั๊ม / แจ้งเตือน EC, pH, การไหล"
 ],
 "tl": [
+"PC at smartphone: magkaugnay na operasyon, remote control = 10 ch.",
 "Binubuo ng 3 hiwalay na nutrient control program",
 "Program: radiation (2-step) — 2 / moisture — 1",
 "EC-pH group control = 2 / EC-pH valve control = 1 program",
@@ -1363,6 +1373,7 @@
 },
 "5000magic": {
 "ko": [
+"PC프로그램 - 스마트폰 연동 작동 및 원격제어 = 10채널",
 "3개의 양액제어 프로그램으로 구성",
 "프로그램별 누적 일사량 제어 가능",
 "기본 = 화면 7\" 터치스크린 LCD",
@@ -1379,6 +1390,7 @@
 "그 외 Agrow-5000과 기능 동일"
 ],
 "en": [
+"PC & smartphone: linked operation, remote control = 10 ch.",
 "Consists of 3 nutrient control programs",
 "Accumulated radiation control is possible per program",
 "Standard: 7\" screen — touchscreen LCD",
@@ -1395,6 +1407,7 @@
 "Other functions are the same as Agrow-5000"
 ],
 "ru": [
+"ПК и смартфон: совместная работа, ДУ = 10 каналов",
 "Состоит из 3 программ управления раствором",
 "Возможно управление по накопленной радиации для каждой программы",
 "Базово: экран 7\" — сенсорный ЖК",
@@ -1411,6 +1424,7 @@
 "Остальные функции аналогичны Agrow-5000"
 ],
 "uz": [
+"PC/smartfon: birga ishlash, masofaviy boshqaruv = 10 kanal",
 "3 ta oziq eritma boshqaruv dasturidan iborat",
 "Har bir dastur uchun to'plangan radiatsiya boshqaruvi mumkin",
 "Asosiy: 7\" ekran — sensorli LCD",
@@ -1427,6 +1441,7 @@
 "Boshqa funksiyalar Agrow-5000 bilan bir xil"
 ],
 "zh": [
+"PC及智能手机:联动运行、远程控制=10通道",
 "由3个营养液控制程序组成",
 "可按程序进行累计太阳辐射控制",
 "标准:7英寸屏幕——触摸屏LCD",
@@ -1443,6 +1458,7 @@
 "其他功能与Agrow-5000相同"
 ],
 "ja": [
+"PC・スマートフォン:連動運転、遠隔制御=10チャンネル",
 "3つの養液制御プログラムで構成",
 "プログラム別に積算日射制御が可能",
 "標準:7インチ画面——タッチスクリーンLCD",
@@ -1459,6 +1475,7 @@
 "その他の機能はAgrow-5000と同じ"
 ],
 "vi": [
+"PC & điện thoại: vận hành liên kết, điều khiển từ xa = 10 kênh",
 "Gồm 3 chương trình điều khiển dinh dưỡng",
 "Có thể điều khiển bức xạ tích lũy theo từng chương trình",
 "Tiêu chuẩn: màn hình 7 inch — LCD cảm ứng",
@@ -1475,6 +1492,7 @@
 "Các chức năng khác giống Agrow-5000"
 ],
 "id": [
+"PC & smartphone: operasi terhubung, kontrol jarak jauh = 10 kanal",
 "Terdiri dari 3 program kontrol nutrisi",
 "Kontrol radiasi akumulasi dimungkinkan per program",
 "Standar: layar 7\" — LCD layar sentuh",
@@ -1491,6 +1509,7 @@
 "Fungsi lainnya sama dengan Agrow-5000"
 ],
 "th": [
+"PC และสมาร์ทโฟน: ทำงานเชื่อมกัน ควบคุมระยะไกล = 10 ช่อง",
 "ประกอบด้วยโปรแกรมควบคุมสารละลาย 3 ชุด",
 "ควบคุมตามแสงสะสมได้ในแต่ละโปรแกรม",
 "มาตรฐาน: จอ 7\" — จอสัมผัส LCD",
@@ -1507,6 +1526,7 @@
 "ฟังก์ชันอื่นเหมือนกับ Agrow-5000"
 ],
 "tl": [
+"PC at smartphone: magkaugnay na operasyon, remote control = 10 ch.",
 "Binubuo ng 3 nutrient control program",
 "Posible ang accumulated radiation control kada program",
 "Standard: 7\" na screen — touchscreen LCD",
@@ -1525,6 +1545,7 @@
 },
 "2000b": {
 "ko": [
+"PC프로그램 - 스마트폰 연동 작동 및 원격제어 = 10채널",
 "관비공급기 최초 독립적인 2개의 프로그램 내장",
 "일사량 제어 / 함수율 제어 가능 - 2개의 독립적인 작동프로그램으로 구성",
 "그룹별 EC제어 프로그램 = 1개 / 밸브별 EC제어 프로그램 = 1개로 구성",
@@ -1542,6 +1563,7 @@
 "안전장치 = 관수펌프 이상 / 원수펌프 이상 / EC경보 / 유량경보"
 ],
 "en": [
+"PC & smartphone: linked operation, remote control = 10 ch.",
 "First fertigation unit with 2 built-in independent programs",
 "Radiation / moisture control — 2 independent operating programs",
 "Group EC program = 1 / valve EC program = 1",
@@ -1559,6 +1581,7 @@
 "Safety = irrigation pump / raw-water pump fault / EC / flow alarm"
 ],
 "ru": [
+"ПК и смартфон: совместная работа, ДУ = 10 каналов",
 "Первый дозатор удобрений со встроенными 2 независимыми программами",
 "Управление по радиации / по влажности — 2 независимые рабочие программы",
 "Программа EC по группам = 1 / программа EC по клапанам = 1",
@@ -1576,6 +1599,7 @@
 "Защита = авария поливного насоса / водозаборного насоса / сигнализация EC / расхода"
 ],
 "uz": [
+"PC/smartfon: birga ishlash, masofaviy boshqaruv = 10 kanal",
 "Tomchilatib o'g'itlash qurilmalarida birinchi marta 2 ta mustaqil dastur o'rnatilgan",
 "Radiatsiya / namlik bo'yicha boshqaruv — 2 ta mustaqil ish dasturi",
 "Guruh bo'yicha EC dasturi = 1 / klapan bo'yicha EC dasturi = 1",
@@ -1593,6 +1617,7 @@
 "Himoya = sug'orish nasosi / xom suv nasosi nosozligi / EC / oqim signalizatsiyasi"
 ],
 "zh": [
+"PC及智能手机:联动运行、远程控制=10通道",
 "首款内置2个独立程序的水肥一体机",
 "太阳辐射/含水量控制——2个独立运行程序",
 "分组EC程序=1个/阀门EC程序=1个",
@@ -1610,6 +1635,7 @@
 "安全装置=灌溉泵/原水泵故障/EC/流量报警"
 ],
 "ja": [
+"PC・スマートフォン:連動運転、遠隔制御=10チャンネル",
 "独立2プログラムを内蔵した初の液肥灌水装置",
 "日射/含水率制御——独立運転2プログラム",
 "グループECプログラム=1/バルブECプログラム=1",
@@ -1627,6 +1653,7 @@
 "安全装置=灌水ポンプ/原水ポンプ故障/EC/流量アラーム"
 ],
 "vi": [
+"PC & điện thoại: vận hành liên kết, điều khiển từ xa = 10 kênh",
 "Bộ bón phân tưới đầu tiên tích hợp 2 chương trình độc lập",
 "Điều khiển bức xạ / độ ẩm — 2 chương trình vận hành độc lập",
 "Chương trình EC nhóm = 1 / chương trình EC van = 1",
@@ -1644,6 +1671,7 @@
 "Thiết bị an toàn = sự cố bơm tưới / bơm nước thô / cảnh báo EC / lưu lượng"
 ],
 "id": [
+"PC & smartphone: operasi terhubung, kontrol jarak jauh = 10 kanal",
 "Unit fertigasi pertama dengan 2 program mandiri bawaan",
 "Kontrol radiasi / kelembapan — 2 program operasi mandiri",
 "Program EC grup = 1 / program EC katup = 1",
@@ -1661,6 +1689,7 @@
 "Keamanan = gangguan pompa irigasi / pompa air baku / alarm EC / aliran"
 ],
 "th": [
+"PC และสมาร์ทโฟน: ทำงานเชื่อมกัน ควบคุมระยะไกล = 10 ช่อง",
 "เครื่องให้ปุ๋ยรุ่นแรกที่มีโปรแกรมอิสระ 2 ชุดในตัว",
 "ควบคุมตามแสง / ความชื้น — โปรแกรมทำงานอิสระ 2 ชุด",
 "โปรแกรม EC แบบกลุ่ม = 1 / โปรแกรม EC รายวาล์ว = 1",
@@ -1678,6 +1707,7 @@
 "ระบบความปลอดภัย = ปั๊มรดน้ำ / ปั๊มน้ำดิบขัดข้อง / แจ้งเตือน EC / การไหล"
 ],
 "tl": [
+"PC at smartphone: magkaugnay na operasyon, remote control = 10 ch.",
 "Unang fertigation unit na may 2 built-in na hiwalay na program",
 "Kontrol sa radiation / moisture — 2 hiwalay na operating program",
 "Group EC program = 1 / valve EC program = 1",
@@ -1697,6 +1727,7 @@
 },
 "2000a": {
 "ko": [
+"PC프로그램 - 스마트폰 연동 작동 및 원격제어 = 10채널",
 "관비공급기 최초 독립적인 2개의 프로그램 내장",
 "일사량 제어 / 함수율 제어 가능 - 2개의 독립적인 작동프로그램으로 구성",
 "그룹별 EC제어 프로그램 = 1개 / 밸브별 EC제어 프로그램 = 1개로 구성",
@@ -1713,6 +1744,7 @@
 "안전장치 = 관수펌프 이상 / EC경보 / 유량경보"
 ],
 "en": [
+"PC & smartphone: linked operation, remote control = 10 ch.",
 "First fertigation unit with 2 built-in independent programs",
 "Radiation / moisture control — 2 independent operating programs",
 "Group EC program = 1 / valve EC program = 1",
@@ -1729,6 +1761,7 @@
 "Safety = irrigation pump fault / EC / flow alarm"
 ],
 "ru": [
+"ПК и смартфон: совместная работа, ДУ = 10 каналов",
 "Первый дозатор удобрений со встроенными 2 независимыми программами",
 "Управление по радиации / по влажности — 2 независимые рабочие программы",
 "Программа EC по группам = 1 / программа EC по клапанам = 1",
@@ -1745,6 +1778,7 @@
 "Защита = авария поливного насоса / сигнализация EC / расхода"
 ],
 "uz": [
+"PC/smartfon: birga ishlash, masofaviy boshqaruv = 10 kanal",
 "Tomchilatib o'g'itlash qurilmalarida birinchi marta 2 ta mustaqil dastur o'rnatilgan",
 "Radiatsiya / namlik bo'yicha boshqaruv — 2 ta mustaqil ish dasturi",
 "Guruh bo'yicha EC dasturi = 1 / klapan bo'yicha EC dasturi = 1",
@@ -1761,6 +1795,7 @@
 "Himoya = sug'orish nasosi nosozligi / EC / oqim signalizatsiyasi"
 ],
 "zh": [
+"PC及智能手机:联动运行、远程控制=10通道",
 "首款内置2个独立程序的水肥一体机",
 "太阳辐射/含水量控制——2个独立运行程序",
 "分组EC程序=1个/阀门EC程序=1个",
@@ -1777,6 +1812,7 @@
 "安全装置=灌溉泵故障/EC/流量报警"
 ],
 "ja": [
+"PC・スマートフォン:連動運転、遠隔制御=10チャンネル",
 "独立2プログラムを内蔵した初の液肥灌水装置",
 "日射/含水率制御——独立運転2プログラム",
 "グループECプログラム=1/バルブECプログラム=1",
@@ -1793,6 +1829,7 @@
 "安全装置=灌水ポンプ故障/EC/流量アラーム"
 ],
 "vi": [
+"PC & điện thoại: vận hành liên kết, điều khiển từ xa = 10 kênh",
 "Bộ bón phân tưới đầu tiên tích hợp 2 chương trình độc lập",
 "Điều khiển bức xạ / độ ẩm — 2 chương trình vận hành độc lập",
 "Chương trình EC nhóm = 1 / chương trình EC van = 1",
@@ -1809,6 +1846,7 @@
 "Thiết bị an toàn = sự cố bơm tưới / cảnh báo EC / lưu lượng"
 ],
 "id": [
+"PC & smartphone: operasi terhubung, kontrol jarak jauh = 10 kanal",
 "Unit fertigasi pertama dengan 2 program mandiri bawaan",
 "Kontrol radiasi / kelembapan — 2 program operasi mandiri",
 "Program EC grup = 1 / program EC katup = 1",
@@ -1825,6 +1863,7 @@
 "Keamanan = gangguan pompa irigasi / alarm EC / aliran"
 ],
 "th": [
+"PC และสมาร์ทโฟน: ทำงานเชื่อมกัน ควบคุมระยะไกล = 10 ช่อง",
 "เครื่องให้ปุ๋ยรุ่นแรกที่มีโปรแกรมอิสระ 2 ชุดในตัว",
 "ควบคุมตามแสง / ความชื้น — โปรแกรมทำงานอิสระ 2 ชุด",
 "โปรแกรม EC แบบกลุ่ม = 1 / โปรแกรม EC รายวาล์ว = 1",
@@ -1841,6 +1880,7 @@
 "ระบบความปลอดภัย = ปั๊มรดน้ำขัดข้อง / แจ้งเตือน EC / การไหล"
 ],
 "tl": [
+"PC at smartphone: magkaugnay na operasyon, remote control = 10 ch.",
 "Unang fertigation unit na may 2 built-in na hiwalay na program",
 "Kontrol sa radiation / moisture — 2 hiwalay na operating program",
 "Group EC program = 1 / valve EC program = 1",
