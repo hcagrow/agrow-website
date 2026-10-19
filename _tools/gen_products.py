@@ -104,7 +104,7 @@ def strip_br(x): return re.sub(r'<br\s*/?>',' ',str(x)).replace('\n',' ')
 
 def pname(p,t): return t[p[1][1:]] if p[1].startswith('@') else p[1]
 import re as _re
-NOLOC=_re.compile(r'agrow_(7000|6000|5000|2000)')  # text-free photos: one file for all languages
+NOLOC=_re.compile(r'agrow_6000\.jpg')  # photo without text: one file for all languages
 def img_rel(p,lang): return ('images/'+p[6]) if lang=='ko' or NOLOC.search(p[6]) else ('images/loc/%s/%s'%(AL(lang),p[6]))
 def url(lang,slug): return '%s/products/%s/%s.html'%(BASE,lang,slug)
 def pdf_rel(p,lang): return ('downloads/%s_catalog.pdf'%('agreen' if p[7]=='aplus' else p[7])) if lang=='ko' else ('downloads/catalog/%s_catalog_%s.pdf'%(p[7],AL(lang)))
