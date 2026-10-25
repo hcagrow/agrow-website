@@ -20,7 +20,7 @@ ServerSignature Off
 
 # 숨김 파일(.git, .env 등)과 작업용 파일 접근 차단 (.well-known은 SSL 발급용이라 허용)
 RedirectMatch 404 ^/(?!\.well-known/)\..*$
-<FilesMatch "\.(md|py|sh|bak|log|ini|sql|env)$">
+<FilesMatch "\.(md|py|sh|bak|old|orig|swp|log|ini|sql|env|conf)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
@@ -64,4 +64,12 @@ RedirectMatch 404 ^/(?!\.well-known/)\..*$
 
   # 옛 사이트 보관 폴더는 외부 접근 차단
   RewriteRule ^old(/|$) - [F,L]
+
+  # 이 홈페이지는 PHP를 쓰지 않음: 서버에 남은 옛 XE 파일이나 누가 몰래 올린 파일이 있어도 실행되지 않게 모든 서버 스크립트 차단
+  # (나중에 PHP 관리자 페이지를 만들면 그 파일만 예외로 추가)
+  RewriteRule \.(php[0-9]?|phtml|phar|pht|inc|cgi|pl|py|asp|aspx|jsp|sh)$ - [F,L,NC]
+  # 압축 파일은 downloads 폴더(PC 프로그램)만 허용: 서버에 남은 백업 압축본(사이트 통째 백업 등) 유출 방지
+  RewriteRule ^(?!downloads/).+\.(zip|tar|gz|tgz|7z|rar|bak|sql)$ - [F,L,NC]
+  # 옛 XE(그누보드 계열 포함) 폴더 경로 차단: 파일이 남아 있어도 접근 불가
+  RewriteRule ^(modules|addons|layouts|m\.layouts|widgets|widgetstyles|files|common|classes|config|libs|install|admin|xe|bbs|board|data|plugin|adm|wp-admin|wp-content|wp-includes|phpmyadmin|pma)(/|$) - [F,L,NC]
 </IfModule>
