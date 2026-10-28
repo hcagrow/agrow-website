@@ -49,6 +49,9 @@ def remote_list(d):
         ftp.cwd(d)
     except ftplib.error_perm:
         return None
+    finally:
+        try: ftp.cwd(HOME)
+        except Exception: pass
     try:
         out = {}
         for name, f in ftp.mlsd(d, facts=['type', 'size']):
@@ -86,6 +89,18 @@ def upload(lp, rp):
     retry(go)
 
 connect()
+HOME = ftp.pwd()
+found = None
+for cand in dict.fromkeys([REMOTE, REMOTE.lstrip('/'), posixpath.join(HOME, REMOTE.lstrip('/'))]):
+    try:
+        ftp.cwd(cand); ftp.cwd(HOME); found = cand; break
+    except ftplib.error_perm as e:
+        print(f'  경로 확인 실패 {cand!r}: {e}', flush=True)
+if found is None:
+    try: names = sorted(ftp.nlst())
+    except ftplib.error_perm: names = []
+    sys.exit(f'서버에서 {REMOTE} 폴더를 찾지 못했습니다. 접속 위치={HOME!r}, 그 안의 항목={[n for n in names if not n.startswith(".")]}')
+REMOTE = found
 print('접속 성공' + (' (미리보기: 서버에 올리지 않음)' if DRY else ''), flush=True)
 cache, up, skip, fail, size = {}, 0, 0, [], 0
 for dp, dirs, files in os.walk(LOCAL):
