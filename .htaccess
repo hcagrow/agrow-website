@@ -54,7 +54,7 @@ RedirectMatch 404 ^/(?!\.well-known/)\..*$
 
   # agrow.co.kr → www.agrow.co.kr (주소 하나로 통일)
   RewriteCond %{HTTP_HOST} ^agrow\.co\.kr$ [NC]
-  RewriteRule ^(.*)$ http://www.agrow.co.kr/$1 [L,R=301]
+  RewriteRule ^(.*)$ https://www.agrow.co.kr/$1 [L,R=301]
 
   # 옛 XE 주소 → 새 페이지 (검색·즐겨찾기 링크 보존)
   RewriteRule ^index\.php$ /? [L,R=301]
