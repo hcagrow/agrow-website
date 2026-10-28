@@ -11,7 +11,7 @@ on:
       site:
         description: "사이트 주소 (사이트맵·대표주소에 들어감)"
         type: string
-        default: "https://agrow.co.kr"
+        default: "https://www.agrow.co.kr"
 
 permissions:
   contents: read
