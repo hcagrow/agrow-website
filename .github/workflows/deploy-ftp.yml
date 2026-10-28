@@ -37,15 +37,10 @@ jobs:
           find "$RUNNER_TEMP/site" -type f | wc -l
           du -sh "$RUNNER_TEMP/site"
 
-      - name: FTP 업로드 (변경된 파일만)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          local-dir: ${{ runner.temp }}/site/
-          server-dir: /www/
-          dry-run: ${{ inputs.dry_run }}
-          log-level: minimal
+      - name: FTP 업로드 (미리보기 또는 실제)
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          DRY: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: python3 _tools/ftp_deploy.py "$RUNNER_TEMP/site" /www $DRY
