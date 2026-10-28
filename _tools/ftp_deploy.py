@@ -43,7 +43,12 @@ def retry(fn, *a):
             time.sleep(2 * (i + 1)); connect()
 
 def remote_list(d):
-    """서버 폴더의 {이름: 크기 또는 None(폴더)} / 폴더가 없으면 None"""
+    """서버 폴더의 {이름: 크기 또는 None(폴더)} / 폴더가 없으면 None
+    존재 여부는 CWD로 먼저 확인하고(서버마다 목록 명령 응답이 달라서), 목록은 MLSD → NLST 순으로 시도"""
+    try:
+        ftp.cwd(d)
+    except ftplib.error_perm:
+        return None
     try:
         out = {}
         for name, f in ftp.mlsd(d, facts=['type', 'size']):
@@ -51,25 +56,24 @@ def remote_list(d):
             if t in ('cdir', 'pdir'): continue
             out[name] = int(f['size']) if t == 'file' and 'size' in f else None
         return out
-    except ftplib.error_perm as e:
-        if str(e).startswith(('500', '501', '502', '504')):      # MLSD 미지원 서버
-            try: names = ftp.nlst(d)
-            except ftplib.error_perm: return None
-            out = {}
-            for n in names:
-                n = posixpath.basename(n)
-                if n in ('.', '..', ''): continue
-                try: out[n] = ftp.size(posixpath.join(d, n))
-                except ftplib.error_perm: out[n] = None
-            return out
-        return None                                              # 550 = 폴더 없음
+    except ftplib.error_perm:                                    # MLSD 미지원/거부: 이름만 받아 SIZE로 확인
+        out = {}
+        try: names = ftp.nlst(d)
+        except ftplib.error_perm: return {}                      # 비어 있는 폴더도 550을 주는 서버가 있음
+        for n in names:
+            n = posixpath.basename(n)
+            if n in ('.', '..', ''): continue
+            try: out[n] = ftp.size(posixpath.join(d, n))
+            except ftplib.error_perm: out[n] = None
+        return out
 
 def ensure_dir(d, cache):
     if d in cache: return cache[d]
     lst = retry(remote_list, d)
     if lst is None:
-        parent = posixpath.dirname(d)
-        if parent not in ('', '/'): ensure_dir(parent, cache)
+        if d == REMOTE:
+            sys.exit(f'서버에 {REMOTE} 폴더가 없습니다 (경로 확인 필요)')
+        ensure_dir(posixpath.dirname(d), cache)
         print(f'폴더 만들기 {d}', flush=True)
         if not DRY: retry(ftp.mkd, d)
         lst = {}
