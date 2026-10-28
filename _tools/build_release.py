@@ -9,7 +9,7 @@ OLD = 'https://agrow.hpagrow.com'
 NEW = sys.argv[1].rstrip('/') if len(sys.argv) > 1 else 'https://www.agrow.co.kr'
 if not NEW.startswith(('http://', 'https://')): NEW = 'https://' + NEW  # 도메인만 넣어도 https 붙임
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.path.dirname(ROOT), 'release', re.sub(r'^https?://', '', NEW))
-EXCLUDE = {'.git', '_tools', 'CNAME', 'README.md', '.gitignore'}
+EXCLUDE = {'.git', '.github', '_tools', 'CNAME', 'README.md', '.gitignore'}
 if os.path.exists(OUT): shutil.rmtree(OUT)
 shutil.copytree(ROOT, OUT, ignore=lambda d, names: [n for n in names if d == ROOT and n in EXCLUDE])
 # 주소 치환

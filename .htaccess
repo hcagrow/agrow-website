@@ -52,9 +52,9 @@ RedirectMatch 404 ^/(?!\.well-known/)\..*$
   # RewriteCond %{HTTPS} off
   # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # agrow.co.kr → www.agrow.co.kr (주소 하나로 통일)
-  RewriteCond %{HTTP_HOST} ^agrow\.co\.kr$ [NC]
-  RewriteRule ^(.*)$ http://www.agrow.co.kr/$1 [L,R=301]
+  # www.agrow.co.kr → agrow.co.kr (기존 서버와 같은 방향으로 주소 하나로 통일)
+  RewriteCond %{HTTP_HOST} ^www\.agrow\.co\.kr$ [NC]
+  RewriteRule ^(.*)$ http://agrow.co.kr/$1 [L,R=301]
 
   # 옛 XE 주소 → 새 페이지 (검색·즐겨찾기 링크 보존)
   RewriteRule ^index\.php$ /? [L,R=301]

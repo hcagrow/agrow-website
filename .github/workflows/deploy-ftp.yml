@@ -1,0 +1,51 @@
+name: 알파컴 FTP 배포
+
+# 수동 실행 전용 (Actions 탭 > 알파컴 FTP 배포 > Run workflow)
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "미리보기만 (서버에 올리지 않고 올릴 파일 목록만 확인)"
+        type: boolean
+        default: true
+      site:
+        description: "사이트 주소 (사이트맵·대표주소에 들어감)"
+        type: string
+        default: "https://agrow.co.kr"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ftp-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 업로드용 파일 만들기
+        run: |
+          pip install -q segno Pillow
+          python3 _tools/build_release.py "${{ inputs.site }}" "$RUNNER_TEMP/site"
+          find "$RUNNER_TEMP/site" -type f | wc -l
+          du -sh "$RUNNER_TEMP/site"
+
+      - name: FTP 업로드 (변경된 파일만)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ${{ runner.temp }}/site/
+          server-dir: /www/
+          dry-run: ${{ inputs.dry_run }}
+          log-level: minimal
