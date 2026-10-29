@@ -1165,13 +1165,23 @@ Object.assign(T, T2);
 // 상단 공지 띠 (notice.json)
 (function(){var N=null,el=document.getElementById('ntc');
   function fit(){document.body.style.setProperty('--nh',el.offsetHeight+'px')}
-  window.ntcRender=function(){if(!N||!N.show)return;var d=new Date(),ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+  window.ntcRender=function(){if(window.ntcOld||!N||!N.show)return;var d=new Date(),ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
     if((N.start&&ds<N.start)||(N.end&&ds>N.end))return;var l=document.documentElement.lang,t=N[l]||N.en||N.ko;if(!t)return;
     var id='ntc:'+(N.start||'')+(N.ko||'').slice(0,20);try{if(localStorage.getItem('ag-ntc')===id)return}catch(e){}
     document.getElementById('ntcT').textContent=t;document.body.classList.add('has-ntc');fit();
     el.querySelector('.ntc-x').onclick=function(){document.body.classList.remove('has-ntc');try{localStorage.setItem('ag-ntc',id)}catch(e){}}};
   addEventListener('resize',function(){if(document.body.classList.contains('has-ntc'))fit()});
   fetch('notice.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){N=j;ntcRender()}).catch(function(){});
+})();
+/* 옛 주소(테스트 사이트) 접속 시에만 상단 안내: 새 주소 www.agrow.co.kr 로 이동 링크 */
+(function(){if(location.hostname!=='agrow.hpagrow.com')return;window.ntcOld=true;
+  var el=document.getElementById('ntc'),T=document.getElementById('ntcT'),x=el.querySelector('.ntc-x'),ko=(document.documentElement.lang||'ko')==='ko';
+  var a=document.createElement('a');a.href='https://www.agrow.co.kr'+location.pathname+location.search+location.hash;a.textContent=ko?'공식 홈페이지 www.agrow.co.kr 로 이동':'Go to www.agrow.co.kr';
+  a.style.cssText='color:#00E5A0;font-weight:700;text-decoration:underline;margin-left:8px';
+  T.textContent=ko?'이 주소는 테스트용 사이트입니다. 공식 홈페이지는 www.agrow.co.kr 입니다.':'This is a test site. The official website is www.agrow.co.kr.';T.appendChild(a);
+  x.style.display='none';var lb=el.querySelector('b');lb.removeAttribute('data-i');lb.textContent=ko?'안내':'Notice';
+  document.body.classList.add('has-ntc');document.body.style.setProperty('--nh',el.offsetHeight+'px');
+  addEventListener('resize',function(){document.body.style.setProperty('--nh',el.offsetHeight+'px')});
 })();
 
 
