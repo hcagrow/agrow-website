@@ -257,7 +257,7 @@ function buildThumbs(){
   pages.forEach((p,i)=>{
     const d=document.createElement('div');
     d.className='thumb-item'+(i===idx?' on':'');
-    const lbl = curLang==='ko' ? p.label : (p.label_en||p.label);
+    const lbl = plabel(p);
     d.innerHTML='<img src="'+getSrc(p.id)+'" loading="lazy"><span>'+lbl+'</span>';
     d.onclick=()=>{idx=i;render();};
     thumbList.appendChild(d);
@@ -330,12 +330,14 @@ const CAT_I18N = {
   th:{first:'แรก',last:'สุดท้าย',prev:'ก่อนหน้า',next:'ถัดไป',plist:'รายการหน้า',call:'โทร',mail:'อีเมล',subj:'[สอบถามแคตตาล็อก] ',tdark:'เปลี่ยนเป็นโหมดมืด',tlight:'เปลี่ยนเป็นโหมดสว่าง',back:'← หน้าแรก',sub:'แคตตาล็อก',all:'ทั้งหมด',agrow:'เครื่องจ่ายสารละลาย',green:'A⁺-green',dark:'🌙 มืด',light:'☀️ สว่าง',loading:'กำลังโหลด...',lang:'ภาษา'},
   tl:{first:'Una',last:'Huli',prev:'Nakaraan',next:'Susunod',plist:'Mga pahina',call:'Tumawag',mail:'Email',subj:'[Tanong sa katalogo] ',tdark:'Lumipat sa dark mode',tlight:'Lumipat sa light mode',back:'← Home',sub:'Katalogo',all:'Lahat',agrow:'Nutrient Feeder',green:'A⁺-green',dark:'🌙 Dark',light:'☀️ Light',loading:'Naglo-load...',lang:'Wika'},
 };
+const LBL={"k_intro": {"en": "Product Overview", "zh": "产品介绍", "ja": "製品紹介", "ru": "Обзор продукции", "vi": "Giới thiệu sản phẩm", "id": "Pengantar Produk", "uz": "Mahsulot haqida", "th": "แนะนำผลิตภัณฑ์", "tl": "Pagpapakilala ng Produkto"}, "k_front": {"zh": "Agrow 封面", "ja": "Agrow 表紙", "ru": "Agrow — обложка", "vi": "Agrow — bìa trước", "id": "Agrow — sampul depan", "uz": "Agrow — muqova", "th": "Agrow — ปกหน้า", "tl": "Agrow — harap na pabalat"}, "k_back": {"zh": "Agrow 封底", "ja": "Agrow 裏表紙", "ru": "Agrow — задняя обложка", "vi": "Agrow — bìa sau", "id": "Agrow — sampul belakang", "uz": "Agrow — orqa muqova", "th": "Agrow — ปกหลัง", "tl": "Agrow — likurang pabalat"}, "k_p01": {"zh": "产品系列", "ja": "製品ラインアップ", "ru": "Линейка продукции", "vi": "Dòng sản phẩm", "id": "Lini produk", "uz": "Mahsulot qatori", "th": "ไลน์ผลิตภัณฑ์", "tl": "Linya ng produkto"}, "k_p02": {"zh": "综合管理系统", "ja": "統合管理システム", "ru": "Комплексное управление", "vi": "Quản lý tích hợp", "id": "Manajemen terpadu", "uz": "Yagona boshqaruv", "th": "การจัดการแบบรวม", "tl": "Integrated na pamamahala"}, "k_p09": {"zh": "Agrow-2000 Star B型", "ja": "Agrow-2000 Star B型", "ru": "Agrow-2000 Star тип B", "vi": "Agrow-2000 Star loại B", "id": "Agrow-2000 Star Tipe B", "uz": "Agrow-2000 Star B turi", "th": "Agrow-2000 Star แบบ B"}, "k_p10": {"zh": "Agrow-2000 Star A型", "ja": "Agrow-2000 Star A型", "ru": "Agrow-2000 Star тип A", "vi": "Agrow-2000 Star loại A", "id": "Agrow-2000 Star Tipe A", "uz": "Agrow-2000 Star A turi", "th": "Agrow-2000 Star แบบ A"}, "g2": {"zh": "A⁺-green 封面", "ja": "A⁺-green 表紙", "ru": "A⁺-green — обложка", "vi": "A⁺-green — bìa trước", "id": "A⁺-green — sampul depan", "uz": "A⁺-green — muqova", "th": "A⁺-green — ปกหน้า", "tl": "A⁺-green — harap na pabalat"}, "g3": {"zh": "A⁺-green 规格详情", "ja": "A⁺-green 仕様詳細", "ru": "A⁺-green — характеристики", "vi": "A⁺-green — thông số", "id": "A⁺-green — spesifikasi", "uz": "A⁺-green — texnik xususiyatlar", "th": "A⁺-green — สเปก", "tl": "A⁺-green — mga detalye"}, "g4": {"zh": "A⁺-green 安装现场", "ja": "A⁺-green 設置事例", "ru": "A⁺-green — примеры установки", "vi": "A⁺-green — công trình lắp đặt", "id": "A⁺-green — lokasi pemasangan", "uz": "A⁺-green — o'rnatilgan joylar", "th": "A⁺-green — หน้างานติดตั้ง", "tl": "A⁺-green — mga pagkakabit"}, "g1": {"zh": "A⁺-green 封底", "ja": "A⁺-green 裏表紙", "ru": "A⁺-green — задняя обложка", "vi": "A⁺-green — bìa sau", "id": "A⁺-green — sampul belakang", "uz": "A⁺-green — orqa muqova", "th": "A⁺-green — ปกหลัง", "tl": "A⁺-green — likurang pabalat"}};
+function plabel(p){if(curLang==='ko')return p.label;const m=LBL[p.id];return (m&&m[curLang])||p.label_en||p.label;}
 let curLang='ko';
 try{const q=new URLSearchParams(location.search).get('lang');curLang=(q&&CAT_I18N[q])?q:(localStorage.getItem('ag-lang')||'ko');}catch(e){}
 if(!CAT_I18N[curLang])curLang='ko';
 const FLAGS={'ko':'🇰🇷','en':'🇺🇸','zh':'🇨🇳','ja':'🇯🇵','ru':'🇷🇺','vi':'🇻🇳','id':'🇮🇩','uz':'🇺🇿','th':'🇹🇭','tl':'🇵🇭'};
 function updMail(){const t=CAT_I18N[curLang]||CAT_I18N.ko,a=document.getElementById('mbMail');if(!a||typeof pages==='undefined')return;
-const pg=pages[idx]||{},nm=curLang==='ko'?pg.label:(pg.label_en||pg.label);
+const pg=pages[idx]||{},nm=plabel(pg);
 a.href='mailto:hpagrow@hanmail.net?subject='+encodeURIComponent(t.subj+(nm||''));}
 
 function applyLang(lang) {
