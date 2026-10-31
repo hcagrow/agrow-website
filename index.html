@@ -636,6 +636,11 @@ html[lang=ko] .sec-t,html[lang=ko] .sec-sub{word-break:keep-all}
 .pc:hover,.port-card:hover{box-shadow:var(--sh)!important;transform:none!important}
 @media(max-width:340px){#langLabel{display:none}.lang-btn{padding:5px 9px}}
 .tog-t{display:none}
+[data-theme="light"] .lang-btn,[data-theme="light"] .tog{border-color:#5F748D}
+@media(hover:hover){
+[data-theme="light"] .lang-btn:hover{background:rgba(0,122,77,.10);border-color:#007A4D;color:#005C3A}
+[data-theme="light"] .tog:hover{border-color:#007A4D;background:#D3E9DF}
+}
 @media(min-width:961px){
 .lang-btn{padding:8px 14px;font-size:14px}
 .tog{width:auto;height:34px;border-radius:17px;display:flex;align-items:center;padding:0 14px 0 38px;transition:background .3s,border-color .3s}
