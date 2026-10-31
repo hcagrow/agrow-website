@@ -81,17 +81,17 @@ html:not([lang="ko"]) .fbkr{letter-spacing:1px}
 .n-links a:hover{color:var(--acc)}
 .n-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .lang-wrap{position:relative}
-.lang-btn{display:flex;align-items:center;gap:5px;background:transparent;border:1.5px solid var(--bdr);border-radius:100px;padding:5px 12px;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--t2);font-family:inherit;transition:border-color .2s,color .2s}
+.lang-btn{display:flex;align-items:center;gap:5px;background:transparent;border:1.5px solid var(--t3);border-radius:100px;padding:6px 12px;cursor:pointer;font-size:13px;font-weight:700;color:var(--t1);font-family:inherit;transition:border-color .2s,color .2s}
 .lang-btn:hover{border-color:var(--acc);color:var(--acc)}
 .lang-dd{position:absolute;top:calc(100% + 8px);right:0;background:var(--bg3);border:1px solid var(--bdr);border-radius:12px;padding:8px;min-width:158px;box-shadow:var(--sh-lg);display:none;z-index:999}
 .lang-wrap:hover .lang-dd,.lang-wrap:focus-within .lang-dd{display:block}
 .lang-opt{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--t2);transition:background .15s,color .15s;border:none;background:transparent;width:100%;text-align:left;font-family:inherit}
 .lang-opt:hover{background:var(--bg2);color:var(--t1)}
 .lang-opt.active{color:var(--acc);font-weight:700}
-.tog{width:58px;height:30px;border-radius:15px;border:1px solid var(--bdr);cursor:pointer;background:#E3E9F0;position:relative;transition:background .3s;flex-shrink:0;padding:0}
+.tog{width:58px;height:30px;border-radius:15px;border:1.5px solid var(--t3);cursor:pointer;background:#E3E9F0;position:relative;transition:background .3s;flex-shrink:0;padding:0}
 [data-theme="dark"] .tog{background:#1B2A40}
-.tog .tb{position:absolute;top:50%;width:14px;height:14px;margin-top:-7px;opacity:.45;pointer-events:none}
-.tog .tb.s{left:8px;color:#C98A00}.tog .tb.m{right:8px;color:#5A6B82}
+.tog .tb{position:absolute;top:50%;width:14px;height:14px;margin-top:-7px;opacity:.9;pointer-events:none}
+.tog .tb.s{left:8px;color:#C98A00}.tog .tb.m{right:8px;color:#3D5068}
 .tog-k{position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .3s,background .3s;pointer-events:none}
 [data-theme="dark"] .tog-k{transform:translateX(28px);background:#0C1A2E}
 .tog-k svg{width:15px;height:15px}
@@ -634,7 +634,7 @@ html:is([lang=ko],[lang=zh],[lang=ja]) :is(.ey-t,.ic-lbl,.kicker span,.perf-labe
 .perf-card:hover,.perf-highlight:hover,.supp-card:hover,.ic:hover{box-shadow:none!important}
 html[lang=ko] .sec-t,html[lang=ko] .sec-sub{word-break:keep-all}
 .pc:hover,.port-card:hover{box-shadow:var(--sh)!important;transform:none!important}
-@media(max-width:420px){#langLabel{display:none}.lang-btn{padding:5px 9px}}
+@media(max-width:340px){#langLabel{display:none}.lang-btn{padding:5px 9px}}
 .parts{margin-top:56px;padding-top:40px;border-top:1px solid var(--bdr)}
 .parts-t{font-size:22px;font-weight:800;color:var(--t1);margin:0 0 8px}
 .parts-sub{font-size:14px;color:var(--t2);margin:0 0 28px;word-break:keep-all}
@@ -687,7 +687,7 @@ html[lang=th] body,html[lang=th] body *{font-family:'Inter','Noto Sans Thai',san
   </ul>
   <div class="n-right">
     <div class="lang-wrap">
-      <button class="lang-btn" id="langBtn"><span id="langFlag">🇰🇷</span> <span id="langLabel">한국어</span> ▾</button>
+      <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true"><span id="langFlag">🇰🇷</span> <span id="langLabel">한국어</span> ▾</button>
       <div class="lang-dd" id="langDd"></div>
     </div>
     <button class="tog" id="togBtn" type="button" role="switch" aria-checked="false" title="다크 모드로 전환" aria-label="다크 모드로 전환"><svg class="tb s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="tb m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><span class="tog-k"><svg class="i-s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="i-m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></span></button>
