@@ -635,6 +635,17 @@ html:is([lang=ko],[lang=zh],[lang=ja]) :is(.ey-t,.ic-lbl,.kicker span,.perf-labe
 html[lang=ko] .sec-t,html[lang=ko] .sec-sub{word-break:keep-all}
 .pc:hover,.port-card:hover{box-shadow:var(--sh)!important;transform:none!important}
 @media(max-width:340px){#langLabel{display:none}.lang-btn{padding:5px 9px}}
+.tog-t{display:none}
+@media(min-width:961px){
+.lang-btn{padding:8px 14px;font-size:14px}
+.tog{width:94px;height:34px;border-radius:17px}
+.tog .tb{display:none}
+.tog-k{width:28px;height:28px}
+[data-theme="dark"] .tog-k{transform:translateX(60px)}
+.tog-t{display:flex;align-items:center;position:absolute;top:0;bottom:0;right:13px;font-size:13px;font-weight:700;color:var(--t1);pointer-events:none;white-space:nowrap}
+[data-theme="dark"] .tog-t{right:auto;left:13px}
+}
+
 .h-stat-l{color:var(--t2);font-size:12px}
 @media(max-width:640px){.hero{min-height:0}.hero-l{padding:26px 20px 8px}.hero-l .kicker{margin-bottom:12px}.hero-l h1{font-size:32px;margin-bottom:12px}.hero-desc{font-size:15px;line-height:1.6;margin-bottom:18px}.hero-btns{margin-bottom:18px}.hero-stats{padding-top:14px}.hero-r{padding-bottom:24px}}
 .parts{margin-top:56px;padding-top:40px;border-top:1px solid var(--bdr)}
@@ -692,7 +703,7 @@ html[lang=th] body,html[lang=th] body *{font-family:'Inter','Noto Sans Thai',san
       <button class="lang-btn" id="langBtn" type="button" aria-haspopup="true"><span id="langFlag">🇰🇷</span> <span id="langLabel">한국어</span> ▾</button>
       <div class="lang-dd" id="langDd"></div>
     </div>
-    <button class="tog" id="togBtn" type="button" role="switch" aria-checked="false" title="다크 모드로 전환" aria-label="다크 모드로 전환"><svg class="tb s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="tb m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><span class="tog-k"><svg class="i-s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="i-m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></span></button>
+    <button class="tog" id="togBtn" type="button" role="switch" aria-checked="false" title="다크 모드로 전환" aria-label="다크 모드로 전환"><span class="tog-t" id="togT"></span><svg class="tb s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="tb m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><span class="tog-k"><svg class="i-s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg><svg class="i-m" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></span></button>
     <a class="n-tel" href="tel:+82337475114"><span data-i="n_tel_l">상담</span><span class="tel-n">033-747-5114</span></a>
     <button class="hamburger" id="menuBtn" type="button" aria-label="Menu" aria-controls="mobNav" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
@@ -1273,7 +1284,7 @@ Object.keys(T).forEach(lang=>{
 /* theme */
 const html=document.documentElement,tb=document.getElementById('togBtn');
 html.dataset.theme=localStorage.getItem('ag-theme')||'light';
-function togLbl(){const h=document.documentElement,b=document.getElementById('togBtn');if(!b)return;const d=h.dataset.theme==='dark',t=T[h.lang]||T.ko,v=d?t.th_light:t.th_dark;b.title=v;b.setAttribute('aria-label',v);b.setAttribute('aria-checked',d?'true':'false');}
+function togLbl(){const h=document.documentElement,b=document.getElementById('togBtn');if(!b)return;const d=h.dataset.theme==='dark',t=T[h.lang]||T.ko,v=d?t.th_light:t.th_dark;b.title=v;const L={ko:'다크',en:'Dark',ru:'Тёмная',uz:'Tungi',zh:'深色',ja:'ダーク',vi:'Tối',id:'Gelap',th:'มืด',tl:'Dark'}[h.lang]||'Dark',x=document.getElementById('togT');if(x)x.textContent=L;b.setAttribute('aria-label',L);b.setAttribute('aria-checked',d?'true':'false');}
 tb.addEventListener('click',()=>{const t=html.dataset.theme==='light'?'dark':'light';html.dataset.theme=t;try{localStorage.setItem('ag-theme',t)}catch(e){}togLbl();});
 togLbl();
 
