@@ -638,12 +638,14 @@ html[lang=ko] .sec-t,html[lang=ko] .sec-sub{word-break:keep-all}
 .tog-t{display:none}
 @media(min-width:961px){
 .lang-btn{padding:8px 14px;font-size:14px}
-.tog{width:94px;height:34px;border-radius:17px}
+.tog{width:auto;height:34px;border-radius:17px;display:flex;align-items:center;padding:0 14px 0 38px;transition:background .3s,border-color .3s}
+[data-theme="dark"] .tog{padding:0 38px 0 14px;background:var(--acc);border-color:var(--acc)}
 .tog .tb{display:none}
-.tog-k{width:28px;height:28px}
-[data-theme="dark"] .tog-k{transform:translateX(60px)}
-.tog-t{display:flex;align-items:center;position:absolute;top:0;bottom:0;right:13px;font-size:13px;font-weight:700;color:var(--t1);pointer-events:none;white-space:nowrap}
-[data-theme="dark"] .tog-t{right:auto;left:13px}
+.tog-k{width:28px;height:28px;top:2px;left:2px;transition:left .3s,background .3s}
+[data-theme="dark"] .tog-k{transform:none;left:calc(100% - 30px)}
+.tog-t{display:block;position:static;font-size:13px;font-weight:700;color:var(--t1);pointer-events:none;white-space:nowrap}
+[data-theme="dark"] .tog-t{color:#080F1C}
+}
 }
 
 .h-stat-l{color:var(--t2);font-size:12px}
@@ -1284,7 +1286,7 @@ Object.keys(T).forEach(lang=>{
 /* theme */
 const html=document.documentElement,tb=document.getElementById('togBtn');
 html.dataset.theme=localStorage.getItem('ag-theme')||'light';
-function togLbl(){const h=document.documentElement,b=document.getElementById('togBtn');if(!b)return;const d=h.dataset.theme==='dark',t=T[h.lang]||T.ko,v=d?t.th_light:t.th_dark;b.title=v;const L={ko:'다크',en:'Dark',ru:'Тёмная',uz:'Tungi',zh:'深色',ja:'ダーク',vi:'Tối',id:'Gelap',th:'มืด',tl:'Dark'}[h.lang]||'Dark',x=document.getElementById('togT');if(x)x.textContent=L;b.setAttribute('aria-label',L);b.setAttribute('aria-checked',d?'true':'false');}
+function togLbl(){const h=document.documentElement,b=document.getElementById('togBtn');if(!b)return;const d=h.dataset.theme==='dark',t=T[h.lang]||T.ko,v=d?t.th_light:t.th_dark;b.title=v;const L={ko:'다크 모드',en:'Dark mode',ru:'Тёмный режим',uz:'Tungi rejim',zh:'深色模式',ja:'ダークモード',vi:'Chế độ tối',id:'Mode gelap',th:'โหมดมืด',tl:'Dark mode'}[h.lang]||'Dark',x=document.getElementById('togT');if(x)x.textContent=L;b.setAttribute('aria-label',L);b.setAttribute('aria-checked',d?'true':'false');}
 tb.addEventListener('click',()=>{const t=html.dataset.theme==='light'?'dark':'light';html.dataset.theme=t;try{localStorage.setItem('ag-theme',t)}catch(e){}togLbl();});
 togLbl();
 
