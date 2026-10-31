@@ -1206,12 +1206,23 @@ Object.assign(T, T2);
 })();
 /* 옛 주소(테스트 사이트) 접속 시에만 상단 안내: 새 주소 www.agrow.co.kr 로 이동 링크 */
 (function(){if(location.hostname!=='agrow.hpagrow.com')return;window.ntcOld=true;
-  var el=document.getElementById('ntc'),T=document.getElementById('ntcT'),x=el.querySelector('.ntc-x'),ko=(document.documentElement.lang||'ko')==='ko';
-  var a=document.createElement('a');a.href='https://www.agrow.co.kr'+location.pathname+location.search+location.hash;a.textContent=ko?'공식 홈페이지 www.agrow.co.kr 로 이동':'Go to www.agrow.co.kr';
-  a.style.cssText='color:#00E5A0;font-weight:700;text-decoration:underline;margin-left:8px';
-  T.textContent=ko?'이 주소는 테스트용 사이트입니다. 공식 홈페이지는 www.agrow.co.kr 입니다.':'This is a test site. The official website is www.agrow.co.kr.';T.appendChild(a);
-  x.style.display='none';var lb=el.querySelector('b');lb.removeAttribute('data-i');lb.textContent=ko?'안내':'Notice';
-  document.body.classList.add('has-ntc');document.body.style.setProperty('--nh',el.offsetHeight+'px');
+  var M={ko:['안내','이 주소는 테스트용 사이트입니다. 공식 홈페이지는 www.agrow.co.kr 입니다.','공식 홈페이지 www.agrow.co.kr 로 이동'],
+  en:['Notice','This is a test site. The official website is www.agrow.co.kr.','Go to www.agrow.co.kr'],
+  ru:['Внимание','Это тестовый сайт. Официальный сайт — www.agrow.co.kr.','Перейти на www.agrow.co.kr'],
+  uz:['Eslatma','Bu test sayti. Rasmiy sayt — www.agrow.co.kr.','www.agrow.co.kr ga o\u2018tish'],
+  zh:['提示','此网址为测试网站，官方网站为 www.agrow.co.kr。','前往官网 www.agrow.co.kr'],
+  ja:['お知らせ','このアドレスはテスト用サイトです。公式サイトは www.agrow.co.kr です。','公式サイト www.agrow.co.kr へ移動'],
+  vi:['Thông báo','Đây là trang thử nghiệm. Trang chính thức là www.agrow.co.kr.','Đến www.agrow.co.kr'],
+  id:['Info','Ini adalah situs uji coba. Situs resmi adalah www.agrow.co.kr.','Buka www.agrow.co.kr'],
+  th:['แจ้งให้ทราบ','นี่คือเว็บไซต์ทดสอบ เว็บไซต์อย่างเป็นทางการคือ www.agrow.co.kr','ไปที่ www.agrow.co.kr'],
+  tl:['Paalala','Ito ay test site. Ang opisyal na website ay www.agrow.co.kr.','Pumunta sa www.agrow.co.kr']};
+  var el=document.getElementById('ntc'),T=document.getElementById('ntcT'),x=el.querySelector('.ntc-x');
+  window.ntcOldRender=function(l){l=M[l]?l:'en';var m=M[l];
+    var a=document.createElement('a');a.href='https://www.agrow.co.kr'+location.pathname+location.search+location.hash;a.textContent=m[2];
+    a.style.cssText='color:#00E5A0;font-weight:700;text-decoration:underline;margin-left:8px';
+    T.textContent=m[1];T.appendChild(a);x.style.display='none';var lb=el.querySelector('b');lb.removeAttribute('data-i');lb.textContent=m[0];
+    document.body.classList.add('has-ntc');document.body.style.setProperty('--nh',el.offsetHeight+'px')};
+  ntcOldRender(document.documentElement.lang||'ko');
   addEventListener('resize',function(){document.body.style.setProperty('--nh',el.offsetHeight+'px')});
 })();
 
@@ -1224,6 +1235,7 @@ function apply(lang){
   const t=T[lang];
   document.documentElement.lang=lang;
   if(window.ntcRender)setTimeout(ntcRender,0);
+  if(window.ntcOldRender)ntcOldRender(lang);
   if(window.hxRefresh)setTimeout(window.hxRefresh,0);
   try{if(new URLSearchParams(location.search).get('lang')){const c=document.querySelector('link[rel=canonical]');if(c)c.href='https://agrow.hpagrow.com/?lang='+lang;}}catch(e){}
   document.querySelectorAll('a[data-slug]').forEach(x=>{x.href='products/'+lang+'/'+x.dataset.slug+'.html';});
