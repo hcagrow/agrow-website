@@ -13,6 +13,10 @@ LOCALE = {'ko':'ko_KR','en':'en_US','ru':'ru_RU','uz':'uz_UZ','zh':'zh_CN','ja':
 FLAG = {'ko':'🇰🇷','en':'🇺🇸','ru':'🇷🇺','uz':'🇺🇿','zh':'🇨🇳','ja':'🇯🇵','vi':'🇻🇳','id':'🇮🇩','th':'🇹🇭','tl':'🇵🇭'}
 LNAME = {'ko':'한국어','en':'English','ru':'Русский','uz':"O'zbekcha",'zh':'中文','ja':'日本語','vi':'Tiếng Việt','id':'Indonesia','th':'ไทย','tl':'Filipino'}
 
+# 검색어 '스마트팜'을 제품 제목·설명·구조화 데이터에 넣기 위한 언어별 표기 (홈페이지 첫 화면 문구와 같은 표기)
+SF = {'ko':'스마트팜','en':'Smart Farm','ru':'умные фермы','uz':'aqlli ferma','zh':'智能农场','ja':'スマートファーム','vi':'nông trại thông minh','id':'Smart Farm','th':'สมาร์ทฟาร์ม','tl':'Smart Farm'}
+def sfcat(lang,cat): return ('%s %s' % (SF['ko'],cat)) if lang=='ko' else ('%s · %s' % (cat,SF[lang]))
+
 # slug, 표시명(키 또는 고정), 모델번호, 분류키, 설명키, 배지키, 이미지, 카탈로그 PDF
 PRODUCTS = [
  ('perfect',   'Agrow-Perfect',     'HPA-9001',       'cat_n','pd_perfect','bdg_new', 'agrow_perfect.jpg',   'agrow'),
@@ -213,15 +217,16 @@ def page(p, lang, T):
     t = T[lang]; u = UI[lang]; slug = p[0]
     name = pname(p,t); cat = t[p[3]]; desc = strip_br(t[p[4]])
     feats = FEATS[slug][lang]
-    title = '%s (%s) – %s | Agrow %s' % (name, p[2], cat, t['brand_n'])
-    mdesc = (desc + ' ' + ' '.join(feats[:3]))[:180]
+    scat = sfcat(lang,cat)
+    title = '%s (%s) – %s | Agrow %s' % (name, p[2], scat, t['brand_n'])
+    mdesc = (('스마트팜·시설원예용 %s. ' % cat if lang=='ko' else '%s: %s. ' % (SF[lang],cat)) + desc + ' ' + ' '.join(feats[:3]))[:180]
     img = img_rel(p,lang); r = '../../'
     abs_img = BASE + '/' + img
     alts = ''.join('<link rel="alternate" hreflang="%s" href="%s">\n' % (HREFLANG[l], url(l,slug)) for l in LANGS)
     alts += '<link rel="alternate" hreflang="x-default" href="%s">\n' % url('en',slug)
     ld = [{
         "@context":"https://schema.org","@type":"Product","name":name,"model":p[2],"mpn":p[2],"sku":p[2],
-        "category":cat,"description":desc,"image":[abs_img],"url":url(lang,slug),
+        "category":scat,"description":desc,"keywords":", ".join([SF[lang],cat,name,p[2],"Agrow","한가람농업개발"]),"image":[abs_img],"url":url(lang,slug),
         "brand":{"@type":"Brand","name":"Agrow"},
         "manufacturer":{"@type":"Organization","name":"한가람농업개발 (Hangaram Agricultural Development)","url":BASE+'/',
                         "telephone":"+82-33-747-5114","email":"hpagrow@hanmail.net",
@@ -255,7 +260,7 @@ def page(p, lang, T):
 <link rel="canonical" href="{url(lang,slug)}">
 {alts}<meta property="og:type" content="product">
 <meta property="og:site_name" content="Agrow · 한가람농업개발">
-<meta property="og:title" content="{E(name)} ({E(p[2])}) – {E(cat)}">
+<meta property="og:title" content="{E(name)} ({E(p[2])}) – {E(scat)}">
 <meta property="og:description" content="{E(mdesc)}">
 <meta property="og:url" content="{url(lang,slug)}">
 <meta property="og:image" content="{abs_img}">
@@ -285,9 +290,9 @@ def page(p, lang, T):
 <main class="wrap">
   <nav class="crumb" aria-label="breadcrumb"><a href="{home}">{E(u['home'])}</a><span>›</span><a href="{home}#products">{E(u['products'])}</a><span>›</span>{E(name)}</nav>
   <div class="hero">
-    <div class="pimg">{bdg}<img src="{r}{img}" alt="{E(name)} {E(p[2])} {E(cat)}" width="700" height="560"></div>
+    <div class="pimg">{bdg}<img src="{r}{img}" alt="{E(name)} {E(p[2])} {E(scat)}" width="700" height="560"></div>
     <div>
-      <div class="cat">{E(cat)}</div>
+      <div class="cat">{E(scat)}</div>
       <h1>{E(name)}</h1>
       <span class="mno">{E(u['model'])} {E(p[2])}</span>
       <p class="desc">{E(desc)}</p>
