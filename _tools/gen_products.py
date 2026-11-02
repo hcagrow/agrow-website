@@ -225,7 +225,7 @@ def page(p, lang, T):
     alts = ''.join('<link rel="alternate" hreflang="%s" href="%s">\n' % (HREFLANG[l], url(l,slug)) for l in LANGS)
     alts += '<link rel="alternate" hreflang="x-default" href="%s">\n' % url('en',slug)
     ld = [{
-        "@context":"https://schema.org","@type":"Product","name":name,"model":p[2],"mpn":p[2],"sku":p[2],
+        "@context":"https://schema.org","@type":"ProductModel","name":name,"model":p[2],"mpn":p[2],"sku":p[2],
         "category":scat,"description":desc,"keywords":", ".join([SF[lang],cat,name,p[2],"Agrow","한가람농업개발"]),"image":[abs_img],"url":url(lang,slug),
         "brand":{"@type":"Brand","name":"Agrow"},
         "manufacturer":{"@type":"Organization","name":"한가람농업개발 (Hangaram Agricultural Development)","url":BASE+'/',
