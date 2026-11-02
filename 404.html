@@ -43,7 +43,7 @@ h1{font-family:'Pretendard','Inter','Noto Sans KR',sans-serif}
     <a class="b" id="home" href="/">홈으로</a>
     <a class="b s" id="ct" href="/#contact">문의하기</a>
   </div>
-  <p class="cp" id="cp">COPYRIGHT © 1992–2026 한가람농업개발. All rights reserved.</p>
+  <p class="cp" id="cp">COPYRIGHT © 1995–2026 한가람농업개발. All rights reserved.</p>
 </div>
 <script>
 const M={
@@ -61,7 +61,7 @@ let l;try{l=localStorage.getItem('ag-lang')}catch(e){}
 if(!M[l]){l=(navigator.languages||[navigator.language||'en']).map(x=>{x=String(x).toLowerCase();return x.startsWith('fil')?'tl':x.slice(0,2)}).find(x=>M[x])||'en'}
 const t=M[l];document.documentElement.lang=l;
 h.textContent=t[0];d.textContent=t[1];home.textContent=t[2];ct.textContent=t[3];
-home.href='/?lang='+l;document.getElementById('cp').textContent='COPYRIGHT © 1992–'+new Date().getFullYear()+' '+(l==='ko'?'한가람농업개발':'Hangaram Agricultural Development')+'. All rights reserved.';ct.href='/?lang='+l+'#contact';
+home.href='/?lang='+l;document.getElementById('cp').textContent='COPYRIGHT © 1995–'+new Date().getFullYear()+' '+(l==='ko'?'한가람농업개발':'Hangaram Agricultural Development')+'. All rights reserved.';ct.href='/?lang='+l+'#contact';
 </script>
 <script>if(document.documentElement.lang!=='ko')document.querySelectorAll('.lg-k').forEach(function(e){e.textContent='HANGARAM AGRI'})</script>
 </body>

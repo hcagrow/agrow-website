@@ -316,7 +316,7 @@ def page(p, lang, T):
 (function(){{var h=document.documentElement,b=document.getElementById('togBtn'),L={json.dumps([t['th_dark'],t['th_light']],ensure_ascii=False)};
 function s(){{var d=h.dataset.theme==='dark';b.title=b.ariaLabel=L[d?1:0];b.setAttribute('aria-label',L[d?1:0]);b.setAttribute('aria-checked',d)}}
 b.addEventListener('click',function(){{h.dataset.theme=h.dataset.theme==='dark'?'light':'dark';try{{localStorage.setItem('ag-theme',h.dataset.theme)}}catch(e){{}}s()}});s();
-document.querySelectorAll('.cy-auto').forEach(function(e){{e.textContent=e.textContent.replace(/1992[\\u2013-]\\d{{4}}/,'1992\u2013'+new Date().getFullYear())}});
+document.querySelectorAll('.cy-auto').forEach(function(e){{e.textContent=e.textContent.replace(/1995[\\u2013-]\\d{{4}}/,'1995\u2013'+new Date().getFullYear())}});
 document.addEventListener('click',function(e){{var d=document.querySelector('.lsel');if(d&&d.open&&!d.contains(e.target))d.open=false}});}})();
 </script>
 </body>
