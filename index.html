@@ -187,7 +187,7 @@ html:not([lang="ko"]) .fbkr{letter-spacing:1px}
 .tab.on,.tab:hover{background:var(--t1);color:#fff;border-color:var(--t1)}
 [data-theme="dark"] .tab.on,[data-theme="dark"] .tab:hover{background:var(--acc);color:#080F1C;border-color:var(--acc)}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:18px}
-.pc{background:var(--card);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s,background .3s,border-color .3s}
+.pc{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s,background .3s,border-color .3s}
 .pc:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
 .ci{height:250px;background:var(--bg2);display:flex;align-items:center;justify-content:center;position:relative;transition:background .3s;overflow:hidden}
 .ci img{width:100%;height:100%;object-fit:contain;object-position:center;background:#fff;transition:transform .3s}a.ci:hover::after{content:attr(title);position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.75);color:#fff;font-size:11px;padding:4px 12px;border-radius:100px;white-space:nowrap;pointer-events:none}
@@ -197,10 +197,12 @@ html:not([lang="ko"]) .fbkr{letter-spacing:1px}
 .bdg{position:absolute;top:12px;left:12px;background:var(--badge);color:var(--badge-t);font-size:10px;font-weight:700;padding:4px 11px;border-radius:100px;transition:background .3s,color .3s}
 .bdg.gold{background:#C9973A;color:#fff}
 [data-theme="dark"] .bdg.gold{background:#E0B05A}
-.cb{padding:20px}
+.cb{padding:20px;display:flex;flex-direction:column;flex:1}
 .cc{font-size:10px;color:var(--tag);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px}
 .cn{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;color:var(--t1);margin-bottom:9px;letter-spacing:-.3px}
-.cd{font-size:13px;color:var(--t3);line-height:1.75}
+.cd{font-size:13px;color:#5A6B80;line-height:1.75;word-break:keep-all;flex:1}
+[data-theme="dark"] .cd{color:var(--t2)}
+.cm{align-self:flex-start}
 .cm{display:inline-block;margin-top:12px;font-family:'Inter',sans-serif;font-size:10px;color:var(--t3);background:var(--bg2);padding:3px 9px;border-radius:4px}
 .sys{margin-top:96px}
 .sys-t{font-size:clamp(22px,2.6vw,30px);font-weight:800;color:var(--t1);letter-spacing:-.5px;margin:0 0 10px}
