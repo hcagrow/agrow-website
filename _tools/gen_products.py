@@ -92,7 +92,7 @@ def cert_html(slug, lang):
     if slug not in CERTS: return ''
     c = CL[lang]; rows = ''
     for kind, org, no, date, extra in CERTS[slug]:
-        ttl = {'perf':c[1],'std':c[2],'kam':c[3]}[kind]
+        ttl = {'perf':'KS X '+c[1],'std':'KS X '+c[2],'kam':c[3]}[kind]
         orgn = c[4] if org=='koat' else c[5]
         body = ''
         if kind=='perf':
