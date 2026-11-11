@@ -6,6 +6,7 @@ import json, os, re, subprocess, html, datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # 원본(index.html, features.json 읽는 곳)
 OUT  = os.environ.get('AGROW_OUT', ROOT)                               # 생성 결과를 쓸 곳
 BASE = os.environ.get('AGROW_BASE', 'https://agrow.hpagrow.com')
+NOIDX = '<meta name="robots" content="noindex,follow"><!--TEST-ONLY-->\n' if 'agrow.hpagrow.com' in BASE else ''  # 테스트 사이트만 검색 제외
 LANGS = ['ko','en','ru','uz','zh','ja','vi','id','th','tl']
 AL = lambda l: l   # 언어별 이미지·카탈로그 (없는 언어가 생기면 여기서 영어로 대체)
 HREFLANG = {'ko':'ko','en':'en','ru':'ru','uz':'uz','zh':'zh-Hans','ja':'ja','vi':'vi','id':'id','th':'th','tl':'fil'}
@@ -254,7 +255,7 @@ def page(p, lang, T):
 <html lang="{lang}" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{NOIDX}<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{E(title)}</title>
 <meta name="description" content="{E(mdesc)}">
 <link rel="canonical" href="{url(lang,slug)}">

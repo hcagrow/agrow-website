@@ -18,8 +18,9 @@ for dp, _, fs in os.walk(OUT):
     for f in fs:
         if f.endswith(('.html', '.xml', '.txt', '.js', '.webmanifest')) or f == '.htaccess':
             p = os.path.join(dp, f); s = open(p, encoding='utf-8', errors='surrogateescape').read()
-            if OLD in s:
-                open(p, 'w', encoding='utf-8', errors='surrogateescape').write(s.replace(OLD, NEW)); n += 1
+            s2 = re.sub(r'<meta name="robots" content="noindex,follow"><!--TEST-ONLY-->\n?', '', s).replace(OLD, NEW)  # 테스트 사이트 전용 검색 제외 표시는 공식본에서 제거
+            if s2 != s:
+                open(p, 'w', encoding='utf-8', errors='surrogateescape').write(s2); n += 1
 # 어디에도 링크되지 않은 다운로드 파일(옛 버전)은 업로드본에서 제외
 allhtml=''.join(open(os.path.join(dp,f),encoding='utf-8',errors='ignore').read() for dp,_,fs in os.walk(OUT) for f in fs if f.endswith('.html'))
 for f in sorted(os.listdir(os.path.join(OUT,'downloads'))):
@@ -38,4 +39,10 @@ except ImportError:
 # 제품 페이지·사이트맵 재생성
 env = dict(os.environ, AGROW_BASE=NEW, AGROW_OUT=OUT)
 subprocess.run([sys.executable, os.path.join(ROOT, '_tools', 'gen_products.py')], env=env, check=True)
+# 안전장치: 공식본에 검색 제외 표시가 남아 있으면 중단 (404 제외)
+for dp, _, fs in os.walk(OUT):
+    for f in fs:
+        if f.endswith('.html') and f != '404.html':
+            if 'noindex' in open(os.path.join(dp, f), encoding='utf-8', errors='ignore').read():
+                sys.exit('중단: 공식본에 noindex 남음 -> ' + os.path.join(dp, f))
 print('release:', OUT, '| replaced in', n, 'files')
