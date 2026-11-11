@@ -993,6 +993,7 @@ html[lang=th] body,html[lang=th] body *{font-family:'Inter','Noto Sans Thai',san
         </select>
       </div>
       <div class="fg"><label for="f_msg_v" data-i="f_msg">문의 내용</label><textarea id="f_msg_v" name="message" data-ph="f_msg_ph"></textarea></div>
+      <input type="checkbox" id="f_bot" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <button class="sbtn" id="f_submit_btn" data-i="f_submit">문의 보내기</button>
     </div>
 
@@ -1319,21 +1320,41 @@ const mob=document.getElementById('mobNav');
 document.getElementById('menuBtn').addEventListener('click',e=>{const o=mob.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',o);});
 function closeMob(){mob.classList.remove('open')}
 
-/* contact form -> mailto */
-document.getElementById('f_submit_btn').addEventListener('click', () => {
-  const t = T[cur] || T.ko;
+/* contact form -> Web3Forms (실패 시 메일 앱으로 대체) */
+(function(){
+const OK={ko:'문의가 접수되었습니다. 확인 후 연락드리겠습니다.',en:'Your inquiry has been sent. We will get back to you shortly.',uz:"So'rovingiz yuborildi. Tez orada siz bilan bog'lanamiz.",ru:'Ваше сообщение отправлено. Мы скоро свяжемся с вами.',zh:'您的咨询已发送，我们将尽快与您联系。',ja:'お問い合わせを送信しました。確認のうえ、ご連絡いたします。',vi:'Đã gửi liên hệ của bạn. Chúng tôi sẽ phản hồi sớm.',id:'Pesan Anda telah terkirim. Kami akan segera menghubungi Anda.',th:'ส่งข้อความของคุณแล้ว เราจะติดต่อกลับโดยเร็ว',tl:'Naipadala na ang inyong mensahe. Makikipag-ugnayan kami sa inyo sa lalong madaling panahon.'};
+const BUSY={ko:'보내는 중…',en:'Sending…',uz:'Yuborilmoqda…',ru:'Отправка…',zh:'发送中…',ja:'送信中…',vi:'Đang gửi…',id:'Mengirim…',th:'กำลังส่ง…',tl:'Ipinapadala…'};
+const btn=document.getElementById('f_submit_btn');
+btn.addEventListener('click', async () => {
+  const t = T[cur] || T.ko, L = (cur in OK) ? cur : 'en';
   const name = document.getElementById('f_name_v').value.trim();
   const tel = document.getElementById('f_tel_v').value.trim();
   const prod = document.getElementById('f_prod_v').value.trim();
   const msg = document.getElementById('f_msg_v').value.trim();
   let note = document.getElementById('f_note');
-  if(!note){note=document.createElement('p');note.id='f_note';note.setAttribute('role','status');note.setAttribute('aria-live','polite');note.style.cssText='margin-top:12px;font-size:13px;line-height:1.6';document.getElementById('f_submit_btn').insertAdjacentElement('afterend',note);}
+  if(!note){note=document.createElement('p');note.id='f_note';note.setAttribute('role','status');note.setAttribute('aria-live','polite');note.style.cssText='margin-top:12px;font-size:13px;line-height:1.6';btn.insertAdjacentElement('afterend',note);}
   if(!name || !tel || !msg){note.style.color='#d9534f';note.textContent=t.f_req;document.getElementById(!name?'f_name_v':!tel?'f_tel_v':'f_msg_v').focus();return;}
   const bodyText = [t.f_name+': '+name, t.f_tel+': '+tel, t.f_prod+': '+prod, '', t.f_msg+':', msg].join('\n');
-  try{navigator.clipboard.writeText(bodyText).catch(()=>{});}catch(e){}
-  note.style.color='var(--acc2)';note.textContent=t.f_sent;
-  window.location.href = 'mailto:hpagrow@hanmail.net?subject=' + encodeURIComponent(t.f_subj + name) + '&body=' + encodeURIComponent(bodyText);
+  const mailFallback = () => {
+    try{navigator.clipboard.writeText(bodyText).catch(()=>{});}catch(e){}
+    note.style.color='var(--acc2)';note.textContent=t.f_sent;
+    window.location.href = 'mailto:hpagrow@hanmail.net?subject=' + encodeURIComponent(t.f_subj + name) + '&body=' + encodeURIComponent(bodyText);
+  };
+  if(document.getElementById('f_bot').checked){return;} // 자동 입력 프로그램은 조용히 무시
+  const label=btn.textContent; btn.disabled=true; btn.textContent=BUSY[L]; note.style.color='var(--acc2)'; note.textContent='';
+  try{
+    const ctl=new AbortController(), tm=setTimeout(()=>ctl.abort(),15000);
+    const r=await fetch('https://api.web3forms.com/submit',{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({access_key:'ead5a422-7178-4d19-a66e-53570fb26f13',subject:t.f_subj+name+' / '+tel,from_name:'Agrow 홈페이지',name:name,phone:tel,product:prod,message:msg,language:cur,page:location.href,botcheck:''})});
+    clearTimeout(tm);
+    const j=await r.json();
+    if(!r.ok||!j.success) throw new Error(j.message||r.status);
+    note.style.color='var(--acc2)';note.textContent=OK[L];
+    ['f_name_v','f_tel_v','f_msg_v'].forEach(id=>document.getElementById(id).value='');document.getElementById('f_prod_v').selectedIndex=0;
+  }catch(e){ mailFallback(); }
+  btn.disabled=false; btn.textContent=label;
 });
+})();
 
 
 (function(){const sup=['ko','en','uz','ru','zh','ja','vi','id','th','tl'];let l=null;
